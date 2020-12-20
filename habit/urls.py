@@ -1,15 +1,11 @@
 from django.urls import path
+from . import views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', home),
-    path('habit/', habit),
+    path('', views.home ),
+    path('habit/', views.habit),
+    path('analytics/', views.analytics),
 ]
 
-
-def home(request):
-    return HttpResponse('Home Page')
-
-def habit(request):
-    return HttpResponse('Habit Page')
+    
