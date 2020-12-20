@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
-    <head>  
-        <title>AnalyticsTracker </title>
-    </head>
-    <body> 
-<h1>Navbar</h1>
-<hr>
 
-{% block content  %} {% endblock  %}
-<hr>
-<h5> Our footer </h5>
+<head>
+    <title>AnalyticsTracker </title>
+</head>
 
-    </body>
-</html> 
+<body>
+  {% include 'habit/navbar.html' %}
+    {% block content  %}
+    {% endblock  %}
+    <hr>
+    <h5> Our footer </h5>
+
+</body>
+
+</html>

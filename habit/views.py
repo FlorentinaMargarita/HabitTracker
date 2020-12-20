@@ -5,9 +5,9 @@ def home(request):
     return render(request, 'habit/dashboard.html')
 
 def habit(request):
-    return HttpResponse('Habit Page')
+    return render(request, 'habit/habit.html')
 
 def analytics(request):
-    return HttpResponse('Analytics')
+    return render(request, 'habit/analytics.html')
 
 # Create your views here.
