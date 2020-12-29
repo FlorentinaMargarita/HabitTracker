@@ -13,11 +13,13 @@
                     </a>
     <table class="table table-sm">
         <tr>
+            <th> </th>
             <th>Customer</th>
             <th>Phone</th>
         </tr>
         {% for customer in customers %}
         <tr>
+            <td><a href="{% url 'habit' customer.id %}">View</a></td>
             <td>{{customer.name}}</td>
             <td>{{customer.phone}}</td>
         </tr>
