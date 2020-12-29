@@ -54,10 +54,22 @@
                     <th>Category</th>
                     <th>Date Ordered</th>
                     <th>Status</th>
-                    <th>Status</th>
                     <th>Update</th>
                     <th>Remove</th>
                 </tr>
+
+                {% for order in orders %}
+                <tr>
+                    <td>{{order.product}}</td>
+                    <td>{{order.product.category}}</td>
+                    <td>{{order.data_created}}</td>
+                    <td>{{order.status}}</td>
+                    <td><a href=''></a>Update</td>
+                    <td><a href=''></a>Delete</td>       
+                </tr>
+
+                {% endfor %}
+
             </table>
         </div>
     </div>
