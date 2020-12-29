@@ -3,7 +3,11 @@ from django.http import HttpResponse
 from .models import *
 
 def home(request):
-    return render(request, 'habit/dashboard.html')
+    orders = Order.objects.all()
+    customer = Customer.objects.all()
+
+    context = {'orders': orders, 'customers': customer}
+    return render(request, 'habit/dashboard.html', context)
 
 def habit(request):
     return render(request, 'habit/habit.html')
