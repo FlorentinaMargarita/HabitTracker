@@ -1,0 +1,13 @@
+{% extends 'habit/main.html' %}
+
+{% load static %}
+
+{% block content %}
+<p> Are you sure you want to delete your habit {{item}}? </p>
+<form action= "{% url 'delete' item.id %}" method="POST">
+    {% csrf_token %}
+    <a href="{% url 'home' %}">Cancel</a>
+    <input type="submit" name="Confirm" >
+</form>
+
+{%endblock%}

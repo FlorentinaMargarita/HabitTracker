@@ -40,5 +40,23 @@ def createOrder(request):
     return render(request, 'habit/order_form.html', context)
 
 
-def updateOrder(request):
+def updateOrder(request, pk):
+    order = Order.objects.get(id=pk)
+    form = OrderForm(instance=order)
+    if request.method == 'POST' :
+        # print("Printing POST: ", request.POST)
+        form = OrderForm(request.POST, instance=order)
+    if form.is_valid():
+        form.save()
+        return redirect('/')
+    context = {'form': form}
     return render(request, 'habit/order_form.html', context)
+
+def delete(request, pk): 
+    order = Order.objects.get(id=pk)
+    form = OrderForm(instance=order)
+    if request.method == 'POST' :
+        order.delete()
+        return redirect('/')
+    context = {'item':order}
+    return render(request, 'habit/delete.html', context)
