@@ -5,8 +5,13 @@ from .models import *
 def home(request):
     orders = Order.objects.all()
     customer = Customer.objects.all()
+    total_customers = customer.count()
+    total_orders = orders.count()
 
-    context = {'orders': orders, 'customers': customer}
+    # delivered = orders.filter(status='Delivered').count()
+    # pending = orders.filter(status='Pending').count()
+    context = {'orders': orders, 'customers': customer, 'total_customers': total_customers, 
+    'total_orders': total_orders}
     return render(request, 'habit/dashboard.html', context)
 
 def habit(request):
