@@ -7,3 +7,4 @@ admin.site.register(Tag)
 admin.site.register(Product)
 admin.site.register(Order)
 admin.site.register(Count)
+# Register your models here.
