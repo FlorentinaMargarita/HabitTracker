@@ -15,7 +15,6 @@ class Tag(models.Model):
         return self.name
 
 
-
 class Product(models.Model):
     CATEGORY = (
                 ('Indoor', 'Indoor'),
@@ -31,6 +30,13 @@ class Product(models.Model):
 
     def __str__(self):
       return self.name
+
+
+class Count(models.Model):
+    checked = models.IntegerField(default = 0)
+
+    def __str__(self):
+        return self.checked
 
 
 class Order(models.Model): 
@@ -49,15 +55,16 @@ class Order(models.Model):
     )
     habit = models.CharField(max_length=200, null=True, blank=True)
     predefinedHabit = models.CharField(max_length=200, null=True, choices=HABIT, blank=True)
-
-    # timeItWillTake = models.IntegerField(null=True, blank=True)
-
-    checked = models.IntegerField(default = 0)
-
     interval = models.CharField(max_length=400, null=True, choices=INTERVAL)
+    checked = models.IntegerField(null=True)
+    # counts = models.ManyToManyField(Count)
 
     def __str__(self):
         return self.habit
+
+
+
+
 
 
 

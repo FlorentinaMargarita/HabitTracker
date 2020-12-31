@@ -1,8 +1,13 @@
 from django.forms import ModelForm
 from .models import Order
+from .models import Count
 
 class OrderForm(ModelForm):
     class Meta: 
         model = Order
-        # fields = '__all__' 
         fields = ['habit', 'predefinedHabit', 'interval']
+
+class CountForm(ModelForm):
+    class Meta:
+        model = Count
+        fields = "__all__"

@@ -4,7 +4,6 @@
 
 <br>
 <div class="row" style="padding-left: 15%; padding-right: 15%;">
-
     <table style="margin: 3%" class="table table-sm">
         <tr>
             <th>Habit</th>
@@ -13,17 +12,25 @@
             <th>Update</th>
             <th>Remove</th>
         </tr>
-
         {% for order in orders %}
         <tr>
             {% if order.habit != null and order.habit != null  %} <td> <a class="btn btn-sm btn-danger">
                     {{ order.habit }} </a></td> {% endif %}
             {% if order.predefinedHabit != null and order.habit == null%} <td>
-                <form action="{% url 'checkHabit' order.id %}" method="POST">
-                    <a class="btn btn-sm btn-danger">{{ order.predefinedHabit }} </a>
-                </form>
+                <a class="btn btn-sm btn-danger">{{ order.predefinedHabit }} </a>
             </td> {% endif %}
-            <td>{{order.checked}}</td>
+            <td> 
+                {{order.checked}}
+                <!-- <button action="{% url 'check_habit' order.id %}" method="POST"> {{order.checked}} </button> -->
+            </td>
+
+            <td> 
+            <form action= "{% url 'check_habit' order.id %}" method="UPDATE">
+                {% csrf_token %}
+                <input class="btn btn-sm btn-danger" type="submit" name="Count up" />
+            </form>
+        </td>
+
             <td>{{order.interval}}</td>
             <td><a class="btn btn-sm btn-info" href="{% url 'update_habit' order.id %}">Update</a></td>
             <td><a class="btn btn-sm btn-danger" href="{% url 'delete' order.id %}">Delete</a></td>

@@ -30,12 +30,10 @@ def habit(request, pk_test):
 def createHabit(request):
     form = OrderForm()
     if request.method == 'POST' :
-        print("Printing POST: ", request.POST)
         form = OrderForm(request.POST)
     if form.is_valid():
         form.save()
         return redirect('/')
-
     context = {'form': form}
     return render(request, 'habit/order_form.html', context)
 
@@ -60,15 +58,23 @@ def delete(request, pk):
     context = {'item':order}
     return render(request, 'habit/delete.html', context)
 
-def checkHabit(request, pk):
-    order = Order.objects.get(id=pk)
-    form = OrderForm(instance=order)
-    if request.method == 'POST' :
-        order.checked += 1
-        order.save()
-        form = OrderForm(request.POST, instance=order)
-    if form.is_valid():
-        form.save()
-        return redirect('/')
-    context = {'form': form}
-    return render(request, 'habit/order_form.html', context)
+def checkHabit(request, pk): 
+        order = Order.objects.get(id=pk)
+        # form = OrderForm(instance=order)
+        # check_count = orders.checked.count()
+        if request.method == 'UPDATE' :
+            order.checked += 1
+            return redirect('/')
+            # return redirect('/')
+            # context = {'checked': order.checked.count()}
+        context = {'checked': order.checked.count()}
+        # checked = Order.objects.get (pk = id).checked
+        return render(request, 'habit/order_form.html',  context)
+
+# def checkHabit(request, pk):
+#     order = Order.objects.get(id=pk)
+#     if request.method == 'POST':
+#         order.checked += 1
+#         order.save()
+#         checked = Order.objects.get (pk = id).checked
+#     return render(request, 'habit/order_form.html',  {'checked': checked})
