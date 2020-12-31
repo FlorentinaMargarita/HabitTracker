@@ -46,7 +46,7 @@ class Order(models.Model):
             ('Monthly', 'Monthly'),
             )
     habit = models.CharField(max_length=200, null=True)
-    timeItWillTake = models.FloatField(null=True)
+    timeItWillTake = models.IntegerField(null=True)
     interval = models.CharField(max_length=400, null=True, choices=INTERVAL)
     # customer = models.ForeignKey(Customer, null=True, on_delete = models.SET_NULL)
     # product = models.ForeignKey(Product, null=True, on_delete = models.SET_NULL)

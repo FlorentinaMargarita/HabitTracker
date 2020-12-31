@@ -3,41 +3,29 @@
 {% block content %}
 
 <br>
-<div class="row">
-<div class="container-fluid centered"></div>
-<!-- <div class="col-sm-1" style="margin-left: 200px">
-    <a class="btn btn-sm btn-block btn-danger" href="{% url 'create_habit' %}"><h4>Make New Habit</h4></a>
-</div> -->
+<div class="row" style="padding-left: 15%; padding-right: 15%;">
+
+    <table style="margin: 3%" class="table table-sm">
+        <tr>
+            <th>Habit</th>
+            <th>Time It will Take In Minutes</th>
+            <th>Interval</th>
+            <th>Update</th>
+            <th>Remove</th>
+        </tr>
+
+        {% for order in orders %}
+        <tr>
+            <td>{{order.habit}}</td>
+            <td>{{order.timeItWillTake}}</td>
+            <td>{{order.interval}}</td>
+            <td><a a class="btn btn-sm btn-info" href="{% url 'update_habit' order.id %}">Update</a></td>
+            <td><a a class="btn btn-sm btn-danger" href="{% url 'delete' order.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
 
-<div class="container-fluid md-8">
-    <hr>
-    <div class="card card-body">
-<table class="table table-sm">
-    <tr>
-        <th>Habit</th>
-        <th>Time It will Take In Minutes</th>
-        <th>Interval</th>
-        <th>Update</th>
-        <th>Remove</th>
-    </tr>
 
-    {% for order in orders %}
-    <tr>
-        <td>{{order.habit}}</td>
-        <td>{{order.timeItWillTake}}</td>
-        <td>{{order.interval}}</td>
-        <td><a  a class="btn btn-sm btn-info" href="{% url 'update_habit' order.id %}">Update</a></td>
-        <td><a  a class="btn btn-sm btn-danger" href="{% url 'delete' order.id %}">Delete</a></td>
-    </tr>
-    {% endfor %}
-
-  
-</table>
-</div>
-    </div>
-</div> 
 
 {% endblock %}
-
-
