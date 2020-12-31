@@ -15,9 +15,11 @@ def home(request):
 
 def analytics(request):
     orders = Order.objects.all()
+    count = Count.objects.all()
+    total_count = count.count()
     # products = Product.objects.all()
     total_orders = orders.count() 
-    context= {'total_orders': total_orders}
+    context= {'total_orders': total_orders, 'total_count': total_count}
     return render(request, 'habit/analytics.html', context)
     # return render(request, 'habit/analytics.html', {'products':products}, context)
 
@@ -26,6 +28,12 @@ def habit(request, pk_test):
     orders = customer.order_set.all()
     order_count = orders.count()
     context = {"customer": customer, "orders":orders, "order_count": order_count}
+    return render(request, 'habit/habit.html', context)
+
+def count(request):
+    count = Count.objects.get(all)
+    total_count = count.count()
+    context = {"total_count": total_count}
     return render(request, 'habit/habit.html', context)
 
 def createHabit(request):
@@ -50,6 +58,8 @@ def updateHabit(request, pk):
     context = {'form': form}
     return render(request, 'habit/order_form.html', context)
 
+
+
 def delete(request, pk): 
     order = Order.objects.get(id=pk)
     form = OrderForm(instance=order)
@@ -67,13 +77,18 @@ def checkHabit(request, pk):
     if request.method == 'POST':
         order.checked += 1
         order.save()
-        # return redirect('/')
-        if  order.checked % 4 == 0:
-            order.strike +=1
-            order.save()
+        if order.checked % 4 == 0:
+           order.strike +=1
+           Count.objects.create()
+           order.save()
         return redirect('/')
     context = {'checked': order.checked, 'strike': order.strike}
     return render(request, 'habit/order_form.html', context)
+
+
+
+
+
 
         # count = get_object_or_404(Count, id=request.POST.get('post_id'))
     # count = get_object_or_404(Count, id=request.POST.get('order.id'))
