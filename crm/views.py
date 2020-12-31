@@ -27,10 +27,9 @@ def habit(request, pk_test):
     return render(request, 'habit/habit.html', context)
 
 def createOrder(request):
-
     form = OrderForm()
     if request.method == 'POST' :
-        # print("Printing POST: ", request.POST)
+        print("Printing POST: ", request.POST)
         form = OrderForm(request.POST)
     if form.is_valid():
         form.save()
@@ -44,7 +43,6 @@ def updateOrder(request, pk):
     order = Order.objects.get(id=pk)
     form = OrderForm(instance=order)
     if request.method == 'POST' :
-        # print("Printing POST: ", request.POST)
         form = OrderForm(request.POST, instance=order)
     if form.is_valid():
         form.save()

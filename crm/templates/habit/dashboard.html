@@ -29,24 +29,24 @@
 </div>
 
 <div class="col-md-7">
-    <h5>LAST 5 ORDERS</h5>
+    <h5>LAST 5 Habits</h5>
     <hr>
     <div class="card card-body">
 <a class="btn btn-primary btn-sm btn-block" href="{% url 'create_order' %}">Create Order</a>
 <table class="table table-sm">
     <tr>
+        <th>Habit</th>
         <th>Prodcut</th>
         <th>Date Ordered</th>
-        <th>Status</th>
         <th>Update</th>
         <th>Remove</th>
     </tr>
 
     {% for order in orders %}
     <tr>
+        <td>{{order.habit}}</td>
         <td>{{order.product}}</td>
         <td>{{order.date_created}}</td>
-        <td>{{order.status}}</td>
         <td><a  a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">Update</a></td>
         <td><a  a class="btn btn-sm btn-danger" href="{% url 'delete' order.id %}">Delete</a></td>
     </tr>
