@@ -8,10 +8,10 @@ class OrderForm(ModelForm):
         fields = ['habit', 'predefinedHabit', 'interval']
 
 
-class CheckForm(ModelForm):
-    class Meta: 
-        model = Order
-        fields = ['checked']
+# class CheckForm(ModelForm):
+#     class Meta: 
+#         model = Order
+#         fields = ['checked']
 
 # class CountForm(ModelForm):
 #     class Meta:

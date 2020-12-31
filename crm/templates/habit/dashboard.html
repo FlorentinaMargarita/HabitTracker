@@ -25,10 +25,12 @@
             </td>
 
             <td> 
-            <form action= "{% url 'check_habit' order.id %}" method="UPDATE">
+            <form action= "{% url 'check_habit' order.id %}" method="POST">
                 {{form}}
                 {% csrf_token %}
-                <input class="btn btn-sm btn-danger" type="submit" />
+                <button type="submit", name="post_id", value="{{order.id}}", class="btn btn-primary btn-sm">Like</button>
+
+                <!-- <input class="btn btn-sm btn-danger" type="submit" /> -->
             </form>
         </td>
 
@@ -37,6 +39,7 @@
             <td><a class="btn btn-sm btn-danger" href="{% url 'delete' order.id %}">Delete</a></td>
         </tr>
         {% endfor %}
+
     </table>
 </div>
 

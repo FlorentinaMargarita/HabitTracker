@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
 from .forms import OrderForm
+# from .forms import CheckForm
 
 def home(request):
     orders = Order.objects.all()
@@ -58,23 +59,19 @@ def delete(request, pk):
     context = {'item':order}
     return render(request, 'habit/delete.html', context)
 
-def checkHabit(request, pk): 
-        order = Order.objects.get(id=pk)
-        # form = OrderForm(instance=order)
-        # check_count = orders.checked.count()
-        if request.method == 'UPDATE' :
-            order.checked += 1
-            return redirect('/')
-            # return redirect('/')
-            # context = {'checked': order.checked.count()}
-        context = {'checked': order.checked}
-        # checked = Order.objects.get (pk = id).checked
-        return render(request, 'habit/order_form.html',  context)
 
-# def checkHabit(request, pk):
-#     order = Order.objects.get(id=pk)
-#     if request.method == 'POST':
-#         order.checked += 1
-#         order.save()
-#         checked = Order.objects.get (pk = id).checked
-#     return render(request, 'habit/order_form.html',  {'checked': checked})
+# this is a functional view
+# it needs to know which habit we are referring to and then it needs to save it
+def checkHabit(request, pk):
+    order = Order.objects.get(id=pk)
+    # count = get_object_or_404(Count, id=request.POST.get('post_id'))
+    # count = get_object_or_404(Count, id=request.POST.get('order.id'))
+    # form = CheckForm(instance=order)
+    if request.method == 'POST':
+        order.checked += 1
+        order.save()
+        return redirect('/')
+        context = {'checked': order.checked}
+        # context = {'form': form}
+        # checked = Order.objects.get (pk = id).checked
+    return render(request, 'habit/order_form.html', context)

@@ -32,11 +32,6 @@ class Product(models.Model):
       return self.name
 
 
-class Count(models.Model):
-    checked = models.IntegerField(default = 0)
-
-    def __str__(self):
-        return self.checked
 
 
 class Order(models.Model): 
@@ -53,17 +48,33 @@ class Order(models.Model):
         ('Study Maths', 'Study Maths'),
         ('Meditate', 'Meditate'),
     )
+
+    CHECK = (
+        ('Check', 'Check'),
+    )
     habit = models.CharField(max_length=200, null=True, blank=True)
     predefinedHabit = models.CharField(max_length=200, null=True, choices=HABIT, blank=True)
     interval = models.CharField(max_length=400, null=True, choices=INTERVAL)
-    checked = models.IntegerField(default=0)
+    checked = models.IntegerField(blank=True, default=1)
+    # checked = models.CharField(max_length=200, null=True, blank=True, choices=CHECK)
     # counts = models.ManyToManyField(Count)
 
     def __str__(self):
         return self.habit
 
 
+class Count(models.Model):
+    # habit = models.ForeignKey(Order)
+    # created = models.DateTimeField(auto_now_add=True)
+    # checked = models.IntegerField(blank=True, null=True)
 
+    checked = models.ForeignKey(Order, null=True, default=1, on_delete=models.CASCADE)
+    #  def count_total(self):
+    #     return self.checked.count()
+
+
+
+ 
 
 
 
