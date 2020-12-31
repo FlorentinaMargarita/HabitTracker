@@ -15,7 +15,7 @@ def home(request):
 def analytics(request):
     orders = Order.objects.all()
     # products = Product.objects.all()
-    total_orders = orders.count()
+    total_orders = orders.count() 
     context= {'total_orders': total_orders}
     return render(request, 'habit/analytics.html', context)
     # return render(request, 'habit/analytics.html', {'products':products}, context)
@@ -59,3 +59,16 @@ def delete(request, pk):
         return redirect('/')
     context = {'item':order}
     return render(request, 'habit/delete.html', context)
+
+def checkHabit(request, pk):
+    order = Order.objects.get(id=pk)
+    form = OrderForm(instance=order)
+    if request.method == 'POST' :
+        order.checked += 1
+        order.save()
+        form = OrderForm(request.POST, instance=order)
+    if form.is_valid():
+        form.save()
+        return redirect('/')
+    context = {'form': form}
+    return render(request, 'habit/order_form.html', context)

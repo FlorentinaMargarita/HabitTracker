@@ -1,21 +1,21 @@
 {%load static%}
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success" >
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+        <li>
+          <div class="nav-item" style="margin-right:80px">
+            <a class="btn btn-sm btn-block btn-danger" href="{% url 'create_habit' %}"><h4>Make New Habit</h4></a>
+        </div>
+        <li class="nav-item" >
+          <a class="nav-link"  style="justify-content: flex-end;"  href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'analytics' %}">Analytics</a>
         </li>
-        <li>
-          <div class="nav-item" style="margin-left:200px">
-            <a class="btn btn-sm btn-block btn-danger" href="{% url 'create_habit' %}"><h4>Make New Habit</h4></a>
-        </div>
-        </li>
+                </li>
       </ul>
     </div>
   </nav>

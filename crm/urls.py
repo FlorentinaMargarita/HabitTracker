@@ -10,7 +10,8 @@ urlpatterns = [
     path('admin/', admin.site.urls), 
     path('create_habit/', views.createHabit, name="create_habit"),
     path('update_habit/<str:pk>', views.updateHabit, name="update_habit"),
-    path('delete/<str:pk>', views.delete, name="delete")
+    path('delete/<str:pk>', views.delete, name="delete"),
+    path('checkHabit/<str:pk>', views.checkHabit, name="checkHabit")
 ]
 
     
