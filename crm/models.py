@@ -56,7 +56,7 @@ class Order(models.Model):
     habit = models.CharField(max_length=200, null=True, blank=True)
     predefinedHabit = models.CharField(max_length=200, null=True, choices=HABIT, blank=True)
     interval = models.CharField(max_length=400, null=True, choices=INTERVAL)
-    checked = models.IntegerField(null=True)
+    checked = models.IntegerField(default=0)
     # counts = models.ManyToManyField(Count)
 
     def __str__(self):

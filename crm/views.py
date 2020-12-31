@@ -67,7 +67,7 @@ def checkHabit(request, pk):
             return redirect('/')
             # return redirect('/')
             # context = {'checked': order.checked.count()}
-        context = {'checked': order.checked.count()}
+        context = {'checked': order.checked}
         # checked = Order.objects.get (pk = id).checked
         return render(request, 'habit/order_form.html',  context)
 

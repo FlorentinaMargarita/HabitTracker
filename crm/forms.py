@@ -7,7 +7,13 @@ class OrderForm(ModelForm):
         model = Order
         fields = ['habit', 'predefinedHabit', 'interval']
 
-class CountForm(ModelForm):
-    class Meta:
-        model = Count
-        fields = "__all__"
+
+class CheckForm(ModelForm):
+    class Meta: 
+        model = Order
+        fields = ['checked']
+
+# class CountForm(ModelForm):
+#     class Meta:
+#         model = Count
+#         fields = "__all__"
