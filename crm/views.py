@@ -26,7 +26,7 @@ def habit(request, pk_test):
     context = {"customer": customer, "orders":orders, "order_count": order_count}
     return render(request, 'habit/habit.html', context)
 
-def createOrder(request):
+def createHabit(request):
     form = OrderForm()
     if request.method == 'POST' :
         print("Printing POST: ", request.POST)
@@ -39,7 +39,7 @@ def createOrder(request):
     return render(request, 'habit/order_form.html', context)
 
 
-def updateOrder(request, pk):
+def updateHabit(request, pk):
     order = Order.objects.get(id=pk)
     form = OrderForm(instance=order)
     if request.method == 'POST' :
