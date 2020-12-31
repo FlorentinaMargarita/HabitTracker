@@ -34,24 +34,23 @@ class Product(models.Model):
 
 
 class Order(models.Model): 
-    # STATUS = (
-    #         ('Pending', 'Pending'),
-    #         ('Outfordelivery', 'Outfordelivery' ),
-    #         ('Delivered', 'Delivered'),
-    #         )
     INTERVAL = (
             ('Daily', 'Daily'),
             ('Weekly', 'Weekly' ),
             ('Biweekly', 'Biweekly'),
             ('Monthly', 'Monthly'),
             )
-    habit = models.CharField(max_length=200, null=True)
-    timeItWillTake = models.IntegerField(null=True)
+    HABIT = (
+        ('Call Mum', 'Call Mum'),
+        ('Workout', 'Workout'),
+        ('Buy Groceries', 'Buy Groceries'),
+        ('Study Maths', 'Study Maths'),
+        ('Meditate', 'Meditate'),
+    )
+    habit = models.CharField(max_length=200, null=True, blank=True)
+    predefinedHabit = models.CharField(max_length=200, null=True, choices=HABIT, blank=True)
+    timeItWillTake = models.IntegerField(null=True, blank=True)
     interval = models.CharField(max_length=400, null=True, choices=INTERVAL)
-    # customer = models.ForeignKey(Customer, null=True, on_delete = models.SET_NULL)
-    # product = models.ForeignKey(Product, null=True, on_delete = models.SET_NULL)
-    # date_created = models.DateTimeField(auto_now_add=True, null=True)
-#status = models.CharField(max_length=400, null=True, choices=STATUS)
 
     def __str__(self):
         return self.habit

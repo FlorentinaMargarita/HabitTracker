@@ -16,7 +16,8 @@
 
         {% for order in orders %}
         <tr>
-            <td>{{order.habit}}</td>
+            {% if order.habit != null and order.habit != null  %} <td> {{ order.habit }} </td> {% endif %}
+            {% if order.predefinedHabit != null and order.habit == null%} <td> {{ order.predefinedHabit }} </td> {% endif %}
             <td>{{order.timeItWillTake}}</td>
             <td>{{order.interval}}</td>
             <td><a a class="btn btn-sm btn-info" href="{% url 'update_habit' order.id %}">Update</a></td>
