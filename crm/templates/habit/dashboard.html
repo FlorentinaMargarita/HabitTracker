@@ -9,32 +9,36 @@
             <th>Habit</th>
             <th>Repeated so far</th>
             <th>Did it</th>
+            <th>Strike</th>
             <th>Interval</th>
             <th>Update</th>
             <th>Remove</th>
         </tr>
         {% for order in orders %}
         <tr>
-            {% if order.habit != null and order.habit != null  %} <td> 
-                    {{ order.habit }} 
-                </td> {% endif %}
+            {% if order.habit != null and order.habit != null  %} <td>
+                {{ order.habit }}
+            </td> {% endif %}
             {% if order.predefinedHabit != null and order.habit == null%} <td>
-               {{ order.predefinedHabit }} 
+                {{ order.predefinedHabit }}
             </td> {% endif %}
 
-            
-            <td> 
+
+            <td>
                 {{order.checked}}
             </td>
-
-            <td> 
-            <form action= "{% url 'check_habit' order.id %}" method="POST">
-                {{form}}
-                {% csrf_token %}
-                <button type="submit", name="post_id", value="{{order.id}}", class="btn btn-sm btn-danger">Check</button>
-            </form>
-        </td>
-
+            <td>
+                <form action="{% url 'check_habit' order.id %}" method="POST">
+                    {{form}}
+                    {% csrf_token %}
+                    <button type="submit" , name="post_id" , value="{{order.id}}" ,
+                        class="btn btn-sm btn-danger">Check</button>
+                </form>
+            </td>
+            <td>
+                
+                {{order.strike}}
+            </td>
             <td>{{order.interval}}</td>
             <td><a class="btn btn-sm" style="color: green;" href="{% url 'update_habit' order.id %}">Update</a></td>
             <td><a class="btn btn-sm" style="color: rebeccapurple;" href="{% url 'delete' order.id %}">Delete</a></td>

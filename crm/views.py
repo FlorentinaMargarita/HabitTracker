@@ -64,14 +64,18 @@ def delete(request, pk):
 # it needs to know which habit we are referring to and then it needs to save it
 def checkHabit(request, pk):
     order = Order.objects.get(id=pk)
-    # count = get_object_or_404(Count, id=request.POST.get('post_id'))
-    # count = get_object_or_404(Count, id=request.POST.get('order.id'))
-    # form = CheckForm(instance=order)
     if request.method == 'POST':
         order.checked += 1
         order.save()
+        # return redirect('/')
+        if  order.checked % 4 == 0:
+            order.strike +=1
+            order.save()
         return redirect('/')
-        context = {'checked': order.checked}
-        # context = {'form': form}
-        # checked = Order.objects.get (pk = id).checked
+    context = {'checked': order.checked, 'strike': order.strike}
     return render(request, 'habit/order_form.html', context)
+
+        # count = get_object_or_404(Count, id=request.POST.get('post_id'))
+    # count = get_object_or_404(Count, id=request.POST.get('order.id'))
+    # form = CheckForm(instance=order)
+
