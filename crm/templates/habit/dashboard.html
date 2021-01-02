@@ -11,6 +11,7 @@
             <th>Did it</th>
             <th>Strike</th>
             <th>Interval</th>
+            <th>Date Created</th>
             <th>Update</th>
             <th>Remove</th>
         </tr>
@@ -35,12 +36,16 @@
             </td>
             <td>
                 {{order.strike}}
-            </td>
+                       </td>
             <td>{{order.interval}}</td>
+            <td>{{order.created}}</td>
             <td><a class="btn btn-sm" style="color: green;" href="{% url 'update_habit' order.id %}">Update</a></td>
             <td><a class="btn btn-sm" style="color: rebeccapurple;" href="{% url 'delete' order.id %}">Delete</a></td>
         </tr>
         {% endfor %}
+<!-- 
+        {% for count in counts %}
+        {% endfor %} -->
 
     </table>
 </div>

@@ -19,8 +19,7 @@ def analytics(request):
     count = Count.objects.all()
     total_count = count.count()
     total_orders = orders.count() 
-    myDate = datetime.now()
-    context= {'total_orders': total_orders, 'total_count': total_count, 'myDate': myDate}
+    context= {'total_orders': total_orders, 'total_count': total_count}
     return render(request, 'habit/analytics.html', context)
 
 
@@ -81,9 +80,10 @@ def checkHabit(request, pk):
         if order.checked % 4 == 0:
            order.strike +=1
            Count.objects.create()
+           myDate = datetime.now()
            order.save()
         return redirect('/')
-    context = {'checked': order.checked, 'strike': order.strike}
+    context = {'checked': order.checked, 'strike': order.strike, 'myDate': myDate}
     return render(request, 'habit/order_form.html', context)
 
 
