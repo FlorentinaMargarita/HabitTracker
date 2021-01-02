@@ -6,6 +6,7 @@ from .forms import OrderForm
 
 def home(request):
     orders = Order.objects.all()
+    count = Count.objects.all()
     customer = Customer.objects.all()
     total_customers = customer.count()
     total_orders = orders.count()
@@ -17,11 +18,11 @@ def analytics(request):
     orders = Order.objects.all()
     count = Count.objects.all()
     total_count = count.count()
-    # products = Product.objects.all()
     total_orders = orders.count() 
-    context= {'total_orders': total_orders, 'total_count': total_count}
+    myDate = datetime.now()
+    context= {'total_orders': total_orders, 'total_count': total_count, 'myDate': myDate}
     return render(request, 'habit/analytics.html', context)
-    # return render(request, 'habit/analytics.html', {'products':products}, context)
+
 
 def habit(request, pk_test):
     customer = Customer.objects.get(id=pk_test)

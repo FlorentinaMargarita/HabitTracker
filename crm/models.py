@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils import timezone
+import datetime
+from datetime import datetime
 
 class Customer(models.Model):
     name = models.CharField(max_length=400, null=True)
@@ -63,11 +66,15 @@ class Order(models.Model):
 
 class Count(models.Model):
     # habit = models.ForeignKey(Order)
-    # created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
+    # updated_on = models.DateTimeField(auto_now_add=True)
+    # start_time = models.DateTimeField('date published')
+    # time_saved = models.DateTimeField(null=True, blank=True)
     # checked = models.IntegerField(blank=True, null=True)
 
     checked = models.ForeignKey(Order, null=True, default=1, on_delete=models.CASCADE)
     #  def count_total(self):
+
     #     return self.checked.count()
 
 
