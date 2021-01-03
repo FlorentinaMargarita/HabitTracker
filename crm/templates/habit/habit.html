@@ -13,7 +13,7 @@
             <a class="btn btn-outline-danger btn-sm btn-block" href="">Delete Habit</a>
         </div>
     </div>
-
+<!-- 
     <div class="col-md">
         <div class="card card-body">
             <h5>Contact Information</h5>
@@ -21,7 +21,7 @@
             <p>Email: </p>
             <p>Phone: </p>
         </div>
-    </div>
+    </div> -->
 
     <div class="col-md">
         <div class="card card-body">
@@ -57,13 +57,13 @@
                     <th>Update</th>
                     <th>Remove</th>
                 </tr>
-
+                    {{count }}
                 {% for order in orders %}
                 <tr>
                     <td>{{order.product}}</td>
                     <td>{{order.product.category}}</td>
-                    <td>{{order.data_created}}</td>
-                    <td>{{order.status}}</td>
+                    <td>{{order.created}}</td>
+                    <td>{{count}}</td>
                     <td><a  a class="btn btn-sm btn-info" href="{% url 'update_habit' order.id %}">Update</a></td>
                     <td><a  a class="btn btn-sm btn-danger" href="{% url 'delete' order.id %}">Delete</a></td>   
                 </tr>

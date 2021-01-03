@@ -5,14 +5,13 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name="home" ),
-    path('habit/<str:pk_test>', views.habit, name="habit"),
+    path('habit/<str:pk>', views.habit, name="habit"),
     path('analytics/', views.analytics, name="analytics"),
     path('admin/', admin.site.urls), 
     path('create_habit/', views.createHabit, name="create_habit"),
     path('update_habit/<str:pk>', views.updateHabit, name="update_habit"),
     path('delete/<str:pk>', views.delete, name="delete"),
     path('check_habit/<int:pk>', views.checkHabit, name="check_habit"),
-    path('view_habit/<int:pk>', views.view_habit, name="view_habit"),
 ]
 
     

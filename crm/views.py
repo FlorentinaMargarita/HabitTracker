@@ -21,11 +21,13 @@ def analytics(request):
 
 
 # def habit(request, pk_test):
-def habit(request):
-    # customer = Customer.objects.get(id=pk_test)
-    orders = customer.order_set.all()
+def habit(request, pk): 
+    orders = Order.objects.all()
+    count = Count.objects.all()
+    order = Order.objects.get(id=pk)
+    form = OrderForm(instance=order)
     order_count = orders.count()
-    context = {"customer": customer, "orders":orders, "order_count": order_count}
+    context = { "orders":orders, "order_count": order_count}
     return render(request, 'habit/habit.html', context)
 
 def count(request):
@@ -66,17 +68,6 @@ def delete(request, pk):
         return redirect('/')
     context = {'item':order}
     return render(request, 'habit/delete.html', context)
-
-
-def view_habit(request, pk): 
-    order = Order.objects.get(id=pk)
-    form = OrderForm(instance=order)
-    # if request.method == 'POST' :
-    #     order.delete()
-    #     return redirect('/')
-    context = {'item':order}
-    return render(request, 'habit/habit.html', context)
-
 
 # this is a functional view
 # it needs to know which habit we are referring to and then it needs to save it
