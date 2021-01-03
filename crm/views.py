@@ -75,6 +75,7 @@ def checkHabit(request, pk):
     order = Order.objects.get(id=pk)
     if request.method == 'POST':
         order.checked += 1
+        Repeats.objects.create()
         order.save()
         if order.checked % 4 == 0:
            order.strike +=1
