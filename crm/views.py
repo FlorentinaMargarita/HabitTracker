@@ -7,11 +7,8 @@ from .forms import OrderForm
 def home(request):
     orders = Order.objects.all()
     count = Count.objects.all()
-    customer = Customer.objects.all()
-    total_customers = customer.count()
     total_orders = orders.count()
-    context = {'orders': orders, 'customers': customer, 'total_customers': total_customers, 
-    'total_orders': total_orders}
+    context = {'orders': orders, 'total_orders': total_orders}
     return render(request, 'habit/dashboard.html', context)
 
 def analytics(request):
@@ -23,8 +20,9 @@ def analytics(request):
     return render(request, 'habit/analytics.html', context)
 
 
-def habit(request, pk_test):
-    customer = Customer.objects.get(id=pk_test)
+# def habit(request, pk_test):
+def habit(request):
+    # customer = Customer.objects.get(id=pk_test)
     orders = customer.order_set.all()
     order_count = orders.count()
     context = {"customer": customer, "orders":orders, "order_count": order_count}
@@ -70,6 +68,16 @@ def delete(request, pk):
     return render(request, 'habit/delete.html', context)
 
 
+def view_habit(request, pk): 
+    order = Order.objects.get(id=pk)
+    form = OrderForm(instance=order)
+    # if request.method == 'POST' :
+    #     order.delete()
+    #     return redirect('/')
+    context = {'item':order}
+    return render(request, 'habit/habit.html', context)
+
+
 # this is a functional view
 # it needs to know which habit we are referring to and then it needs to save it
 def checkHabit(request, pk):
@@ -86,12 +94,4 @@ def checkHabit(request, pk):
     context = {'checked': order.checked, 'strike': order.strike, 'myDate': myDate}
     return render(request, 'habit/order_form.html', context)
 
-
-
-
-
-
-        # count = get_object_or_404(Count, id=request.POST.get('post_id'))
-    # count = get_object_or_404(Count, id=request.POST.get('order.id'))
-    # form = CheckForm(instance=order)
 
