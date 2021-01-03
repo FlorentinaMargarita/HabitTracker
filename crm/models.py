@@ -2,20 +2,6 @@ from django.db import models
 from django.utils import timezone
 from datetime import datetime, date
 
-class Customer(models.Model):
-    name = models.CharField(max_length=400, null=True)
-    phone = models.CharField(max_length=400, null=True)
-    email = models.CharField(max_length=400, null=True)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-class Tag(models.Model):
-    name = models.CharField(max_length=400, null=True)
-    def __str__(self):
-        return self.name
-
 class Count(models.Model):
     date_created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
     # order = models.ForeignKey(Order, null=True, default=1, on_delete=models.CASCADE)
@@ -58,6 +44,8 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
     strikeList = models.ForeignKey(Count, null=True, on_delete=models.CASCADE)
     checkedList = models.ForeignKey(Repeats, null=True, on_delete=models.CASCADE)
+    timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
+    date_created =  models.DateTimeField(auto_now=True, null=True, editable=False, blank=True)
     # checked = models.CharField(max_length=200, null=True, blank=True, choices=CHECK)
     # counts = models.ManyToManyField(Count)
 

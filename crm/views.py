@@ -21,7 +21,6 @@ def analytics(request):
 def habit(request, pk): 
     strikes = Count.objects.get(id=pk)
     repeats = Repeats.objects.get(id=pk)
-
     orders = Order.objects.all()
     order = Order.objects.get(id=pk)
     order_count = orders.count()
@@ -72,15 +71,15 @@ def checkHabit(request, pk):
     if request.method == 'POST':
         order.checked += 1
         Repeats.objects.create()
-        myDate = datetime.now()
+        myDateCheck = datetime.now()
         order.save()
         if order.checked % 4 == 0:
            order.strike +=1
            Count.objects.create()
-           myDate = datetime.now()
+           myDateStrike = datetime.now()
            order.save()
         return redirect('/')
-    context = {'checked': order.checked, 'strike': order.strike, 'myDate': myDate}
+    context = {'checked': order.checked, 'strike': order.strike, 'myDateCheck': myDateCheck, "myDateStrike": myDateStrike}
     return render(request, 'habit/order_form.html', context)
 
 
