@@ -3,39 +3,23 @@
 {% block content %}
 
 <br>
-
-<!-- <div class="row">
-    {% for order in orders %}
-    <div class="col-md">
-        <div class="card card-body">
-            <tr>
+    <h1 style="margin-left: 2%;">
                 {% if order.habit != null and order.habit != null  %} <td>
-                    {{ order.habit }}
-                </td> {% endif %}
-                {% if order.predefinedHabit != null and order.habit == null%} <td>
-                    {{ order.predefinedHabit }}
-                </td> {% endif %}
-            <hr>
-               </div>
-    </div>
-    {% endfor %} -->
-
-    <h1>
-        
-        {% if order.habit != null and order.habit != null  %} <td>
             {{ order.habit }}
         </td> {% endif %}
         {% if order.predefinedHabit != null and order.habit == null%} <td>
             {{ order.predefinedHabit }}
         </td> {% endif %}
-
-
     </h1>
 
 
     <div class="col-md">
         <div class="card card-body">
             <h5>Total Strikes</h5>
+            <h6> {{strikes.created}}</h6>
+
+            <h5>Established</h5>
+            <h6> {{repeats.timeStamp}}</h6>
             <hr>
             <h1 style="text-align: center; padding: 10px;"></h1>
         </div>

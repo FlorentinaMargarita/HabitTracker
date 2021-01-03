@@ -46,16 +46,15 @@ class Order(models.Model):
 
 
 class Count(models.Model):
-    # habit = models.ForeignKey(Order)
-    created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
+    order = models.ManyToManyField(Order)
     timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
     # updated_on = models.DateTimeField(auto_now_add=True)
     # start_time = models.DateTimeField('date published')
     # time_saved = models.DateTimeField(null=True, blank=True)
     # checked = models.IntegerField(blank=True, null=True)
-
+    # habit = models.ForeignKey(Order)
     # checked = models.ForeignKey(Order, null=True, default=1, on_delete=models.CASCADE)
-    strikeCount = models.ManyToManyField(Order)
     #  def count_total(self):
 
     #     return self.checked.count()
@@ -64,10 +63,11 @@ class Count(models.Model):
 class Repeats(models.Model):
     date_created =  models.DateTimeField(auto_now=True, null=True, editable=False, blank=True)
     order = models.ManyToManyField(Order)
+    timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
 
 
-    def __str__(self):
-      return self.date_created
+    # def __str__(self):
+    #   return self.date_created
 
 
  
