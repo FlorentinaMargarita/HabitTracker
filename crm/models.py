@@ -32,10 +32,6 @@ class Order(models.Model):
         ('Study Maths', 'Study Maths'),
         ('Meditate', 'Meditate'),
     )
-
-    CHECK = (
-        ('Check', 'Check'),
-    )
     habit = models.CharField(max_length=200, null=True, blank=True)
     predefinedHabit = models.CharField(max_length=200, null=True, choices=HABIT, blank=True)
     interval = models.CharField(max_length=400, null=True, choices=INTERVAL)
@@ -66,7 +62,7 @@ class Count(models.Model):
 
 
 class Repeats(models.Model):
-    date_created =  models.DateTimeField(auto_now_add=True, null=True)
+    date_created =  models.DateTimeField(auto_now=True, null=True, editable=False, blank=True)
     order = models.ManyToManyField(Order)
 
 

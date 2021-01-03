@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
 from .forms import OrderForm
-# from .forms import CheckForm
 
 def home(request):
     orders = Order.objects.all()
@@ -20,20 +19,20 @@ def analytics(request):
     return render(request, 'habit/analytics.html', context)
 
 
-# def habit(request, pk_test):
 def habit(request, pk): 
+    checked = Repeats.objects.get(id=pk)
     orders = Order.objects.all()
-    count = Count.objects.all()
     order = Order.objects.get(id=pk)
     form = OrderForm(instance=order)
     order_count = orders.count()
-    context = { "orders":orders, "order_count": order_count}
+    context = { "order":order, "order_count": order_count, "checked":checked}
     return render(request, 'habit/habit.html', context)
 
-def count(request):
-    count = Count.objects.get(all)
-    total_count = count.count()
-    context = {"total_count": total_count}
+def count(request, pk):
+    counts = Count.objects.get(all)
+    checked = Repeats.objects.get(id=pk)
+    total_count = counts.count()
+    context = {"total_count": total_count, "checked":checked}
     return render(request, 'habit/habit.html', context)
 
 def createHabit(request):
@@ -85,5 +84,6 @@ def checkHabit(request, pk):
         return redirect('/')
     context = {'checked': order.checked, 'strike': order.strike, 'myDate': myDate}
     return render(request, 'habit/order_form.html', context)
+
 
 
