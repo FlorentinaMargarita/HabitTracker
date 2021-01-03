@@ -18,10 +18,10 @@ def analytics(request):
     context= {'total_orders': total_orders, 'total_count': total_count}
     return render(request, 'habit/analytics.html', context)
 
-
 def habit(request, pk): 
     strikes = Count.objects.get(id=pk)
     repeats = Repeats.objects.get(id=pk)
+
     orders = Order.objects.all()
     order = Order.objects.get(id=pk)
     order_count = orders.count()
@@ -45,7 +45,6 @@ def createHabit(request):
     context = {'form': form}
     return render(request, 'habit/order_form.html', context)
 
-
 def updateHabit(request, pk):
     order = Order.objects.get(id=pk)
     form = OrderForm(instance=order)
@@ -56,8 +55,6 @@ def updateHabit(request, pk):
         return redirect('/')
     context = {'form': form}
     return render(request, 'habit/order_form.html', context)
-
-
 
 def delete(request, pk): 
     order = Order.objects.get(id=pk)

@@ -16,7 +16,25 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+class Count(models.Model):
+    date_created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
+    # order = models.ForeignKey(Order, null=True, default=1, on_delete=models.CASCADE)
+    timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
+    # updated_on = models.DateTimeField(auto_now_add=True)
+    # start_time = models.DateTimeField('date published')
+    # time_saved = models.DateTimeField(null=True, blank=True)
+    # checked = models.IntegerField(blank=True, null=True)
+    # habit = models.ForeignKey(Order)
+    # checked = models.ForeignKey(Order, null=True, default=1, on_delete=models.CASCADE)
+    #  def count_total(self):
 
+    #     return self.checked.count()
+
+
+class Repeats(models.Model):
+    date_created =  models.DateTimeField(auto_now=True, null=True, editable=False, blank=True)
+    # order = models.ManyToManyField(Order)
+    timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
 
 class Order(models.Model): 
     INTERVAL = (
@@ -38,6 +56,8 @@ class Order(models.Model):
     checked = models.IntegerField(blank=True, default=0, null=True)
     strike = models.IntegerField(blank=True, default=1, null=True)
     created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
+    strikeList = models.ForeignKey(Count, null=True, on_delete=models.CASCADE)
+    checkedList = models.ForeignKey(Repeats, null=True, on_delete=models.CASCADE)
     # checked = models.CharField(max_length=200, null=True, blank=True, choices=CHECK)
     # counts = models.ManyToManyField(Count)
 
@@ -45,25 +65,6 @@ class Order(models.Model):
         return self.interval
 
 
-class Count(models.Model):
-    date_created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
-    order = models.ManyToManyField(Order)
-    timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
-    # updated_on = models.DateTimeField(auto_now_add=True)
-    # start_time = models.DateTimeField('date published')
-    # time_saved = models.DateTimeField(null=True, blank=True)
-    # checked = models.IntegerField(blank=True, null=True)
-    # habit = models.ForeignKey(Order)
-    # checked = models.ForeignKey(Order, null=True, default=1, on_delete=models.CASCADE)
-    #  def count_total(self):
-
-    #     return self.checked.count()
-
-
-class Repeats(models.Model):
-    date_created =  models.DateTimeField(auto_now=True, null=True, editable=False, blank=True)
-    order = models.ManyToManyField(Order)
-    timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
 
 
     # def __str__(self):
