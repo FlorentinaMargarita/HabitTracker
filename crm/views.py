@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
 from .forms import OrderForm
-from .filters import OrderFilter
 
 def home(request):
     orders = Order.objects.all()
