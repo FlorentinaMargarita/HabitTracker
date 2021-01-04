@@ -51,7 +51,7 @@ class Order(models.Model):
     strikeList = models.ManyToManyField(Count)
     checkedList = models.ManyToManyField(Repeats)
     timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
-    date_created =  models.DateTimeField(auto_now=True, null=True, editable=False, blank=True)
+    date_created = models.DateTimeField(auto_now=True, null=True, editable=False, blank=True)
     # checked = models.CharField(max_length=200, null=True, blank=True, choices=CHECK)
     # counts = models.ManyToManyField(Count)
 

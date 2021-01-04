@@ -20,18 +20,17 @@ def analytics(request):
 
 def habit(request, pk): 
     repeats = Repeats.objects.filter()
-    repeat = Repeats.objects.filter(id=pk)
+    # repeat = Repeats.objects.filter(id=pk)
+
+
     orders = Order.objects.all()
     order = Order.objects.get(id=pk)
-    more = order.checkedList.filter()
-    # orders = order.order_set.all()
-    # order.count_set.all()
-    order_count = orders.count()
+    repeat = order.checkedList.filter()
     try:
         strikes = Count.objects.get(id=pk)
     except Count.DoesNotExist:
      strikes = None
-    context = { "order":order, "order_count": order_count, "strikes":strikes, "repeats": repeats, "repeat": repeat}
+    context = { "order":order, "strikes":strikes, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
 
 def count(request, pk):
