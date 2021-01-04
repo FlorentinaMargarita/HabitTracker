@@ -26,8 +26,14 @@
         <h5>Repeated</h5>
            {% for check in repeat %}
             <p>{{check.test}}</p>
-
           {%endfor%}
+
+          <h5>Striked</h5>
+          {% for strike in striking %}
+           <p>{{strike.test}}</p>
+         {%endfor%}
+
+          
             <hr>
             <h1 style="text-align: center; padding: 10px;"></h1>
         </div>

@@ -8,6 +8,7 @@ class Count(models.Model):
     date_created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
     # order = models.ForeignKey(Order, null=True, default=1, on_delete=models.CASCADE)
     timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
+    test = models.CharField(max_length=200, null=True, blank=True)
     # updated_on = models.DateTimeField(auto_now_add=True)
     # start_time = models.DateTimeField('date published')
     # time_saved = models.DateTimeField(null=True, blank=True)
@@ -46,14 +47,10 @@ class Order(models.Model):
     checked = models.IntegerField(blank=True, default=0, null=True)
     strike = models.IntegerField(blank=True, default=0, null=True)
     created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
-    # strikeList = models.ForeignKey(Count, null=True, on_delete=models.CASCADE)
-    # checkedList = models.ForeignKey(Repeats, null=True, on_delete=models.CASCADE)
     strikeList = models.ManyToManyField(Count)
     checkedList = models.ManyToManyField(Repeats)
     timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
     date_created = models.DateTimeField(auto_now=True, null=True, editable=False, blank=True)
-    # checked = models.CharField(max_length=200, null=True, blank=True, choices=CHECK)
-    # counts = models.ManyToManyField(Count)
 
 
 
