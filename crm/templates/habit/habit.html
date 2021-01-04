@@ -22,7 +22,7 @@
                 <div class="card-body">
                     <p style="color: darkgreen">Date Created: {{order.date_created}}</p>
                     <p style="color: darkgreen">Interval: {{ order.interval }}</p>
-                    <p style="color: darkgreen">Total Strikes: </p>
+                    <p style="color: darkgreen">Total Strikes: {{total_strikes}} </p>
                     <p> <a a class="btn btn-sm btn-info" href="{% url 'update_habit' order.id %}">Update</a></p>
                     <p> <a a class="btn btn-sm btn-danger" href="{% url 'delete' order.id %}">Delete</a></p>
                 </div>
@@ -38,9 +38,6 @@
                     <h5 class="card-title text-white">Repeated</h5>
                 </div>
                 <div class="card-body">
-          
-
-
                     {% for check in repeat %}
                     <p>{{check.test}}</p>
                     {%endfor%}

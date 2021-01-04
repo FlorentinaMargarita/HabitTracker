@@ -26,11 +26,12 @@ def habit(request, pk):
     order = Order.objects.get(id=pk)
     repeat = order.checkedList.filter()
     striking = order.strikeList.filter()
+    total_strikes = striking.count()
     try:
         strikes = Count.objects.get(id=pk)
     except Count.DoesNotExist:
      strikes = None
-    context = { "order":order, "striking":striking, "repeats": repeats, "repeat": repeat}
+    context = { "order":order, "striking":striking, "repeats": repeats, "repeat": repeat, "total_strikes": total_strikes}
     return render(request, 'habit/habit.html', context)
 
 def count(request, pk):
