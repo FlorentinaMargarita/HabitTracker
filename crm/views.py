@@ -20,13 +20,16 @@ def analytics(request):
 
 def habit(request, pk): 
     strikes = Count.objects.get(id=pk)
-    repeats = Repeats.objects.get(id=pk)
+    repeats = Repeats.objects.filter()
+    repeat = Repeats.objects.filter(id=pk)
     orders = Order.objects.all()
     order = Order.objects.get(id=pk)
+    more = order.checkedList.filter()
+
     # orders = order.order_set.all()
     # order.count_set.all()
     order_count = orders.count()
-    context = { "order":order, "order_count": order_count, "strikes":strikes, "repeats": repeats}
+    context = { "order":order, "order_count": order_count, "strikes":strikes, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
 
 def count(request, pk):
@@ -74,8 +77,7 @@ def checkHabit(request, pk):
         order.checked += 1
         myDateCheck = datetime.now()    
         newRep = Repeats.objects.create(test = myDateCheck)
-        # Repeats.objects.test.add(newRep)
-        order.checkedList.add()
+        order.checkedList.add(newRep)
         myDateCheck = datetime.now()    
         order.save()
         if order.checked % 4 == 0:
