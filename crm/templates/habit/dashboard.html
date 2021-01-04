@@ -16,8 +16,24 @@
             <th>Remove</th>
             <th>View</th>
         </tr>
-        {% for order in orders %}
+
+        <!-- <form method="get">
+            {{myFilter.form}}
+            <button type="Submit">Filter</button>
+        </form> -->
+        <!-- {% for try in trial %} -->
         <tr>
+        <td>{{trial}}</td>
+        <td>{{trial.predefinedHabit}}</td>
+
+            </tr>
+        <!-- {% endfor %} -->
+
+
+
+        {% for order in orders %}
+              <tr>
+             
             {% if order.habit != null and order.habit != null  %} <td>
                 {{ order.habit }}
             </td> {% endif %}

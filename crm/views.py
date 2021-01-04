@@ -2,22 +2,23 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
 from .forms import OrderForm
+from .filters import OrderFilter
 
 def home(request):
     orders = Order.objects.all()
     count = Count.objects.all()
     total_orders = orders.count()
-    context = {'orders': orders, 'total_orders': total_orders}
+    trial = Order.objects.filter(interval="Daily")
+    context = {'orders': orders, 'total_orders': total_orders, 'trial': trial}
     return render(request, 'habit/dashboard.html', context)
 
 def analytics(request):
     orders = Order.objects.all()
-    # strikeLi = orders.strikeList.filter()
     count = Count.objects.all()
     total_count = count.count()
     total_orders = orders.count() 
     # max_strikes = len(strikeList)
-    context= {'total_orders': total_orders, 'total_count': total_count, "strikeLi": strikeLi}
+    context= {'total_orders': total_orders, 'total_count': total_count}
     return render(request, 'habit/analytics.html', context)
 
 def habit(request, pk): 
@@ -27,6 +28,10 @@ def habit(request, pk):
     repeat = order.checkedList.filter()
     striking = order.strikeList.filter()
     total_strikes = striking.count()
+    trial = Order.objects.filter(interval="Daily")
+    # trialtrial = trial.order_set.all()
+    # myFilter = OrderFilter(request.GET, queryset=orders)
+    # orders = myFilter.qs
     try:
         strikes = Count.objects.get(id=pk)
     except Count.DoesNotExist:
@@ -64,9 +69,13 @@ def updateHabit(request, pk):
 
 def delete(request, pk): 
     order = Order.objects.get(id=pk)
+    count = Count.objects.get(id=pk)
+    repeat = Repeats.objects.get(id=pk)
     form = OrderForm(instance=order)
     if request.method == 'POST' :
         order.delete()
+        count.delete()
+        repeat.delete()
         return redirect('/')
     context = {'item':order}
     return render(request, 'habit/delete.html', context)
