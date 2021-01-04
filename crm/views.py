@@ -76,15 +76,16 @@ def checkHabit(request, pk):
     order = Order.objects.get(id=pk)
     if request.method == 'POST':
         order.checked += 1
-        myDateCheck = datetime.now()    
+        date = datetime.now()    
+        myDateCheck = date.strftime("%Y-%m-%d %H:%M:%S") 
         newRep = Repeats.objects.create(test = myDateCheck)
-        order.checkedList.add(newRep)
-        myDateCheck = datetime.now()    
+        order.checkedList.add(newRep) 
         order.save()
         if order.checked % 4 == 0:
            order.strike +=1 
            myDateStrike = datetime.now()
-           newStrike = Count.objects.create(test = myDateStrike)
+           formatedDate = myDateStrike.strftime("%Y-%m-%d %H:%M:%S")
+           newStrike = Count.objects.create(test = formatedDate)
            order.strikeList.add(newStrike)
            order.save()
         return redirect('/')
