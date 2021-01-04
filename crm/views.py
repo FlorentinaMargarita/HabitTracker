@@ -23,6 +23,8 @@ def habit(request, pk):
     repeats = Repeats.objects.get(id=pk)
     orders = Order.objects.all()
     order = Order.objects.get(id=pk)
+    # orders = order.order_set.all()
+    # order.count_set.all()
     order_count = orders.count()
     context = { "order":order, "order_count": order_count, "strikes":strikes, "repeats": repeats}
     return render(request, 'habit/habit.html', context)
@@ -70,13 +72,17 @@ def checkHabit(request, pk):
     order = Order.objects.get(id=pk)
     if request.method == 'POST':
         order.checked += 1
-        Repeats.objects.create()
-        myDateCheck = datetime.now()
+        myDateCheck = datetime.now()    
+        newRep = Repeats.objects.create(test = myDateCheck)
+        # Repeats.objects.test.add(newRep)
+        order.checkedList.add()
+        myDateCheck = datetime.now()    
         order.save()
         if order.checked % 4 == 0:
-           order.strike +=1
+           order.strike +=1 
            Count.objects.create()
            myDateStrike = datetime.now()
+           order.strikeList.add()
            order.save()
         return redirect('/')
     context = {'checked': order.checked, 'strike': order.strike, 'myDateCheck': myDateCheck, "myDateStrike": myDateStrike}

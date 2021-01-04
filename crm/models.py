@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from datetime import datetime, date
+from django.contrib.auth.models import UserManager
+
 
 class Count(models.Model):
     date_created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
@@ -21,6 +23,8 @@ class Repeats(models.Model):
     date_created =  models.DateTimeField(auto_now=True, null=True, editable=False, blank=True)
     # order = models.ManyToManyField(Order)
     timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
+    test = models.CharField(max_length=200, null=True, blank=True)
+
 
 class Order(models.Model): 
     INTERVAL = (
@@ -40,23 +44,17 @@ class Order(models.Model):
     predefinedHabit = models.CharField(max_length=200, null=True, choices=HABIT, blank=True)
     interval = models.CharField(max_length=400, null=True, choices=INTERVAL)
     checked = models.IntegerField(blank=True, default=0, null=True)
-    strike = models.IntegerField(blank=True, default=1, null=True)
+    strike = models.IntegerField(blank=True, default=0, null=True)
     created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
-    strikeList = models.ForeignKey(Count, null=True, on_delete=models.CASCADE)
-    checkedList = models.ForeignKey(Repeats, null=True, on_delete=models.CASCADE)
+    # strikeList = models.ForeignKey(Count, null=True, on_delete=models.CASCADE)
+    # checkedList = models.ForeignKey(Repeats, null=True, on_delete=models.CASCADE)
+    strikeList = models.ManyToManyField(Count)
+    checkedList = models.ManyToManyField(Repeats)
     timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
     date_created =  models.DateTimeField(auto_now=True, null=True, editable=False, blank=True)
     # checked = models.CharField(max_length=200, null=True, blank=True, choices=CHECK)
     # counts = models.ManyToManyField(Count)
 
-    def __str__(self):
-        return self.interval
-
-
-
-
-    # def __str__(self):
-    #   return self.date_created
 
 
  
