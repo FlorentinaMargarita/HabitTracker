@@ -5,6 +5,7 @@
 <br>
 <div class="row" style="padding-left: 15%; padding-right: 15%;">
     <table style="margin: 3%" class="table table-sm">
+        <h1> All Habits </h1>
         <tr>
             <th>Habit</th>
             <th>Repeated so far</th>
@@ -17,23 +18,10 @@
             <th>View</th>
         </tr>
 
-        <!-- <form method="get">
-            {{myFilter.form}}
-            <button type="Submit">Filter</button>
-        </form> -->
-        <!-- {% for try in trial %} -->
-        <tr>
-        <td>{{trial}}</td>
-        <td>{{trial.predefinedHabit}}</td>
-
-            </tr>
-        <!-- {% endfor %} -->
-
 
 
         {% for order in orders %}
-              <tr>
-             
+        <tr>
             {% if order.habit != null and order.habit != null  %} <td>
                 {{ order.habit }}
             </td> {% endif %}
@@ -53,7 +41,7 @@
             </td>
             <td>
                 {{order.strike}}
-                       </td>
+            </td>
             <td>{{order.interval}}</td>
             <td>{{order.created}}</td>
             <td><a class="btn btn-sm" style="color: green;" href="{% url 'update_habit' order.id %}">Update</a></td>
@@ -61,7 +49,92 @@
             <td><a class="btn btn-sm btn-info" href="{% url 'habit' order.id %}">View</a></td>
         </tr>
         {% endfor %}
-        
+
+    </table>
+</div>
+
+<br>
+<div class="row" style="padding-left: 15%; padding-right: 15%;">
+    <table style="margin: 3%" class="table table-sm">
+        <h1> Daily Habits </h1>
+        <tr>
+            <th>Habit</th>
+            <th>Repeated so far</th>
+            <th>Strike</th>
+            <th>Interval</th>
+            <th>Date Created</th>
+            <th>Update</th>
+            <th>Remove</th>
+            <th>View</th>
+        </tr>
+
+        {% for day in dailyFilter %}
+
+        {% if day.habit != null and day.habit != null  %} <td>
+            {{ day.habit }}
+        </td> {% endif %}
+        {% if day.predefinedHabit != null and day.habit == null%} <td>
+            {{ day.predefinedHabit }}
+        </td> {% endif %}
+        <td>
+            {{day.checked}}
+        </td>
+
+        <td>
+            {{day.strike}}
+        </td>
+        <td>{{day.interval}}</td>
+        <td>{{day.created}}</td>
+        <td><a class="btn btn-sm" style="color: green;" href="{% url 'update_habit' day.id %}">Update</a></td>
+        <td><a class="btn btn-sm" style="color: rebeccapurple;" href="{% url 'delete' day.id %}">Delete</a></td>
+        <td><a class="btn btn-sm btn-info" href="{% url 'habit' day.id %}">View</a></td>
+        </tr>
+
+        {% endfor %}
+
+
+    </table>
+</div>
+
+
+<div class="row" style="padding-left: 15%; padding-right: 15%;">
+    <table style="margin: 3%" class="table table-sm">
+        <tr>
+            <th>Habit</th>
+            <th>Repeated so far</th>
+            <th>Strike</th>
+            <th>Interval</th>
+            <th>Date Created</th>
+            <th>Update</th>
+            <th>Remove</th>
+            <th>View</th>
+        </tr>
+
+
+        <h1> Weekly Habits </h1>
+        {% for week in weeklyFilter %}
+        <tr>
+            {% if week.habit != null and week.habit != null  %} <td>
+                {{ week.habit }}
+            </td> {% endif %}
+            {% if week.predefinedHabit != null and week.habit == null%} <td>
+                {{ week.predefinedHabit }}
+            </td> {% endif %}
+            <td>
+                {{week.checked}}
+            </td>
+            <td>
+                {{week.strike}}
+            </td>
+            <td>{{week.interval}}</td>
+            <td>{{week.created}}</td>
+            <td><a class="btn btn-sm" style="color: green;" href="{% url 'update_habit' week.id %}">Update</a>
+            </td>
+            <td><a class="btn btn-sm" style="color: rebeccapurple;" href="{% url 'delete' week.id %}">Delete</a>
+            </td>
+            <td><a class="btn btn-sm btn-info" href="{% url 'habit' week.id %}">View</a></td>
+        </tr>
+        {% endfor %}
     </table>
 </div>
 

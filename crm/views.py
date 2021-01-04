@@ -8,8 +8,9 @@ def home(request):
     orders = Order.objects.all()
     count = Count.objects.all()
     total_orders = orders.count()
-    trial = Order.objects.filter(interval="Daily")
-    context = {'orders': orders, 'total_orders': total_orders, 'trial': trial}
+    dailyFilter = Order.objects.filter(interval="Daily")
+    weeklyFilter = Order.objects.filter(interval="Weekly")
+    context = {'orders': orders, 'total_orders': total_orders, 'dailyFilter': dailyFilter, 'weeklyFilter':weeklyFilter}
     return render(request, 'habit/dashboard.html', context)
 
 def analytics(request):
@@ -38,6 +39,31 @@ def habit(request, pk):
      strikes = None
     context = { "order":order, "striking":striking, "repeats": repeats, "repeat": repeat, "total_strikes": total_strikes}
     return render(request, 'habit/habit.html', context)
+
+
+def examples(request): 
+    orders = Order.objects.all()
+    count = Count.objects.all()
+    total_count = count.count()
+    total_orders = orders.count() 
+    # max_strikes = len(strikeList)
+    context= {'total_orders': total_orders, 'total_count': total_count}
+    return render(request, 'habit/examples.html', context)
+ 
+def examplesCallMum(request):
+    return render(request, 'habit/examplesCallMum.html')
+
+def examplesWorkout(request):
+    return render(request, 'habit/examplesWorkout.html')
+
+def examplesMeditate(request):
+    return render(request, 'habit/examplesMeditate.html')
+
+def examplesBuyGro(request):
+    return render(request, 'habit/examplesBuyGro.html')
+
+def examplesStudy(request):
+    return render(request, 'habit/examplesStudy.html')
 
 def count(request, pk):
     counts = Count.objects.get(all)

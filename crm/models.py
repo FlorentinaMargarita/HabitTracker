@@ -31,9 +31,7 @@ class Order(models.Model):
     INTERVAL = (
             ('Daily', 'Daily'),
             ('Weekly', 'Weekly' ),
-            ('Biweekly', 'Biweekly'),
-            ('Monthly', 'Monthly'),
-            )
+                      )
     HABIT = (
         ('Call Mum', 'Call Mum'),
         ('Workout', 'Workout'),
