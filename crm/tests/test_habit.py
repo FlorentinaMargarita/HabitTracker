@@ -1,8 +1,8 @@
 from django.test import TestCase, Client
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve    
-from crm.views import analytics, habit, count
-from crm.models import Order, Count, Repeats 
+from crm.views import analytics, habit
+from crm.models import Order, Repeats 
 import json 
 
 # Tests

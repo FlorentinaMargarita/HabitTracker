@@ -6,7 +6,6 @@ from datetime import datetime, timedelta
 
 def home(request):
     orders = Order.objects.all()
-    count = Count.objects.all()
     total_orders = orders.count()
     dailyFilter = Order.objects.filter(interval="Daily")
     weeklyFilter = Order.objects.filter(interval="Weekly")
@@ -15,11 +14,9 @@ def home(request):
 
 def analytics(request):
     orders = Order.objects.all()
-    count = Count.objects.all()
-    total_count = count.count()
     total_orders = orders.count() 
     # max_strikes = len(strikeList)
-    context= {'total_orders': total_orders, 'total_count': total_count}
+    context= {'total_orders': total_orders}
     return render(request, 'habit/analytics.html', context)
 
 def habit(request, pk): 
@@ -32,22 +29,15 @@ def habit(request, pk):
     orders = Order.objects.all()
     order = Order.objects.get(id=pk)
     repeat = order.checkedList.filter()
-    striking = order.strikeList.filter()
     trial = Order.objects.filter(interval="Daily")
-    try:
-        strikes = Count.objects.get(id=pk)
-    except Count.DoesNotExist:
-     strikes = None
-    context = { "testData": testData, "order":order, "striking":striking, "repeats": repeats, "repeat": repeat}
+    context = { "testData": testData, "order":order, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
 
 
 def examples(request): 
     orders = Order.objects.all()
-    count = Count.objects.all()
-    total_count = count.count()
     total_orders = orders.count() 
-    context= {'total_orders': total_orders, 'total_count': total_count}
+    context= {'total_orders': total_orders}
     return render(request, 'habit/examples.html', context)
 
 def examplesCallMum(request):
@@ -87,12 +77,11 @@ def examplesBuyGro(request):
 def examplesStudy(request):
     return render(request, 'habit/examplesStudy.html')
 
-def count(request, pk):
-    counts = Count.objects.get(all)
-    checked = Repeats.objects.get(id=pk)
-    total_count = counts.count()
-    context = {"total_count": total_count, "checked":checked}
-    return render(request, 'habit/habit.html', context)
+# def count(request, pk):
+#     counts = Count.objects.get(all)
+#     checked = Repeats.objects.get(id=pk)
+#     context = {"checked":checked}
+#     return render(request, 'habit/habit.html', context)
 
 def createHabit(request):
     form = OrderForm()

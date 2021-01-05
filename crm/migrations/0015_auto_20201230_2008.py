@@ -12,12 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='order',
-            name='predefinedHabit',
-            field=models.CharField(choices=[('Call Mum', 'Call Mum'), ('Workout', 'Workout'), ('Buy Groceries', 'Buy Groceries'), ('Study Maths', 'Study Maths'), ('Meditate', 'Meditate')], max_length=200, null=True),
-        ),
-        migrations.AlterField(
-            model_name='order',
-            name='habit',
+             name='habit',
             field=models.CharField(max_length=200, null=True),
-        ),
-    ]
+       ),
+   ]
