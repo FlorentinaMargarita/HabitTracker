@@ -139,6 +139,7 @@ def delete(request, pk):
 
 def checkHabit(request, pk):
     order = Order.objects.get(id=pk)
+    repeats = order.checkedList.count()
     if request.method == 'POST':
         order.checked += 1
         date = datetime.now()    
@@ -147,7 +148,7 @@ def checkHabit(request, pk):
         order.checkedList.add(newRep) 
         order.save()
         return redirect('/')
-    context = {'checked': order.checked, 'myDateCheck': myDateCheck}
+    context = {'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
     return render(request, 'habit/order_form.html', context)
 
     def strike(request, pk): 

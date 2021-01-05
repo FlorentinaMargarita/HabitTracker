@@ -27,7 +27,7 @@
                        {{ order.habit }}
             </td>
             <td>
-                {{order.checked}}
+                {{order.checkedList.count}}
             </td>
             <td>
                 <form action="{% url 'check_habit' order.id %}" method="POST">
@@ -72,11 +72,12 @@
         </td> 
        
         <td>
-            {{day.checked}}
+            {{day.checkedList.count}}
+           
         </td>
 
         <td>{{day.interval}}</td>
-        <td>{{day.created}}</td>
+        <td>{{day.date_created}}</td>
         <td><a class="btn btn-sm" style="color: green;" href="{% url 'update_habit' day.id %}">Update</a></td>
         <td><a class="btn btn-sm" style="color: rebeccapurple;" href="{% url 'delete' day.id %}">Delete</a></td>
         <td><a class="btn btn-sm btn-info" href="{% url 'habit' day.id %}">View</a></td>
@@ -108,14 +109,12 @@
              <td>
                 {{ week.habit }}
             </td> 
-  <td>
-                {{ week.predefinedHabit }}
-            </td> 
+
             <td>
-                {{week.checked}}
+                {{week.checkedList.count}}
             </td>
                       <td>{{week.interval}}</td>
-            <td>{{week.created}}</td>
+            <td>{{week.date_created}}</td>
             <td><a class="btn btn-sm" style="color: green;" href="{% url 'update_habit' week.id %}">Update</a>
             </td>
             <td><a class="btn btn-sm" style="color: rebeccapurple;" href="{% url 'delete' week.id %}">Delete</a>
