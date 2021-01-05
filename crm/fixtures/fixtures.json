@@ -1,0 +1,47 @@
+
+[{
+    "model": "crm.Order",
+    "pk": 100,
+    "fields": {
+        "habit": "Read",
+        "interval": "Daily",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Order",
+    "pk": 101,
+    "fields": {
+        "habit": "Prepare Meals",
+        "interval": "Weekly",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Order",
+    "pk": 102,
+    "fields": {
+        "habit": "Clean Bathroom",
+        "interval": "Weekly",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Order",
+    "pk": 103,
+    "fields": {
+        "habit": "Organize",
+        "interval": "Weekly",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Order",
+    "pk": 104,
+    "fields": {
+        "habit": "Breathing Exercise",
+        "interval": "Weekly",
+        "timeStamp": "2020-06-06"
+    }
+}
+]

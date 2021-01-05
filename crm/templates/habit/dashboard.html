@@ -10,7 +10,7 @@
             <th>Habit</th>
             <th>Repeated so far</th>
             <th>Did it</th>
-            <th>Strike</th>
+            <!-- <th>Strike</th> -->
             <th>Interval</th>
             <th>Date Created</th>
             <th>Update</th>
@@ -39,9 +39,9 @@
                         class="btn btn-sm btn-danger">Check</button>
                 </form>
             </td>
-            <td>
+            <!-- <td>
                 {{order.strike}}
-            </td>
+            </td> -->
             <td>{{order.interval}}</td>
             <td>{{order.created}}</td>
             <td><a class="btn btn-sm" style="color: green;" href="{% url 'update_habit' order.id %}">Update</a></td>
@@ -60,7 +60,6 @@
         <tr>
             <th>Habit</th>
             <th>Repeated so far</th>
-            <th>Strike</th>
             <th>Interval</th>
             <th>Date Created</th>
             <th>Update</th>
@@ -80,9 +79,6 @@
             {{day.checked}}
         </td>
 
-        <td>
-            {{day.strike}}
-        </td>
         <td>{{day.interval}}</td>
         <td>{{day.created}}</td>
         <td><a class="btn btn-sm" style="color: green;" href="{% url 'update_habit' day.id %}">Update</a></td>
@@ -102,7 +98,6 @@
         <tr>
             <th>Habit</th>
             <th>Repeated so far</th>
-            <th>Strike</th>
             <th>Interval</th>
             <th>Date Created</th>
             <th>Update</th>
@@ -123,10 +118,7 @@
             <td>
                 {{week.checked}}
             </td>
-            <td>
-                {{week.strike}}
-            </td>
-            <td>{{week.interval}}</td>
+                      <td>{{week.interval}}</td>
             <td>{{week.created}}</td>
             <td><a class="btn btn-sm" style="color: green;" href="{% url 'update_habit' week.id %}">Update</a>
             </td>

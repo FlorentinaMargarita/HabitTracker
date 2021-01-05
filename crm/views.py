@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
 from .forms import OrderForm
+from datetime import datetime, timedelta
 
 def home(request):
     orders = Order.objects.all()
@@ -22,21 +23,22 @@ def analytics(request):
     return render(request, 'habit/analytics.html', context)
 
 def habit(request, pk): 
+    testData = [{
+        'habit': 'Call Mum',
+        'interval': 'Weekly', 
+        'date_created': '2020-09-12'
+    }]
     repeats = Repeats.objects.filter()
     orders = Order.objects.all()
     order = Order.objects.get(id=pk)
     repeat = order.checkedList.filter()
     striking = order.strikeList.filter()
-    total_strikes = striking.count()
     trial = Order.objects.filter(interval="Daily")
-    # trialtrial = trial.order_set.all()
-    # myFilter = OrderFilter(request.GET, queryset=orders)
-    # orders = myFilter.qs
     try:
         strikes = Count.objects.get(id=pk)
     except Count.DoesNotExist:
      strikes = None
-    context = { "order":order, "striking":striking, "repeats": repeats, "repeat": repeat, "total_strikes": total_strikes}
+    context = { "testData": testData, "order":order, "striking":striking, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
 
 
@@ -45,12 +47,33 @@ def examples(request):
     count = Count.objects.all()
     total_count = count.count()
     total_orders = orders.count() 
-    # max_strikes = len(strikeList)
     context= {'total_orders': total_orders, 'total_count': total_count}
     return render(request, 'habit/examples.html', context)
- 
+
 def examplesCallMum(request):
-    return render(request, 'habit/examplesCallMum.html')
+    testData = [{
+        'habit': 'Call Mum',
+        'interval': 'Weekly', 
+        'date_created': '2020-09-12',
+        'time_stamp1':  '2020-08-12',
+        'time_stamp2':  '2020-07-12',
+        'time_stamp3':  '2020-06-12',
+        'time_stamp4':  '2020-05-12',
+        'time_stamp5':  '2020-04-12',
+        'time_stamp6':  '2020-03-12',
+        'time_stamp7':  '2020-02-12',
+        'time_stamp8':  '2020-01-12',
+        'time_stamp9':  '2020-30-11',
+        'time_stamp10': '2020-29-11',
+        'time_stamp11': '2020-28-11',
+        'time_stamp12': '2020-27-11',
+        'time_stamp13': '2020-26-11',
+        'time_stamp14': '2020-25-11',
+        'time_stamp15': '2020-24-11',
+        'time_stamp16': '2020-23-11',
+    }]
+    context = {"testData": testData}
+    return render(request, 'habit/examplesCallMum.html', context)
 
 def examplesWorkout(request):
     return render(request, 'habit/examplesWorkout.html')
@@ -107,6 +130,26 @@ def delete(request, pk):
 
 # this is a functional view
 # it needs to know which habit we are referring to and then it needs to save it
+# def checkHabit(request, pk):
+#     order = Order.objects.get(id=pk)
+#     if request.method == 'POST':
+#         order.checked += 1
+#         date = datetime.now()    
+#         myDateCheck = date.strftime("%Y-%m-%d %H:%M:%S") 
+#         newRep = Repeats.objects.create(test = myDateCheck)
+#         order.checkedList.add(newRep) 
+#         order.save()
+#         if order.checked % 4 == 0:
+#            order.strike +=1 
+#            myDateStrike = datetime.now()
+#            formatedDate = myDateStrike.strftime("%Y-%m-%d %H:%M:%S")
+#            newStrike = Count.objects.create(test = formatedDate)
+#            order.strikeList.add(newStrike)
+#            order.save()
+#         return redirect('/')
+#     context = {'checked': order.checked, 'strike': order.strike, 'myDateCheck': myDateCheck, "myDateStrike": myDateStrike}
+#     return render(request, 'habit/order_form.html', context)
+
 def checkHabit(request, pk):
     order = Order.objects.get(id=pk)
     if request.method == 'POST':
@@ -116,16 +159,18 @@ def checkHabit(request, pk):
         newRep = Repeats.objects.create(test = myDateCheck)
         order.checkedList.add(newRep) 
         order.save()
-        if order.checked % 4 == 0:
-           order.strike +=1 
-           myDateStrike = datetime.now()
-           formatedDate = myDateStrike.strftime("%Y-%m-%d %H:%M:%S")
-           newStrike = Count.objects.create(test = formatedDate)
-           order.strikeList.add(newStrike)
-           order.save()
         return redirect('/')
-    context = {'checked': order.checked, 'strike': order.strike, 'myDateCheck': myDateCheck, "myDateStrike": myDateStrike}
+    context = {'checked': order.checked, 'myDateCheck': myDateCheck}
     return render(request, 'habit/order_form.html', context)
 
+    def strike(request, pk): 
+        order = Order.objects.get(id=pk)
+        time_diff = timedelta(day=1)
+        newTime = date + time_diff
+        oldTime = order.timeStamp
+    if newTime >= oldTime:
+        strike = 0
+    context = {"strike": strike}
+    return render(request, 'habit/order_form.html', context)
 
 

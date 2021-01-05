@@ -6,23 +6,12 @@ from django.contrib.auth.models import UserManager
 
 class Count(models.Model):
     date_created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
-    # order = models.ForeignKey(Order, null=True, default=1, on_delete=models.CASCADE)
     timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
     test = models.CharField(max_length=200, null=True, blank=True)
-    # updated_on = models.DateTimeField(auto_now_add=True)
-    # start_time = models.DateTimeField('date published')
-    # time_saved = models.DateTimeField(null=True, blank=True)
-    # checked = models.IntegerField(blank=True, null=True)
-    # habit = models.ForeignKey(Order)
-    # checked = models.ForeignKey(Order, null=True, default=1, on_delete=models.CASCADE)
-    #  def count_total(self):
-
-    #     return self.checked.count()
 
 
 class Repeats(models.Model):
     date_created =  models.DateTimeField(auto_now=True, null=True, editable=False, blank=True)
-    # order = models.ManyToManyField(Order)
     timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
     test = models.CharField(max_length=200, null=True, blank=True)
 
