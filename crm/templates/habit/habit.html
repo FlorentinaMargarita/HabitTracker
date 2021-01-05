@@ -5,12 +5,10 @@
 <br>
 
 <h1 style="margin-left: 2%; margin-bottom: 1%;">
-    {% if order.habit != null and order.habit != null  %} <td>
+    <td>
         {{ order.habit }}
-    </td> {% endif %}
-    {% if order.predefinedHabit != null and order.habit == null%} <td>
-        {{ order.predefinedHabit }}
-    </td> {% endif %}
+    </td>
+
 </h1>
 
 <div class="row">
@@ -53,9 +51,7 @@
                     <h5 class="card-title">Strikes</h5>
                 </div>
                 <div class="card-body">
-                    {% for strike in striking %}
-                    <p>{{strike.test}}</p>
-                    {%endfor%}
+                    <p>{{strike}}</p>                      
                 </div>
             </div>
         </div>

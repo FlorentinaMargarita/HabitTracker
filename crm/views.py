@@ -25,12 +25,15 @@ def habit(request, pk):
         'interval': 'Weekly', 
         'date_created': '2020-09-12'
     }]
-    repeats = Repeats.objects.filter()
+    repeats = Repeats.objects.get(id=pk)
     orders = Order.objects.all()
     order = Order.objects.get(id=pk)
     repeat = order.checkedList.filter()
-    trial = Order.objects.filter(interval="Daily")
-    context = { "testData": testData, "order":order, "repeats": repeats, "repeat": repeat}
+    timeDiff = datetime.now() - timedelta(days=1)
+    strike = 1
+    if timeDiff == timedelta(days=1):
+        strike = 0
+    context = { "testData": testData, "order":order, "repeats": repeats, "repeat": repeat, "strike": strike}
     return render(request, 'habit/habit.html', context)
 
 
