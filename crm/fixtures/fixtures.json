@@ -5,7 +5,9 @@
     "fields": {
         "habit": "Read",
         "interval": "Daily",
-        "timeStamp": "2020-06-06"
+        "timeStamp": "2020-06-06",
+        "date_created": "2020-06-06 10:10"
+        
     }
 },
 {
@@ -14,6 +16,7 @@
     "fields": {
         "habit": "Prepare Meals",
         "interval": "Weekly",
+        "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06"
     }
 },
@@ -23,7 +26,9 @@
     "fields": {
         "habit": "Clean Bathroom",
         "interval": "Weekly",
+        "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06"
+        
     }
 },
 {
@@ -32,6 +37,7 @@
     "fields": {
         "habit": "Organize",
         "interval": "Weekly",
+        "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06"
     }
 },
@@ -41,6 +47,7 @@
     "fields": {
         "habit": "Breathing Exercise",
         "interval": "Weekly",
+        "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06"
     }
 }

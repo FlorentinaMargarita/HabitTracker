@@ -106,13 +106,11 @@ def updateHabit(request, pk):
 
 def delete(request, pk): 
     order = Order.objects.get(id=pk)
-    count = Count.objects.get(id=pk)
-    repeat = Repeats.objects.get(id=pk)
+    # repeat = Repeats.objects.get(id=pk)
     form = OrderForm(instance=order)
     if request.method == 'POST' :
         order.delete()
-        count.delete()
-        repeat.delete()
+        # repeat.delete()
         return redirect('/')
     context = {'item':order}
     return render(request, 'habit/delete.html', context)

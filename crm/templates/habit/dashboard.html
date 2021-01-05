@@ -43,7 +43,7 @@
                 {{order.strike}}
             </td> -->
             <td>{{order.interval}}</td>
-            <td>{{order.created}}</td>
+            <td>{{order.date_created}}</td>
             <td><a class="btn btn-sm" style="color: green;" href="{% url 'update_habit' order.id %}">Update</a></td>
             <td><a class="btn btn-sm" style="color: rebeccapurple;" href="{% url 'delete' order.id %}">Delete</a></td>
             <td><a class="btn btn-sm btn-info" href="{% url 'habit' order.id %}">View</a></td>
