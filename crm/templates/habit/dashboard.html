@@ -22,12 +22,10 @@
 
         {% for order in orders %}
         <tr>
-            {% if order.habit != null and order.habit != null  %} <td>
-                {{ order.habit }}
-            </td> {% endif %}
-            {% if order.predefinedHabit != null and order.habit == null%} <td>
-                {{ order.predefinedHabit }}
-            </td> {% endif %}
+                       
+            <td> 
+                       {{ order.habit }}
+            </td>
             <td>
                 {{order.checked}}
             </td>
@@ -69,12 +67,10 @@
 
         {% for day in dailyFilter %}
 
-        {% if day.habit != null and day.habit != null  %} <td>
+       <td>
             {{ day.habit }}
-        </td> {% endif %}
-        {% if day.predefinedHabit != null and day.habit == null%} <td>
-            {{ day.predefinedHabit }}
-        </td> {% endif %}
+        </td> 
+       
         <td>
             {{day.checked}}
         </td>
@@ -109,12 +105,12 @@
         <h1> Weekly Habits </h1>
         {% for week in weeklyFilter %}
         <tr>
-            {% if week.habit != null and week.habit != null  %} <td>
+             <td>
                 {{ week.habit }}
-            </td> {% endif %}
-            {% if week.predefinedHabit != null and week.habit == null%} <td>
+            </td> 
+  <td>
                 {{ week.predefinedHabit }}
-            </td> {% endif %}
+            </td> 
             <td>
                 {{week.checked}}
             </td>

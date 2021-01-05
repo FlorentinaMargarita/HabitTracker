@@ -49,6 +49,78 @@
         "interval": "Weekly",
         "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06"
+     
+    }
+},
+{
+    "model": "crm.Order",
+    "pk": 105,
+    "fields": {
+        "habit": "Grocery Shopping",
+        "interval": "Weekly",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06",
+        "checkedList": [100, 101, 102, 103, 104, 105]
+     
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 100,
+    "fields": {
+        "test": "2021-01-04 17:26:20",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+     
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 101,
+    "fields": {
+        "test": "2021-01-04 17:26:20",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+     
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 102,
+    "fields": {
+        "test": "2021-01-04 17:26:20",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+     
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 103,
+    "fields": {
+        "test": "2021-01-04 17:26:20",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+     
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 104,
+    "fields": {
+        "test": "2021-01-04 17:26:20",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+     
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 105,
+    "fields": {
+        "test": "2021-01-04 17:26:20",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
     }
 }
 ]
