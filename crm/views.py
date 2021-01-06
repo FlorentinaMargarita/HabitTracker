@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from .models import *
 from .forms import OrderForm
 from datetime import datetime, timedelta
+from django.utils.dateparse import (
+    parse_date, parse_datetime, parse_duration, parse_time
+)
 
 def home(request):
     orders = Order.objects.all()
@@ -29,22 +32,34 @@ def habit(request, pk):
     orders = Order.objects.all()
     order = Order.objects.get(id=pk)
     repeat = order.checkedList.filter()
-
-    today = datetime.today()
-    lastTimeStamp = order.timeStamp
-    
-    compareDate = today - timedelta(days=1) 
-
-  
-    if lastTimeStamp == today:
-                pass
-    # if compareDate == lastTimeStamp:
-    #             order.checked += 1
+    streak = order.streak
+    test1 = repeats.test
+    test = parse_date(test1)
+    today = date.today()
+    # lastTimeStamp = order.timeStamp.date
+    compareDate = today + timedelta(days=1) 
+    delta = today - compareDate
+    delta1 = today -  test
+    print1 = print(test)
+    print2 = print(today)
+    print3 = print(compareDate)
+    print4 = print(delta.days)
+    # print5 = print(delta1)
+    print6 = print(test)
+    if compareDate == today:
+                streak += 1
+                print("1st loop runs")
+    if compareDate == test:
+                streak += 1
+                print("2nd loop runs")
+    if delta.days == 0:
+            streak += 1
+            print("3rd loop runs")
     else: 
-        order.checked == 0
-
+        streak = 0
+        print("last loop")
     # return current_streak
-    context = { "compareDate":compareDate, "today": today, "lastTimeStamp": lastTimeStamp, "testData": testData, "current_streak":order.checked, "order":order, "repeats": repeats, "repeat": repeat}
+    context = { "compareDate":compareDate, "today": today, "lastTimeStamp": test, "testData": testData, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
 
        # if timeDiff == timedelta(days=1):
@@ -170,8 +185,8 @@ def checkHabit(request, pk):
     repeats = order.checkedList.count()
     if request.method == 'POST':
         order.checked += 1
-        date = datetime.now()    
-        myDateCheck = date.strftime("%Y-%m-%d %H:%M:%S") 
+        myDateCheck = date.today()    
+        # myDateCheck = date.strftime("%Y-%m-%d %H:%M:%S") 
         newRep = Repeats.objects.create(test = myDateCheck)
         order.checkedList.add(newRep) 
 
@@ -180,14 +195,7 @@ def checkHabit(request, pk):
     context = {'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
     return render(request, 'habit/order_form.html', context)
 
-    def strike(request, pk): 
-        order = Order.objects.get(id=pk)
-        time_diff = timedelta(day=1)
-        # newTime = date + time_diff
-        oldTime = order.timeStamp
-    if newTime >= oldTime:
-        strike = 0
-    context = {"strike": strike}
-    return render(request, 'habit/order_form.html', context)
+
+    
 
 
