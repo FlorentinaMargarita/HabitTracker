@@ -40,23 +40,22 @@ def habit(request, pk):
     today1 = secondToLast.first().test
     today = parse_date(today1)
     print('today', today)
-    # oneDayPassed = today - timedelta(days=1) 
     delta = today - lastChecked
     delta1 = today -  lastChecked
     print5 = print(delta)
     if delta.days == 1:
                 streak += 1
-                print("1st loop runs")
+                print("1st loop runs", "streak", streak)
+                order.save()
     if delta.days == 0:
                 pass
-                print("2nd loop runs")
+                print("2nd loop runs", streak)
+                order.save()
     if delta.days > 1:   
             streak == 0
             print("3rd loop runs")
-    # if delta.days == 
-    #     streak == 0
-    #     print("last loop")
-    # return current_streak
+            order.save()
+    order.save()
     context = {"today": today, "lastTimeStamp": lastChecked, "testData": testData, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
 
@@ -175,6 +174,31 @@ def checkHabit(request, pk):
         newRep = Repeats.objects.create(test = myDateCheck)
         order.checkedList.add(newRep) 
         order.test = myDateCheck
+
+        secondToLast = order.checkedList.all().order_by('-test')
+        print(secondToLast[1].test)
+        penultimate = secondToLast[1].test
+        lastChecked = parse_date(penultimate)
+        today1 = secondToLast.first().test
+        today = parse_date(today1)
+        print('today', today)
+        delta = today - lastChecked
+        delta1 = today -  lastChecked
+        print5 = print(delta)
+        if delta.days == 1:
+                    order.streak += 1
+                    print("1st loop runs", "streak", order.streak)
+                   
+        if delta.days == 0:
+                    pass
+                    print("2nd loop runs", order.streak)
+                    
+        if delta.days > 1:   
+                order.streak == 0
+                print("3rd loop runs")
+                
+
+
         order.save()
         return redirect('/')
     context = {'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
