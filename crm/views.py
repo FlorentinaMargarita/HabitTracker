@@ -33,25 +33,22 @@ def habit(request, pk):
     order = Order.objects.get(id=pk)
     repeat = order.checkedList.filter()
     streak = order.streak
-    # test1 = order.test
-    test1 = repeats.test
-    # parseStuff = parse_date(repeats.test.last())
     secondToLast = order.checkedList.all().order_by('-test')
-    print(secondToLast)
     print(secondToLast[1].test)
     penultimate = secondToLast[1].test
-    print("last element", order.checkedList.first().test)
     lastChecked = parse_date(penultimate)
-    today = date.today()
-    oneDayPassed = today - timedelta(days=1) 
-    delta = lastChecked - oneDayPassed
+    today1 = secondToLast.first().test
+    today = parse_date(today1)
+    print('today', today)
+    # oneDayPassed = today - timedelta(days=1) 
+    delta = today - lastChecked
     delta1 = today -  lastChecked
     print5 = print(delta)
-    if today == lastChecked:
-                pass
-                print("1st loop runs")
-    if oneDayPassed == lastChecked:
+    if delta.days == 1:
                 streak += 1
+                print("1st loop runs")
+    if delta.days == 0:
+                pass
                 print("2nd loop runs")
     if delta.days > 1:   
             streak == 0
@@ -60,7 +57,7 @@ def habit(request, pk):
     #     streak == 0
     #     print("last loop")
     # return current_streak
-    context = {"penultimate":penultimate, "compareDate": oneDayPassed, "today": today, "lastTimeStamp": lastChecked, "testData": testData, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
+    context = {"today": today, "lastTimeStamp": lastChecked, "testData": testData, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
 
 
