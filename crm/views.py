@@ -142,28 +142,6 @@ def delete(request, pk):
     context = {'item':order}
     return render(request, 'habit/delete.html', context)
 
-# this is a functional view
-# it needs to know which habit we are referring to and then it needs to save it
-# def checkHabit(request, pk):
-#     order = Order.objects.get(id=pk)
-#     if request.method == 'POST':
-#         order.checked += 1
-#         date = datetime.now()    
-#         myDateCheck = date.strftime("%Y-%m-%d %H:%M:%S") 
-#         newRep = Repeats.objects.create(test = myDateCheck)
-#         order.checkedList.add(newRep) 
-#         order.save()
-#         if order.checked % 4 == 0:
-#            order.strike +=1 
-#            myDateStrike = datetime.now()
-#            formatedDate = myDateStrike.strftime("%Y-%m-%d %H:%M:%S")
-#            newStrike = Count.objects.create(test = formatedDate)
-#            order.strikeList.add(newStrike)
-#            order.save()
-#         return redirect('/')
-#     context = {'checked': order.checked, 'strike': order.strike, 'myDateCheck': myDateCheck, "myDateStrike": myDateStrike}
-#     return render(request, 'habit/order_form.html', context)
-
 def checkHabit(request, pk):
     order = Order.objects.get(id=pk)
     repeats = order.checkedList.count()
@@ -174,31 +152,36 @@ def checkHabit(request, pk):
         newRep = Repeats.objects.create(test = myDateCheck)
         order.checkedList.add(newRep) 
         order.test = myDateCheck
-
         secondToLast = order.checkedList.all().order_by('-test')
-        print(secondToLast[1].test)
-        penultimate = secondToLast[1].test
-        lastChecked = parse_date(penultimate)
-        today1 = secondToLast.first().test
-        today = parse_date(today1)
-        print('today', today)
-        delta = today - lastChecked
-        delta1 = today -  lastChecked
-        print5 = print(delta)
-        if delta.days == 1:
-                    order.streak += 1
-                    print("1st loop runs", "streak", order.streak)
-                   
-        if delta.days == 0:
-                    pass
-                    print("2nd loop runs", order.streak)
-                    
-        if delta.days > 1:   
-                order.streak == 0
-                print("3rd loop runs")
-                
-
-
+        p = 1
+        i = 0
+      
+        for oneThing in secondToLast:
+            penultimate = secondToLast[p].test
+            lastChecked = parse_date(penultimate)
+            today1 = secondToLast[i].test
+            today = parse_date(today1)
+            print('today', today)
+            delta = today - lastChecked
+            delta1 = today -  lastChecked
+            print5 = print(delta)
+            # while delta.days > 1:
+            #     i+=1
+            if delta.days == 1:
+                order.streak += 1
+                p+=1
+                print("i", i, "p", p)
+                print("1st loop runs", "streak", order.streak)  
+            # while delta.days == 0:
+            if delta.days == 0:
+            #             pass
+                        i+=1
+                        p+=1
+                        print("2nd loop runs", order.streak)  
+                        print("i", i, "p", p)                  
+            if delta.days > 1:   
+                    order.streak == 0
+                    print("3rd loop runs")            
         order.save()
         return redirect('/')
     context = {'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
