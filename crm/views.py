@@ -34,32 +34,33 @@ def habit(request, pk):
     repeat = order.checkedList.filter()
     streak = order.streak
     test1 = repeats.test
-    test = parse_date(test1)
-    today = date.today()
-    # lastTimeStamp = order.timeStamp.date
-    compareDate = today + timedelta(days=1) 
-    delta = today - compareDate
-    delta1 = today -  test
-    print1 = print(test)
-    print2 = print(today)
-    print3 = print(compareDate)
-    print4 = print(delta.days)
+    print("order.test", order.test)
+    # print1 = print(lastChecked)
+    # print2 = print(today)
+    # print3 = print(oneDayPassed)
+    # print4 = print(delta.days)
     # print5 = print(delta1)
-    print6 = print(test)
-    if compareDate == today:
-                streak += 1
+    # lastChecked = parse_date(test1)
+    lastChecked = parse_date(test1)
+    today = date.today()
+    oneDayPassed = today - timedelta(days=1) 
+    delta = lastChecked - oneDayPassed
+    delta1 = today -  lastChecked
+    print5 = print(delta)
+    if today == lastChecked:
+                pass
                 print("1st loop runs")
-    if compareDate == test:
+    if oneDayPassed == lastChecked:
                 streak += 1
                 print("2nd loop runs")
-    if delta.days == 0:
-            streak += 1
+    if delta.days > 1:   
+            streak == 0
             print("3rd loop runs")
-    else: 
-        streak = 0
-        print("last loop")
+    # if delta.days == 
+    #     streak == 0
+    #     print("last loop")
     # return current_streak
-    context = { "compareDate":compareDate, "today": today, "lastTimeStamp": test, "testData": testData, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
+    context = { "compareDate": oneDayPassed, "today": today, "lastTimeStamp": lastChecked, "testData": testData, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
 
        # if timeDiff == timedelta(days=1):
@@ -189,7 +190,7 @@ def checkHabit(request, pk):
         # myDateCheck = date.strftime("%Y-%m-%d %H:%M:%S") 
         newRep = Repeats.objects.create(test = myDateCheck)
         order.checkedList.add(newRep) 
-
+        order.test = myDateCheck
         order.save()
         return redirect('/')
     context = {'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}

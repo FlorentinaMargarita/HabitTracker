@@ -22,6 +22,7 @@ class Order(models.Model):
     checkedList = models.ManyToManyField(Repeats)
     timeStamp = models.DateTimeField(auto_now=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True, editable=False, blank=True)
+    test = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
 	        return self.habit
