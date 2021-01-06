@@ -149,6 +149,7 @@ def checkHabit(request, pk):
         myDateCheck = date.strftime("%Y-%m-%d %H:%M:%S") 
         newRep = Repeats.objects.create(test = myDateCheck)
         order.checkedList.add(newRep) 
+        
         order.save()
         return redirect('/')
     context = {'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
