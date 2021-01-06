@@ -33,8 +33,16 @@ def habit(request, pk):
     order = Order.objects.get(id=pk)
     repeat = order.checkedList.filter()
     streak = order.streak
+    # test1 = order.test
     test1 = repeats.test
-    print("order.test", order.test)
+    # parseStuff = parse_date(repeats.test.last())
+    secondToLast = order.checkedList.all().order_by('-test')
+    print(secondToLast)
+    print(secondToLast[2].test)
+    penultimate = secondToLast[2].test
+    # holy = parse_date(secondToLast[2])
+    # print(holy)
+    print("last element", order.checkedList.first().test)
     # print1 = print(lastChecked)
     # print2 = print(today)
     # print3 = print(oneDayPassed)
@@ -60,7 +68,7 @@ def habit(request, pk):
     #     streak == 0
     #     print("last loop")
     # return current_streak
-    context = { "compareDate": oneDayPassed, "today": today, "lastTimeStamp": lastChecked, "testData": testData, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
+    context = {"penultimate":penultimate, "compareDate": oneDayPassed, "today": today, "lastTimeStamp": lastChecked, "testData": testData, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
 
        # if timeDiff == timedelta(days=1):
