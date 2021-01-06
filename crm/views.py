@@ -39,22 +39,8 @@ def habit(request, pk):
     lastChecked = parse_date(penultimate)
     today1 = secondToLast.first().test
     today = parse_date(today1)
-    print('today', today)
     delta = today - lastChecked
-    delta1 = today -  lastChecked
     print5 = print(delta)
-    if delta.days == 1:
-                streak += 1
-                print("1st loop runs", "streak", streak)
-                order.save()
-    if delta.days == 0:
-                pass
-                print("2nd loop runs", streak)
-                order.save()
-    if delta.days > 1:   
-            streak == 0
-            print("3rd loop runs")
-            order.save()
     order.save()
     context = {"today": today, "lastTimeStamp": lastChecked, "testData": testData, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
@@ -153,41 +139,45 @@ def checkHabit(request, pk):
         order.checkedList.add(newRep) 
         order.test = myDateCheck
         secondToLast = order.checkedList.all().order_by('-test')
-        p = 1
+        print("length:", len(secondToLast))
         i = 0
-      
-        for oneThing in secondToLast:
-            penultimate = secondToLast[p].test
-            lastChecked = parse_date(penultimate)
-            today1 = secondToLast[i].test
-            today = parse_date(today1)
-            print('today', today)
-            delta = today - lastChecked
-            delta1 = today -  lastChecked
-            print5 = print(delta)
-            # while delta.days > 1:
-            #     i+=1
+        p = i+1   
+        penultimate = secondToLast[p].test
+        lastChecked = parse_date(penultimate)
+        today1 = secondToLast[i].test
+        today = parse_date(today1)
+        delta = today - lastChecked
+        print(delta)
+        while i <= len(secondToLast):
             if delta.days == 1:
                 order.streak += 1
+                i+=1
                 p+=1
-                print("i", i, "p", p)
-                print("1st loop runs", "streak", order.streak)  
+            print("i", i, "p", p)
+            print("1st loop runs", "streak", order.streak)  
+            print("delta", delta)
             # while delta.days == 0:
             if delta.days == 0:
-            #             pass
-                        i+=1
+                        pass
                         p+=1
-                        print("2nd loop runs", order.streak)  
-                        print("i", i, "p", p)                  
-            if delta.days > 1:   
-                    order.streak == 0
-                    print("3rd loop runs")            
+                        i+=1
+                        print("2nd loop runs", "streak", order.streak)  
+                        print("i", i, "p", p)   
+                        print("delta", delta)
+            if delta.days == -1:
+                    pass
+                    i+=1
+                    p+=1
+                    print("3rd loop runs", order.streak)  
+                    print("i", i, "p", p)  
+                    print("delta", delta)                
+            # if delta.days > 1:   
+            #         order.streak == 0
+            #         exit
+            #         print("3rd loop runs")  
+            #         print("delta", delta)          
         order.save()
         return redirect('/')
     context = {'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
     return render(request, 'habit/order_form.html', context)
 
-
-    
-
-what
