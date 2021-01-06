@@ -29,12 +29,37 @@ def habit(request, pk):
     orders = Order.objects.all()
     order = Order.objects.get(id=pk)
     repeat = order.checkedList.filter()
-    timeDiff = datetime.now() - timedelta(days=1)
-    strike = 1
-    if timeDiff == timedelta(days=1):
-        strike = 0
-    context = { "testData": testData, "order":order, "repeats": repeats, "repeat": repeat, "strike": strike}
+
+    today = datetime.today()
+    lastTimeStamp = order.timeStamp
+    
+    compareDate = today - timedelta(days=1) 
+
+    if compareDate == lastTimeStamp:
+                order.checked += 1
+    if lastTimeStamp == today:
+                pass
+    else: 
+        order.checked == 0
+
+    current_streak = order.checked
+    # return current_streak
+    context = { "testData": testData, "current_streak":current_streak, "order":order, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
+
+       # if timeDiff == timedelta(days=1):
+    #     streak = 0
+      # timeDiff = datetime.now() - timedelta(days=1)
+    # delta = compareDate - entry_date
+    # if delta.days == 1: # Keep the streak going!
+    #             current_streak += 1
+    # else: 
+    #     current_streak == 0     
+    # compareDate = entry_date
+
+    # if current_streak > total_streak:
+    #     total_streak = current_streak
+
 
 
 def examples(request): 
@@ -149,7 +174,7 @@ def checkHabit(request, pk):
         myDateCheck = date.strftime("%Y-%m-%d %H:%M:%S") 
         newRep = Repeats.objects.create(test = myDateCheck)
         order.checkedList.add(newRep) 
-        
+
         order.save()
         return redirect('/')
     context = {'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
@@ -158,7 +183,7 @@ def checkHabit(request, pk):
     def strike(request, pk): 
         order = Order.objects.get(id=pk)
         time_diff = timedelta(day=1)
-        newTime = date + time_diff
+        # newTime = date + time_diff
         oldTime = order.timeStamp
     if newTime >= oldTime:
         strike = 0
