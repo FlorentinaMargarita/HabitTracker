@@ -38,18 +38,10 @@ def habit(request, pk):
     # parseStuff = parse_date(repeats.test.last())
     secondToLast = order.checkedList.all().order_by('-test')
     print(secondToLast)
-    print(secondToLast[2].test)
-    penultimate = secondToLast[2].test
-    # holy = parse_date(secondToLast[2])
-    # print(holy)
+    print(secondToLast[1].test)
+    penultimate = secondToLast[1].test
     print("last element", order.checkedList.first().test)
-    # print1 = print(lastChecked)
-    # print2 = print(today)
-    # print3 = print(oneDayPassed)
-    # print4 = print(delta.days)
-    # print5 = print(delta1)
-    # lastChecked = parse_date(test1)
-    lastChecked = parse_date(test1)
+    lastChecked = parse_date(penultimate)
     today = date.today()
     oneDayPassed = today - timedelta(days=1) 
     delta = lastChecked - oneDayPassed
@@ -70,19 +62,6 @@ def habit(request, pk):
     # return current_streak
     context = {"penultimate":penultimate, "compareDate": oneDayPassed, "today": today, "lastTimeStamp": lastChecked, "testData": testData, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
-
-       # if timeDiff == timedelta(days=1):
-    #     streak = 0
-      # timeDiff = datetime.now() - timedelta(days=1)
-    # delta = compareDate - entry_date
-    # if delta.days == 1: # Keep the streak going!
-    #             current_streak += 1
-    # else: 
-    #     current_streak == 0     
-    # compareDate = entry_date
-
-    # if current_streak > total_streak:
-    #     total_streak = current_streak
 
 
 
