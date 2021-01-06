@@ -19,7 +19,7 @@ class Order(models.Model):
     checked = models.IntegerField(blank=True, default=0, null=True)
     created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
     checkedList = models.ManyToManyField(Repeats)
-    timeStamp = models.DateTimeField(auto_now=True,  blank=True)
+    timeStamp = models.DateTimeField(auto_now=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True, editable=False, blank=True)
 
     def __str__(self):

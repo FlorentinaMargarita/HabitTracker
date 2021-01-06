@@ -35,16 +35,16 @@ def habit(request, pk):
     
     compareDate = today - timedelta(days=1) 
 
-    if compareDate == lastTimeStamp:
-                order.checked += 1
+  
     if lastTimeStamp == today:
                 pass
+    # if compareDate == lastTimeStamp:
+    #             order.checked += 1
     else: 
         order.checked == 0
 
-    current_streak = order.checked
     # return current_streak
-    context = { "testData": testData, "current_streak":current_streak, "order":order, "repeats": repeats, "repeat": repeat}
+    context = { "compareDate":compareDate, "today": today, "lastTimeStamp": lastTimeStamp, "testData": testData, "current_streak":order.checked, "order":order, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
 
        # if timeDiff == timedelta(days=1):
