@@ -141,43 +141,41 @@ def checkHabit(request, pk):
         secondToLast = order.checkedList.all().order_by('-test')
         print("length:", len(secondToLast))
         i = 0
-        p = i+1   
+        p = 1 
         penultimate = secondToLast[p].test
         lastChecked = parse_date(penultimate)
         today1 = secondToLast[i].test
         today = parse_date(today1)
         delta = today - lastChecked
-        print(delta)
-        while i <= len(secondToLast):
-            if delta.days == 1:
+        compareday = today - timedelta(days=1)
+        while i < len(secondToLast) and order.interval == ('Daily'):
+            print(delta)
+            print("date", secondToLast[i].test)
+            if delta.days > 1 :   
+                    order.streak -= 1
+                    print("3rd loop runs")  
+                    print("delta", delta)  
+            if compareday == lastChecked:
                 order.streak += 1
+               
                 i+=1
                 p+=1
             print("i", i, "p", p)
             print("1st loop runs", "streak", order.streak)  
             print("delta", delta)
             # while delta.days == 0:
-            if delta.days == 0:
+            if today == lastChecked :
                         pass
                         p+=1
                         i+=1
                         print("2nd loop runs", "streak", order.streak)  
                         print("i", i, "p", p)   
                         print("delta", delta)
-            if delta.days == -1:
-                    pass
-                    i+=1
-                    p+=1
-                    print("3rd loop runs", order.streak)  
-                    print("i", i, "p", p)  
-                    print("delta", delta)                
-            # if delta.days > 1:   
-            #         order.streak == 0
-            #         exit
-            #         print("3rd loop runs")  
-            #         print("delta", delta)          
-        order.save()
-        return redirect('/')
+            else:
+                order.streak == 0
+                  
+    order.save()
+    return redirect('/')
     context = {'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
     return render(request, 'habit/order_form.html', context)
 
