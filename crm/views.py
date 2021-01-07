@@ -157,7 +157,7 @@ def checkHabit(request, pk):
                     print("delta", delta)  
             if compareday == lastChecked:
                 order.streak += 1
-               
+                
                 i+=1
                 p+=1
             print("i", i, "p", p)
@@ -173,7 +173,38 @@ def checkHabit(request, pk):
                         print("delta", delta)
             else:
                 order.streak == 0
-                  
+             
+    order.save()
+    f = 0
+    k = 0+1
+    # penultimateWeek = secondToLast[k].test
+    # lastWeek = parse_date(penultimateWeek)
+    # today1 = secondToLast[f].test
+    thisWeek = parse_date(today1)
+    compareWeek = thisWeek - timedelta(days=7)
+    while f < len(secondToLast) and order.interval == ('Weekly'):
+            if compareWeek < lastWeek:   
+                    order.streak = 0
+                    f+=1
+                    k+=7
+                    print("3rd loop runs")  
+                    print("thisWeek", thisWeek, " lastWeek: ", lastWeek, " compareWeek: ", compareWeek)
+            if compareWeek == lastWeek:
+                order.streak += 1
+                f+=1
+                k+=1
+            print("thisWeek", thisWeek, " lastWeek: ", lastWeek, " compareWeek: ", compareWeek)
+            print("f", f, "k", k)
+            print("1st loop runs", "streak", order.streak)  
+            print("delta", delta)
+            if thisWeek == lastWeek:
+                        pass
+                        k+=1
+                        f+=1
+                        print("2nd loop runs", "streak", order.streak)  
+                        print("f", f, "k", k)   
+            else:
+                order.streak == 0                    
     order.save()
     return redirect('/')
     context = {'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
