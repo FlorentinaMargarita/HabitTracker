@@ -139,50 +139,37 @@ def checkHabit(request, pk):
         order.checkedList.add(newRep) 
         order.test = myDateCheck
         secondToLast = order.checkedList.all().order_by('-test')
-        print("length:", len(secondToLast))
         i = 0
         p = 1 
-        penultimate = secondToLast[p].test
-        lastChecked = parse_date(penultimate)
-        today1 = secondToLast[i].test
-        today = parse_date(today1)
-        delta = today - lastChecked
-        compareday = today - timedelta(days=1)
-        # while i < len(secondToLast) and order.interval == ('Daily'):
-        if compareday == lastChecked:
-                order.streak += 1
-               
+        for oneThing in secondToLast:
+            penultimate = secondToLast[p].test
+            lastChecked = parse_date(penultimate)
+            today1 = secondToLast[i].test
+            today = parse_date(today1)
+            newStreak = today - lastChecked
+            print5 = print(newStreak)
+            # while delta.days > 1:
+            #     i+=1
+            if newStreak == 1:
+                order.streak+=1   
                 i+=1
                 p+=1
                 print("i", i, "p", p)
                 print("1st loop runs", "streak", order.streak)  
-                print("delta", delta)
-        if delta.days == 1 :
-                        order.streak+=1
-                        p+=1
-                        i+=1
-                        print("2nd loop runs", "streak", order.streak)  
-                        print("i", i, "p", p)   
-                        print("delta", delta)
-                        print(delta)
-            # print("date", secondToLast[i].test)
-        if today == lastChecked :
-                        pass
-                        p+=1
-                        i+=1
-                        print("2nd loop runs", "streak", order.streak)  
-                        print("i", i, "p", p)   
-                        print("delta", delta)
-                        print(delta)
-                        print("date", secondToLast[i].test)
-        if delta.days > 1 :   
-                    order.streak = 0
-                    print("3rd loop runs")  
-                    print("delta", delta)  
-      
             # while delta.days == 0:
+            if newStreak.days == 1:
+                        order.streak+=1            
+                        i+=1
+                        p+=1
+                        print("2nd loop runs", order.streak)  
+                        print("i", i, "p", p)                  
+            if today == newStreak:   
+                    order.streak = 0
+                    print("3rd loop runs")            
+        order.save()
+        return redirect('/')
 
-                  
+
     order.save()
     return redirect('/')
     context = {'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
