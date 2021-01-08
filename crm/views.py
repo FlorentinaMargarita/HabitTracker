@@ -90,12 +90,6 @@ def examplesBuyGro(request):
 def examplesStudy(request):
     return render(request, 'habit/examplesStudy.html')
 
-# def count(request, pk):
-#     counts = Count.objects.get(all)
-#     checked = Repeats.objects.get(id=pk)
-#     context = {"checked":checked}
-#     return render(request, 'habit/habit.html', context)
-
 def createHabit(request):
     form = OrderForm()
     if request.method == 'POST' :
@@ -144,27 +138,32 @@ def checkHabit(request, pk):
         for oneThing in secondToLast:
             penultimate = secondToLast[p].test
             lastChecked = parse_date(penultimate)
-            today1 = secondToLast[i].test
+            today1 = secondToLast[i].test   
             today = parse_date(today1)
+            print(type(today))
             newStreak = today - lastChecked
-            print5 = print(newStreak)
+            print5 = print(newStreak, "newStreak")
+            
             # while delta.days > 1:
             #     i+=1
-            if newStreak == 1:
-                order.streak+=1   
-                i+=1
-                p+=1
+            if newStreak.days == 1:
+                order.streak+=1  
+                # i+=1
+                # p+=1 
                 print("i", i, "p", p)
                 print("1st loop runs", "streak", order.streak)  
             # while delta.days == 0:
-            if newStreak.days == 1:
-                        order.streak+=1            
-                        i+=1
-                        p+=1
+            if newStreak.days == 0:
+                        pass         
+                        # i+=1
+                        # p+=1
                         print("2nd loop runs", order.streak)  
                         print("i", i, "p", p)                  
-            if today == newStreak:   
-                    order.streak = 0
+            if newStreak.days > 1:   
+                    order.streak == 0
+                    exit
+                    # i+=1
+                    # p+=1
                     print("3rd loop runs")            
         order.save()
         return redirect('/')

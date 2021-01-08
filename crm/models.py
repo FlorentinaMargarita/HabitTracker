@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 from datetime import datetime, date
-from django.contrib.auth.models import UserManager
 
 class Repeats(models.Model):
     date_created =  models.DateTimeField(auto_now=True, null=True, editable=False, blank=True)
