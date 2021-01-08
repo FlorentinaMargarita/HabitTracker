@@ -148,63 +148,41 @@ def checkHabit(request, pk):
         today = parse_date(today1)
         delta = today - lastChecked
         compareday = today - timedelta(days=1)
-        while i < len(secondToLast) and order.interval == ('Daily'):
-            print(delta)
-            print("date", secondToLast[i].test)
-            if delta.days > 1 :   
-                    order.streak -= 1
-                    print("3rd loop runs")  
-                    print("delta", delta)  
-            if compareday == lastChecked:
+        # while i < len(secondToLast) and order.interval == ('Daily'):
+        if compareday == lastChecked:
                 order.streak += 1
-                
+               
                 i+=1
                 p+=1
-            print("i", i, "p", p)
-            print("1st loop runs", "streak", order.streak)  
-            print("delta", delta)
-            # while delta.days == 0:
-            if today == lastChecked :
+                print("i", i, "p", p)
+                print("1st loop runs", "streak", order.streak)  
+                print("delta", delta)
+        if delta.days == 1 :
+                        order.streak+=1
+                        p+=1
+                        i+=1
+                        print("2nd loop runs", "streak", order.streak)  
+                        print("i", i, "p", p)   
+                        print("delta", delta)
+                        print(delta)
+            # print("date", secondToLast[i].test)
+        if today == lastChecked :
                         pass
                         p+=1
                         i+=1
                         print("2nd loop runs", "streak", order.streak)  
                         print("i", i, "p", p)   
                         print("delta", delta)
-            else:
-                order.streak == 0
-             
-    order.save()
-    f = 0
-    k = 0+1
-    # penultimateWeek = secondToLast[k].test
-    # lastWeek = parse_date(penultimateWeek)
-    # today1 = secondToLast[f].test
-    thisWeek = parse_date(today1)
-    compareWeek = thisWeek - timedelta(days=7)
-    while f < len(secondToLast) and order.interval == ('Weekly'):
-            if compareWeek < lastWeek:   
+                        print(delta)
+                        print("date", secondToLast[i].test)
+        if delta.days > 1 :   
                     order.streak = 0
-                    f+=1
-                    k+=7
                     print("3rd loop runs")  
-                    print("thisWeek", thisWeek, " lastWeek: ", lastWeek, " compareWeek: ", compareWeek)
-            if compareWeek == lastWeek:
-                order.streak += 1
-                f+=1
-                k+=1
-            print("thisWeek", thisWeek, " lastWeek: ", lastWeek, " compareWeek: ", compareWeek)
-            print("f", f, "k", k)
-            print("1st loop runs", "streak", order.streak)  
-            print("delta", delta)
-            if thisWeek == lastWeek:
-                        pass
-                        k+=1
-                        f+=1
-                        print("2nd loop runs", "streak", order.streak)  
-                        print("f", f, "k", k)   
-            else:
-                order.streak == 0                    
+                    print("delta", delta)  
+      
+            # while delta.days == 0:
+
+                  
     order.save()
     return redirect('/')
     context = {'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
