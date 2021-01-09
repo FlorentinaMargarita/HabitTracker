@@ -33,10 +33,10 @@ def habit(request, pk):
     order = Order.objects.get(id=pk)
     repeat = order.checkedList.filter()
     streak = order.streak
-    secondToLast = order.checkedList.all().order_by('-dateAsString')
-    penultimate = secondToLast[1].dateAsString
+    dateArray = order.checkedList.all().order_by('-dateAsString')
+    penultimate = dateArray[1].dateAsString
     lastChecked = parse_date(penultimate)
-    today1 = secondToLast.first().dateAsString
+    today1 = dateArray.first().dateAsString
     today = parse_date(today1)
     order.save()
     context = {"today": today, "lastTimeStamp": lastChecked, "testData": testData, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
@@ -127,18 +127,19 @@ def checkHabit(request, pk):
         newRep = Repeats.objects.create(dateAsString = myDateCheck)
         order.checkedList.add(newRep)
         order.dateAsString = myDateCheck
-        secondToLast = order.checkedList.all().order_by('-dateAsString')
+        dateArray = order.checkedList.all().order_by('-dateAsString')
         i = 1
         j = 0
         weekly = False
         streak = 0
-        latest = parse_date(secondToLast[0].dateAsString)
+        latest = parse_date(dateArray[0].dateAsString)
         previous_week = latest - timedelta(days=7)
-        for oneThing in secondToLast:
+        
+        for oneThing in dateArray:
             if order.interval == "Daily":
                 penultimate = oneThing.dateAsString
                 lastChecked = parse_date(penultimate)
-                previous_day = secondToLast[i].dateAsString
+                previous_day = dateArray[i].dateAsString
                 previous_day = parse_date(previous_day)
                 newStreak = lastChecked - previous_day
                 if newStreak.days == 1:
@@ -156,7 +157,7 @@ def checkHabit(request, pk):
                     weekly = True
                     latest = date
                     try:
-                        if (latest - parse_date(secondToLast[j + 1].dateAsString)).days > 7:
+                        if (latest - parse_date(dateArray[j + 1].dateAsString)).days > 7:
                             break
                     except:
                         pass

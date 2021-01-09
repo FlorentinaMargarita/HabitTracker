@@ -15,6 +15,7 @@ class Order(models.Model):
     interval = models.CharField(max_length=400, null=True, choices=INTERVAL)
     checked = models.IntegerField(blank=True, default=0, null=True)
     streak = models.IntegerField(blank=True, default=0, null=True)
+    longestStreak = models.IntegerField(blank=True, default=0, null=True)
     created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
     checkedList = models.ManyToManyField(Repeats)
     timeStamp = models.DateTimeField(auto_now=True, blank=True)
