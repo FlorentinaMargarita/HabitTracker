@@ -5,7 +5,7 @@ from datetime import datetime, date
 class Repeats(models.Model):
     date_created =  models.DateTimeField(auto_now=True, null=True, editable=False, blank=True)
     timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
-    test = models.CharField(max_length=200, null=True, blank=True)
+    dateAsString = models.CharField(max_length=200, null=True, blank=True)
 
 
 class Order(models.Model): 
@@ -21,7 +21,7 @@ class Order(models.Model):
     checkedList = models.ManyToManyField(Repeats)
     timeStamp = models.DateTimeField(auto_now=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True, editable=False, blank=True)
-    test = models.CharField(max_length=200, null=True, blank=True)
+    dateAsString = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
 	        return self.habit

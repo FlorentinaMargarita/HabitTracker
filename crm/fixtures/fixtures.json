@@ -7,8 +7,8 @@
         "interval": "Daily",
         "timeStamp": "2020-06-06",
         "date_created": "2020-06-06 10:10",
-        "test": "2020-06-06",
-        "checkedList": [ 118, 117, 115, 114, 111, 110,  107, 105, 102, 101, 100 ]
+        "dateAsString": "2020-06-06",
+        "checkedList": [ 127, 126, 125, 124, 123, 122, 121, 120, 119, 118, 117, 115, 114, 111, 110,  107, 105, 103, 102, 101, 100 ]
         
     }
 },
@@ -18,10 +18,10 @@
     "fields": {
         "habit": "Prepare Meals",
         "interval": "Daily",
-        "test": "2020-06-06",
+        "dateAsString": "2020-06-06",
         "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06",
-        "checkedList": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118]
+        "checkedList": [ 127, 126, 123, 122, 121, 120, 119, 118, 117, 116, 115, 114, 113, 112, 111, 110,  109, 108,  107, 106, 105, 104, 103, 102, 101, 100 ]
     }
 },
 {
@@ -30,7 +30,7 @@
     "fields": {
         "habit": "Clean Bathroom",
         "interval": "Weekly",
-        "test": "2020-06-06",
+        "dateAsString": "2020-06-06",
         "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06",
         "checkedList": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118]
@@ -43,7 +43,7 @@
     "fields": {
         "habit": "Organize",
         "interval": "Weekly",
-        "test": "2020-06-06",
+        "dateAsString": "2020-06-06",
         "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06",
         "checkedList": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118]
@@ -55,7 +55,7 @@
     "fields": {
         "habit": "Breathing Exercise",
         "interval": "Weekly",
-        "test": "2020-06-06",
+        "dateAsString": "2020-06-06",
         "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06",
         "checkedList": [100, 101, 102, 103, 104, 105, 106, 107, 113, 114, 115]
@@ -68,7 +68,7 @@
     "fields": {
         "habit": "Grocery Shopping",
         "interval": "Weekly",
-        "test": "2020-06-06",
+        "dateAsString": "2020-06-06",
         "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06",
         "checkedList": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118]
@@ -76,27 +76,27 @@
 },
 {
     "model": "crm.Repeats",
-    "pk": 100,
+    "pk": 127,
     "fields": {
-        "test": "2021-01-07",
+        "dateAsString": "2021-01-08",
         "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06"
     }
 },
 {
     "model": "crm.Repeats",
-    "pk": 101,
+    "pk": 126,
     "fields": {
-        "test": "2021-01-05",
+        "dateAsString": "2021-01-07",
         "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06"
       }
 },
 {
     "model": "crm.Repeats",
-    "pk": 102,
+    "pk": 125,
     "fields": {
-        "test": "2021-01-02",
+        "dateAsString": "2021-01-06",
         "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06"
      
@@ -104,135 +104,58 @@
 },
 {
     "model": "crm.Repeats",
-    "pk": 103,
+    "pk": 124,
     "fields": {
-        "test": "2021-01-01",
+        "dateAsString": "2021-01-05",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+     
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 123,
+    "fields": {
+        "dateAsString": "2021-01-04",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+     
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 122,
+    "fields": {
+        "dateAsString": "2021-01-03",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+     
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 121,
+    "fields": {
+        "dateAsString": "2021-01-02",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+     
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 120,
+    "fields": {
+        "dateAsString": "2021-01-01",
         "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06"
         }
 },
 {
     "model": "crm.Repeats",
-    "pk": 104,
+    "pk": 119,
     "fields": {
-        "test": "2020-12-31",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-    }
-},
-{
-    "model": "crm.Repeats",
-    "pk": 105,
-    "fields": {
-        "test": "2020-12-30",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-    }
-},
-{
-    "model": "crm.Repeats",
-    "pk": 106,
-    "fields": {
-        "test": "2020-12-29",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-    }
-},
-{
-    "model": "crm.Repeats",
-    "pk": 107,
-    "fields": {
-        "test": "2020-12-28",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-    }
-},
-{
-    "model": "crm.Repeats",
-    "pk": 108,
-    "fields": {
-        "test": "2020-12-27",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-    }
-},
-{
-    "model": "crm.Repeats",
-    "pk": 109,
-    "fields": {
-        "test": "2020-12-26",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-    }
-},
-{
-    "model": "crm.Repeats",
-    "pk": 110,
-    "fields": {
-        "test": "2020-12-25",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-    }
-},
-{
-    "model": "crm.Repeats",
-    "pk": 111,
-    "fields": {
-        "test": "2020-12-24",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-    }
-},
-{
-    "model": "crm.Repeats",
-    "pk": 112,
-    "fields": {
-        "test": "2020-12-23",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-    }
-},
-{
-    "model": "crm.Repeats",
-    "pk": 113,
-    "fields": {
-        "test": "2020-12-22",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-    }
-},
-{
-    "model": "crm.Repeats",
-    "pk": 114,
-    "fields": {
-        "test": "2020-12-21",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-    }
-},
-{
-    "model": "crm.Repeats",
-    "pk": 115,
-    "fields": {
-        "test": "2020-12-20",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-    }
-},
-{
-    "model": "crm.Repeats",
-    "pk": 116,
-    "fields": {
-        "test": "2020-12-19",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-    }
-},
-{
-    "model": "crm.Repeats",
-    "pk": 117,
-    "fields": {
-        "test": "2020-12-18",
+        "dateAsString": "2020-12-31",
         "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06"
     }
@@ -241,16 +164,169 @@
     "model": "crm.Repeats",
     "pk": 118,
     "fields": {
-        "test": "2020-12-17",
+        "dateAsString": "2020-12-30",
         "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06"
     }
 },
 {
     "model": "crm.Repeats",
-    "pk": 119,
+    "pk": 117,
     "fields": {
-        "test": "2020-12-16",
+        "dateAsString": "2020-12-29",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 116,
+    "fields": {
+        "dateAsString": "2020-12-28",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 115,
+    "fields": {
+        "dateAsString": "2020-12-27",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 114,
+    "fields": {
+        "dateAsString": "2020-12-26",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 113,
+    "fields": {
+        "dateAsString": "2020-12-25",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 112,
+    "fields": {
+        "dateAsString": "2020-12-24",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 111,
+    "fields": {
+        "dateAsString": "2020-12-23",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 110,
+    "fields": {
+        "dateAsString": "2020-12-22",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 109,
+    "fields": {
+        "dateAsString": "2020-12-21",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 108,
+    "fields": {
+        "dateAsString": "2020-12-20",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 107,
+    "fields": {
+        "dateAsString": "2020-12-19",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 106,
+    "fields": {
+        "dateAsString": "2020-12-18",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 105,
+    "fields": {
+        "dateAsString": "2020-12-17",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 104,
+    "fields": {
+        "dateAsString": "2020-12-16",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 103,
+    "fields": {
+        "dateAsString": "2020-12-15",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 102,
+    "fields": {
+        "dateAsString": "2020-12-14",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 101,
+    "fields": {
+        "dateAsString": "2020-12-13",
+        "date_created": "2020-06-06 10:10",
+        "timeStamp": "2020-06-06"
+    }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 100,
+    "fields": {
+        "dateAsString": "2020-12-12",
         "date_created": "2020-06-06 10:10",
         "timeStamp": "2020-06-06"
     }

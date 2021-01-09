@@ -33,11 +33,11 @@ def habit(request, pk):
     order = Order.objects.get(id=pk)
     repeat = order.checkedList.filter()
     streak = order.streak
-    secondToLast = order.checkedList.all().order_by('-test')
-    print(secondToLast[1].test)
-    penultimate = secondToLast[1].test
+    secondToLast = order.checkedList.all().order_by('-dateAsString')
+    print(secondToLast[1].dateAsString)
+    penultimate = secondToLast[1].dateAsString
     lastChecked = parse_date(penultimate)
-    today1 = secondToLast.first().test
+    today1 = secondToLast.first().dateAsString
     today = parse_date(today1)
     delta = today - lastChecked
     print5 = print(delta)
@@ -124,47 +124,47 @@ def delete(request, pk):
 
 def checkHabit(request, pk):
     order = Order.objects.get(id=pk)
-    repeats = order.checkedList.count()
     if request.method == 'POST':
         order.checked += 1
-        myDateCheck = date.today()    
-        # myDateCheck = date.strftime("%Y-%m-%d %H:%M:%S") 
-        newRep = Repeats.objects.create(test = myDateCheck)
-        order.checkedList.add(newRep) 
-        order.test = myDateCheck
-        secondToLast = order.checkedList.all().order_by('-test')
-        i = 0
-        p = 1 
+        myDateCheck = datetime.today().date()
+        newRep = Repeats.objects.create(dateAsString = myDateCheck)
+        order.checkedList.add(newRep)
+        order.dateAsString = myDateCheck
+        secondToLast = order.checkedList.all().order_by('-dateAsString')
+        i = 1
+        j = 0
+        weekly = False
+        streak = 0
+        latest = parse_date(secondToLast[0].dateAsString)
+        previous_week = latest - timedelta(days=7)
         for oneThing in secondToLast:
-            penultimate = secondToLast[p].test
-            lastChecked = parse_date(penultimate)
-            today1 = secondToLast[i].test   
-            today = parse_date(today1)
-            print(type(today))
-            newStreak = today - lastChecked
-            print5 = print(newStreak, "newStreak")
-            
-            # while delta.days > 1:
-            #     i+=1
-            if newStreak.days == 1:
-                order.streak+=1  
-                # i+=1
-                # p+=1 
-                print("i", i, "p", p)
-                print("1st loop runs", "streak", order.streak)  
-            # while delta.days == 0:
-            if newStreak.days == 0:
-                        pass         
-                        # i+=1
-                        # p+=1
-                        print("2nd loop runs", order.streak)  
-                        print("i", i, "p", p)                  
-            if newStreak.days > 1:   
-                    order.streak == 0
-                    exit
-                    # i+=1
-                    # p+=1
-                    print("3rd loop runs")            
+            if order.interval == "Daily":
+                penultimate = oneThing.dateAsString
+                lastChecked = parse_date(penultimate)
+                previous_day = secondToLast[i].dateAsString
+                previous_day = parse_date(previous_day)
+                newStreak = lastChecked - previous_day
+                if newStreak.days == 1:
+                    streak+=1
+                if newStreak.days > 1:
+                    break
+                i += 1
+            elif order.interval == "Weekly":
+                date = parse_date(oneThing.dateAsString)
+                if weekly:
+                    previous_week = previous_week - timedelta(days=7)
+                    weekly = False
+                if not date > previous_week:
+                    streak += 1
+                    weekly = True
+                    latest = date
+                    try:
+                        if (latest - parse_date(secondToLast[j + 1].dateAsString)).days > 7:
+                            break
+                    except:
+                        pass
+                j += 1
+        order.streak = streak
         order.save()
         return redirect('/')
 

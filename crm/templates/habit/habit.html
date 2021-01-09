@@ -38,8 +38,8 @@
                     <h5 class="card-title text-white">Repeated</h5>
                 </div>
                 <div class="card-body">
-                    {% for check in repeat %}
-                    <p>{{check.test}}</p>
+                    {% for check in repeat reversed %}
+                    <p>{{check.dateAsString}}</p>
                     {%endfor%}
                 </div>
             </div>
