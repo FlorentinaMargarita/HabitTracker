@@ -118,6 +118,8 @@ def delete(request, pk):
         return redirect('/')
     context = {'item':order}
     return render(request, 'habit/delete.html', context)
+    
+
 
 def checkHabit(request, pk):
     order = Order.objects.get(id=pk)
@@ -134,21 +136,22 @@ def checkHabit(request, pk):
         streak = 0
         latest = parse_date(dateArray[0].dateAsString)
         previous_week = latest - timedelta(days=7)
+        dateArrayLength = len(dateArray) - 4 
         
-        for oneThing in dateArray:
+        for pointInTime in dateArray:
             if order.interval == "Daily":
-                penultimate = oneThing.dateAsString
+                penultimate = pointInTime.dateAsString
                 lastChecked = parse_date(penultimate)
                 previous_day = dateArray[i].dateAsString
                 previous_day = parse_date(previous_day)
                 newStreak = lastChecked - previous_day
-                if newStreak.days == 1:
+                if newStreak.days == 1 and i < dateArrayLength:
                     streak+=1
-                if newStreak.days > 1:
-                    break
+                if newStreak.days > 1 and i < dateArrayLength:
+                    pass
                 i += 1
             elif order.interval == "Weekly":
-                date = parse_date(oneThing.dateAsString)
+                date = parse_date(pointInTime.dateAsString)
                 if weekly:
                     previous_week = previous_week - timedelta(days=7)
                     weekly = False
@@ -165,10 +168,61 @@ def checkHabit(request, pk):
         order.streak = streak
         order.save()
         return redirect('/')
-
-
     order.save()
     return redirect('/')
     context = {'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
     return render(request, 'habit/order_form.html', context)
+
+
+# SUPER KORREKTER CODE
+# def checkHabit(request, pk):
+#     order = Order.objects.get(id=pk)
+#     if request.method == 'POST':
+#         order.checked += 1
+#         myDateCheck = datetime.today().date()
+#         newRep = Repeats.objects.create(dateAsString = myDateCheck)
+#         order.checkedList.add(newRep)
+#         order.dateAsString = myDateCheck
+#         dateArray = order.checkedList.all().order_by('-dateAsString')
+#         i = 1
+#         j = 0
+#         weekly = False
+#         streak = 0
+#         latest = parse_date(dateArray[0].dateAsString)
+#         previous_week = latest - timedelta(days=7)
+        
+#         for pointInTime in dateArray:
+#             if order.interval == "Daily":
+#                 penultimate = pointInTime.dateAsString
+#                 lastChecked = parse_date(penultimate)
+#                 previous_day = dateArray[i].dateAsString
+#                 previous_day = parse_date(previous_day)
+#                 newStreak = lastChecked - previous_day
+#                 if newStreak.days == 1:
+#                     streak+=1
+#                 if newStreak.days > 1:
+#                     break
+#                 i += 1
+#             elif order.interval == "Weekly":
+#                 date = parse_date(pointInTime.dateAsString)
+#                 if weekly:
+#                     previous_week = previous_week - timedelta(days=7)
+#                     weekly = False
+#                 if not date > previous_week:
+#                     streak += 1
+#                     weekly = True
+#                     latest = date
+#                     try:
+#                         if (latest - parse_date(dateArray[j + 1].dateAsString)).days > 7:
+#                             break
+#                     except:
+#                         pass
+#                 j += 1
+#         order.streak = streak
+#         order.save()
+#         return redirect('/')
+#     order.save()
+#     return redirect('/')
+#     context = {'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
+#     return render(request, 'habit/order_form.html', context)
 
