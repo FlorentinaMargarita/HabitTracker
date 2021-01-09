@@ -34,13 +34,10 @@ def habit(request, pk):
     repeat = order.checkedList.filter()
     streak = order.streak
     secondToLast = order.checkedList.all().order_by('-dateAsString')
-    print(secondToLast[1].dateAsString)
     penultimate = secondToLast[1].dateAsString
     lastChecked = parse_date(penultimate)
     today1 = secondToLast.first().dateAsString
     today = parse_date(today1)
-    delta = today - lastChecked
-    print5 = print(delta)
     order.save()
     context = {"today": today, "lastTimeStamp": lastChecked, "testData": testData, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
