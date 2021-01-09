@@ -78,257 +78,194 @@
     "model": "crm.Repeats",
     "pk": 127,
     "fields": {
-        "dateAsString": "2021-01-08",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-    }
+        "dateAsString": "2021-01-08"
+        }
 },
 {
     "model": "crm.Repeats",
     "pk": 126,
     "fields": {
-        "dateAsString": "2021-01-07",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-      }
+        "dateAsString": "2021-01-07"
+          }
 },
 {
     "model": "crm.Repeats",
     "pk": 125,
     "fields": {
-        "dateAsString": "2021-01-06",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-     
+        "dateAsString": "2021-01-06"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 124,
     "fields": {
-        "dateAsString": "2021-01-05",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-     
+        "dateAsString": "2021-01-05"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 123,
     "fields": {
-        "dateAsString": "2021-01-04",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-     
+        "dateAsString": "2021-01-04"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 122,
     "fields": {
-        "dateAsString": "2021-01-03",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-     
+        "dateAsString": "2021-01-03"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 121,
     "fields": {
-        "dateAsString": "2021-01-02",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-     
+        "dateAsString": "2021-01-02"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 120,
     "fields": {
-        "dateAsString": "2021-01-01",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2021-01-01"
         }
 },
 {
     "model": "crm.Repeats",
     "pk": 119,
     "fields": {
-        "dateAsString": "2020-12-31",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-31"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 118,
     "fields": {
-        "dateAsString": "2020-12-30",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-30"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 117,
     "fields": {
-        "dateAsString": "2020-12-29",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-29"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 116,
     "fields": {
-        "dateAsString": "2020-12-28",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-28"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 115,
     "fields": {
-        "dateAsString": "2020-12-27",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-27"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 114,
     "fields": {
-        "dateAsString": "2020-12-26",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-26"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 113,
     "fields": {
-        "dateAsString": "2020-12-25",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-25"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 112,
     "fields": {
-        "dateAsString": "2020-12-24",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-24"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 111,
     "fields": {
-        "dateAsString": "2020-12-23",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-23"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 110,
     "fields": {
-        "dateAsString": "2020-12-22",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-22"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 109,
     "fields": {
-        "dateAsString": "2020-12-21",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-21"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 108,
     "fields": {
-        "dateAsString": "2020-12-20",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-20"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 107,
     "fields": {
-        "dateAsString": "2020-12-19",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-19"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 106,
     "fields": {
-        "dateAsString": "2020-12-18",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-18"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 105,
     "fields": {
-        "dateAsString": "2020-12-17",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-17"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 104,
     "fields": {
-        "dateAsString": "2020-12-16",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
-    }
-},
+        "dateAsString": "2020-12-16"
+}},
 {
     "model": "crm.Repeats",
     "pk": 103,
     "fields": {
-        "dateAsString": "2020-12-15",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-15"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 102,
     "fields": {
-        "dateAsString": "2020-12-14",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-14"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 101,
     "fields": {
-        "dateAsString": "2020-12-13",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-13"
     }
 },
 {
     "model": "crm.Repeats",
     "pk": 100,
     "fields": {
-        "dateAsString": "2020-12-12",
-        "date_created": "2020-06-06 10:10",
-        "timeStamp": "2020-06-06"
+        "dateAsString": "2020-12-12"
     }
-}
-]
+}]

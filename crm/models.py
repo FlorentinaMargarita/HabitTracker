@@ -3,8 +3,6 @@ from django.utils import timezone
 from datetime import datetime, date
 
 class Repeats(models.Model):
-    date_created =  models.DateTimeField(auto_now=True, null=True, editable=False, blank=True)
-    timeStamp = models.DateField(auto_now_add=True,  auto_now=False, blank=True)
     dateAsString = models.CharField(max_length=200, null=True, blank=True)
 
 
