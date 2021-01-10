@@ -120,58 +120,6 @@ def delete(request, pk):
     return render(request, 'habit/delete.html', context)
 
 
-# def maxHabit(request, pk):
-    
-
-
-# def checkHabit(request, pk):
-#     order = Order.objects.get(id=pk)
-#     if request.method == 'POST':
-#         order.checked += 1
-#         myDateCheck = datetime.today().date()
-#         newRep = Repeats.objects.create(dateAsString = myDateCheck)
-#         order.checkedList.add(newRep)
-#         order.dateAsString = myDateCheck
-#         dateArray = order.checkedList.all().order_by('-dateAsString')
-#         i = 1
-#         j = 0
-#         weekly = False
-#         streak = 0
-#         latest = parse_date(dateArray[0].dateAsString)
-#         previous_week = latest - timedelta(days=7)
-#         dateArrayLength = len(dateArray) - 4 
-        
-#         for pointInTime in dateArray:
-#             for i in range(len(dateArray)):
-#                 if order.interval == "Daily":
-#                     penultimate = pointInTime.dateAsString
-#                     lastChecked = parse_date(penultimate)
-#                     previous_day = dateArray[i].dateAsString
-#                     previous_day = parse_date(previous_day)
-#                     newStreak = lastChecked - previous_day
-#                     if newStreak.days == 1:
-#                         streak+=1
-#                         if streak > order.longestStreak:
-#                                order.longestStreak = streak
-#                         print("newStreak", newStreak)
-#                         print("lastChecked", lastChecked, "previousDay", previous_day)
-#                         print("streak", streak)
-#                         print("i")
-#                     if newStreak.days < 1:
-#                         pass
-#                     if newStreak.days > 1:
-#                         pass
-#                 i += 1    
-#         order.streak = streak
-#         order.save()
-#         return redirect('/')
-#     order.save()
-#     return redirect('/')
-#     context = {'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
-#     return render(request, 'habit/order_form.html', context)
-
-
-# SUPER KORREKTER CODE
 def checkHabit(request, pk):
     order = Order.objects.get(id=pk)
     if request.method == 'POST':
@@ -196,28 +144,22 @@ def checkHabit(request, pk):
         current = dateArray[k]
         count = 0
         difference = int(current.pk) - int(prev_int.pk)
-        # print(difference, "difference", current.pk, "currentPK", prev_int, "prevInt")
-        while k < dateArray1:
+        # here I am finding the longest streak for the habits with the daily interval
+        while k < dateArray1 and order.interval == 'Daily':
             if difference == 1:
                 count+=1
                 k+=1
                 p+=1
-                # print(count, "count", "first if ")
                 print(difference, "difference", current.pk, "currentPK", prev_int, "prevInt")
             if count > max_count:
                 max_count = count
                 print("max_count loop", difference, "difference", current.pk, "currentPK", prev_int, "prevInt")
-            # if difference > 1:
-            #     count = 0
-            #     k+=1
-            #     p+=1
             else:
                 count+=1
                 k+=1
                 p+=1
                 print("else loop")
             order.longestStreak = max_count
-        # print("MaxCount", max_count)
         for pointInTime in dateArray:
             if order.interval == "Daily":
                 penultimate = pointInTime.dateAsString
@@ -227,15 +169,10 @@ def checkHabit(request, pk):
                 newStreak = lastChecked - previous_day
                 if newStreak.days == 1:
                     streak+=1
-                    if order.streak > longest:
-                        longest = streak
                 if newStreak.days > 1:
                     longest =0
                     break
                 i += 1
-                longest += 1
-                # order.longestStreak = k
-                # print('longest', longest)
             elif order.interval == "Weekly":
                 date = parse_date(pointInTime.dateAsString)
                 if weekly:
