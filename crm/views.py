@@ -181,35 +181,43 @@ def checkHabit(request, pk):
         order.checkedList.add(newRep)
         order.dateAsString = myDateCheck
         dateArray = order.checkedList.all().order_by('-dateAsString')
+        dateArray1 = int(len(order.checkedList.all().order_by('dateAsString')))-1
         i = 1
         j = 0
-        k = 0
+        longest = order.longestStreak = 0
         p = 1
+        k = 0
         weekly = False
         streak = 0
         latest = parse_date(dateArray[0].dateAsString)
         previous_week = latest - timedelta(days=7)
         max_count = 0 
-        max_int = dateArray[k].pk
-        prev_int = dateArray[k]
+        prev_int = dateArray[p]
+        current = dateArray[k]
         count = 0
-        
-        # current = dateArray.pk
-        for current in dateArray:
-            difference = int(current.pk) - int(prev_int.pk)
-            print(current.pk, "currentPK")
+        difference = int(current.pk) - int(prev_int.pk)
+        # print(difference, "difference", current.pk, "currentPK", prev_int, "prevInt")
+        while k < dateArray1:
             if difference == 1:
                 count+=1
                 k+=1
+                p+=1
+                # print(count, "count", "first if ")
+                print(difference, "difference", current.pk, "currentPK", prev_int, "prevInt")
             if count > max_count:
                 max_count = count
-                k+=1
+                print("max_count loop", difference, "difference", current.pk, "currentPK", prev_int, "prevInt")
+            # if difference > 1:
+            #     count = 0
+            #     k+=1
+            #     p+=1
             else:
                 count+=1
-                pass
                 k+=1
+                p+=1
+                print("else loop")
             order.longestStreak = max_count
-            print("MaxCount", max_count)
+        # print("MaxCount", max_count)
         for pointInTime in dateArray:
             if order.interval == "Daily":
                 penultimate = pointInTime.dateAsString
@@ -219,9 +227,15 @@ def checkHabit(request, pk):
                 newStreak = lastChecked - previous_day
                 if newStreak.days == 1:
                     streak+=1
+                    if order.streak > longest:
+                        longest = streak
                 if newStreak.days > 1:
+                    longest =0
                     break
                 i += 1
+                longest += 1
+                # order.longestStreak = k
+                # print('longest', longest)
             elif order.interval == "Weekly":
                 date = parse_date(pointInTime.dateAsString)
                 if weekly:
@@ -242,6 +256,6 @@ def checkHabit(request, pk):
         return redirect('/')
     order.save()
     return redirect('/')
-    context = {"longest": max_count, 'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
+    context = {"longest": order.longest, 'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
     return render(request, 'habit/order_form.html', context)
 
