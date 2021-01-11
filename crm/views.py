@@ -145,17 +145,18 @@ def checkHabit(request, pk):
         # In order to compare the dates from today on and backwards the array has to be ordered reversed. 
         # So with the latest added dates first. This is why it says order_by('-dateAsString'). The minus here reverses the string.
         dateArray = order.checkedList.all().order_by('-dateAsString')
-        # Here we want the length of the array -1 to prevent the error "index out of range"
-        dateArray1 = int(len(order.checkedList.all().order_by('dateAsString')))-1
         # These two indexes i and j are for counting up the current streaks.
         i = 1
         j = 0
         # Here I initalize the streaks to 0, that it can count up from there. 
         streak = 0
+        # Below is to get the current week
         latest = parse_date(dateArray[0].dateAsString)
+        # Below is to get the previous week. 
         previous_week = latest - timedelta(days=7)
         weekly = False
         longest_weekly = False
+        # the two lines below are used to later compare for the maximum streaks. 
         longest_previous_week = latest - timedelta(days=7)
         longest = order.longestStreak = 0
         for pointInTime in dateArray:
@@ -187,13 +188,13 @@ def checkHabit(request, pk):
                 j += 1
         longest_streak = 1
         current_streak = 1
-        di, wj = 1, 0
+        ii, jj = 1, 0
         for pointInTime in dateArray:
             if order.interval == "Daily":
                 penultimate = pointInTime.dateAsString
                 lastChecked = parse_date(penultimate)
                 try:
-                    previous_day = dateArray[di].dateAsString
+                    previous_day = dateArray[ii].dateAsString
                 except:
                     continue
                 previous_day = parse_date(previous_day)
@@ -205,7 +206,7 @@ def checkHabit(request, pk):
                     if current_streak > longest_streak:
                         longest_streak = current_streak
                         current_streak = 0
-                di += 1
+                ii += 1
             elif order.interval == "Weekly":
                 date = parse_date(pointInTime.dateAsString)
                 if longest_weekly:
@@ -218,7 +219,9 @@ def checkHabit(request, pk):
                     longest_weekly = True
                     longest_latest = date
                     try:
-                        if (longest_latest - parse_date(dateArray[wj + 1].dateAsString)).days > 7:
+                        # this is an index based comparision. Like index 0 and index 1, indea 1 and index 2 and so on.
+                        # It is to compare current and previous date.
+                        if (longest_latest - parse_date(dateArray[jj + 1].dateAsString)).days > 7:
                             if current_streak > longest_streak:
                                 longest_streak = current_streak
                                 current_streak = 0
@@ -227,7 +230,7 @@ def checkHabit(request, pk):
                             longest_streak = current_streak
                             current_streak = 0
                         pass
-                wj += 1
+                jj += 1
         order.streak = streak
         order.longestStreak = longest_streak if longest_streak > order.longestStreak else order.longestStreak
         order.save()
