@@ -19,9 +19,13 @@ Creating an adamin Users for the DB
 **Models**
 
 In Django models are Python classes which inherit from Django models. And allow us to create classes that represent database tables. 
-Migrations 
+
+*Migrations* 
+
 Every time the model is changed and the database changes the following commands need to be run:
+
 •	First command: python manage.py makemigrations
+
 
 This creates a Migration File in the Migration Folder. This is like preparing the database for the migration we are about to run. In the background it will run SQL commands 
 
