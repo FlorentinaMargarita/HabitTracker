@@ -34,7 +34,7 @@ In order to create an admin user for the DB with all rights run:
 
 **Models**
 
-In Django models are Python classes which inherit from Django models. And allow us to create classes that represent database tables. 
+In Django models are Python classes which inherit from Django models. They allow us to create classes that represent database tables. 
 
 *Migrations* 
 
