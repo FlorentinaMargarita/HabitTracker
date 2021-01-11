@@ -7,18 +7,23 @@ from django.utils.dateparse import (
     parse_date, parse_datetime, parse_duration, parse_time
 )
 
+# here I get all the things from the database which I want to display in my dashboard.html
 def home(request):
     orders = Order.objects.all()
     total_orders = orders.count()
+    # "dailyfilter" is for showing all the habits which are daily
     dailyFilter = Order.objects.filter(interval="Daily")
+    #  "weeklyFilter" is for showing all the habits which are weekly
     weeklyFilter = Order.objects.filter(interval="Weekly")
+    # what ever is put in context will then be able to be displayed in the html-templates
     context = {'orders': orders, 'total_orders': total_orders, 'dailyFilter': dailyFilter, 'weeklyFilter':weeklyFilter}
     return render(request, 'habit/dashboard.html', context)
 
+# here I get all the things from the database which I want to display in my analytics.html
 def analytics(request):
     orders = Order.objects.all()
-    total_orders = orders.count() 
-    # max_strikes = len(strikeList)
+    # with order.count I count the list of all current habits
+    total_orders = orders.count()   
     context= {'total_orders': total_orders}
     return render(request, 'habit/analytics.html', context)
 
@@ -120,12 +125,20 @@ def delete(request, pk):
     return render(request, 'habit/delete.html', context)
 
 
+# the checkhabit function is the most important one of this project. 
+# Whenever a habit is checked, it creates a new instance of "Repeats", which stores the dateTime as a string in the database. 
+# The habit which was checked, stores this Repeats-object in the manytomany field. 
+
 def checkHabit(request, pk):
     order = Order.objects.get(id=pk)
     if request.method == 'POST':
         order.checked += 1
         myDateCheck = datetime.today().date()
+        # the line below creates a new Repeatsobject. 
+        # It stores the timedate at the second of when the habit was completed in terms of this project "checked"
         newRep = Repeats.objects.create(dateAsString = myDateCheck)
+        # the line below adds the new Repeapts object in the manyToManyField called checkedList on the order.object. 
+        # This will later be used to compare the dates with one another.
         order.checkedList.add(newRep)
         order.dateAsString = myDateCheck
         dateArray = order.checkedList.all().order_by('-dateAsString')
@@ -144,7 +157,7 @@ def checkHabit(request, pk):
         current = dateArray[k]
         count = 0
         difference = int(current.pk) - int(prev_int.pk)
-        # here I am finding the longest streak for the habits with the daily interval
+        # here I am finding the longest streak for the habits with the daily interval. However that solution doesnt work yet.
         while k < dateArray1 and order.interval == 'Daily':
             if difference == 1:
                 count+=1
