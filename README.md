@@ -4,6 +4,16 @@ At first you have to download the Django-CLI. Please follow instructions on this
 
  <br />
  
+ 
+ **Other technologies used**
+
+• Database: SQLite
+
+• Styling: Bootstrap
+
+ <br />
+ 
+ 
  **How to run the HabitTracker on your machine**
  
 
@@ -20,13 +30,6 @@ In order to create an admin user for the DB with all rights run:
  <br />
  
  
-**Technologies used**
-
-• Database: SQLite
-
-• Styling: Bootstrap
-
- <br />
  
 
 **Models**
@@ -96,7 +99,7 @@ If you want to query for example all habits than you would write into the comman
 
 if you want the last habit in the order than the command would look like this:
 
-• lastHabit = Habit.objects.last()
+• lastHabit = Order.objects.last()
   print(lastHabit)
   
   
@@ -106,12 +109,12 @@ print(lastHabit.name)
 
 You can also search a specific item by id, like this: 
 
-• habit1=Habit.objects.get(id=1) 
+• habit1=Order.objects.get(id=1) 
 
 
 If you use filter without specificing it, it works like .all() 
 
-• habits = Habit.objects.filter()
+• habits = Order.objects.filter()
 
 print(habits)
 
@@ -119,7 +122,7 @@ print(habits)
 So the .filter() in this way like above would just return all habits. 
 However if you had set choices than you can actually query those categories like so:
 
-• habits = Habit.objects.filter(category = "Family")
+• habits = Order.objects.filter(category = "Family")
 
   print(habits)
   
