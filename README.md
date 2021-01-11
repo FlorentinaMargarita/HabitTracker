@@ -6,17 +6,19 @@ In order to populate the database from the pre-provided data run:
 
 •	python manage.py loaddata fixtures
 
+
+Creating an adamin Users for the DB 
+
+•python manage.py createsuperuser
+
+
+
 **Technologies used**
 
 • SQLite
 
 • For styling I used Bootstrap. 
 
-
-
-Creating an adamin Users for the DB 
-
-•python manage.py createsuperuser
 
 
 **Models**
