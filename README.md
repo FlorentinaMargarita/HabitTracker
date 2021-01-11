@@ -5,9 +5,13 @@ At first you have to download the Django-CLI. Please follow instructions on this
  <br />
  
  
- **Other technologies used**
+ **Technologies used**
+ 
+• Language: Python 3.9.1
 
-• Database: SQLite
+• Framework: Django 3.1.4
+
+• Database: SQLite3 
 
 • Styling: Bootstrap
 
@@ -78,12 +82,7 @@ One to Many relationships: In the admin panel it will give you the choice to onl
 
 *Many to many relationships:*
 
-This looks like that in the admin panel: 
-
-For a many to many relationship another table, like an intermediary table, needs to be created. This stores the id-reference to both tables. Django creates that for you. You just need to add models.ForeignKey(parentOfModel)  
-In Django there is the possibility to set models.ManyToManyField(NameToFieldForRelationShip) 
-The ManyToManyField allowes us to associate different things from different tables.
-Many-to-on relationships are done with the foreign-key
+For a many to many relationship another table, like an intermediary table, needs to be created. This stores the id-reference to both tables. Django creates that for you. You just need to add models.ForeignKey(parentOfModel)  In other words: The ManyToManyField allowes us to associate different things from different tables.
 
  <br />
 
