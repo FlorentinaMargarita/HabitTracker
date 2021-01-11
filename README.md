@@ -7,12 +7,12 @@ In order to populate the database from the pre-provided data run:
 •	python manage.py loaddata fixtures
 
 
-Creating an adamin Users for the DB 
+In order to create an adamin Users for the DB with all rights run:
 
 •python manage.py createsuperuser
 
 
-
+ <br />
 **Technologies used**
 
 • SQLite
