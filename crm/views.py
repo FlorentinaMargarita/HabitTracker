@@ -150,19 +150,21 @@ def checkHabit(request, pk):
         # These two indexes i and j are for counting up the current streaks.
         i = 1
         j = 0
+        # Here I initalize the streaks to 0, that it can count up from there. 
+        streak = 0
         latest = parse_date(dateArray[0].dateAsString)
         previous_week = latest - timedelta(days=7)
         weekly = False
         # These two indexes p and k are for counting up the longest streaks. However, as noted below, that doesnt work quite yet.
+        # 
+        # p = 1
+        # k = 0
         longest = order.longestStreak = 0
-        p = 1
-        k = 0
-        streak = 0
-        max_count = 0 
-        prev_int = dateArray[p]
-        current = dateArray[k]
-        count = 0
-        difference = int(current.pk) - int(prev_int.pk)
+        # max_count = 0 
+        # prev_int = dateArray[p]
+        # current = dateArray[k]
+        # count = 0
+        # difference = int(current.pk) - int(prev_int.pk)
         # here I am finding the longest streak for the habits with the daily interval. However that solution doesnt work yet.
         # while k < dateArray1 and order.interval == 'Daily':
         #     if difference == 1:
@@ -182,10 +184,14 @@ def checkHabit(request, pk):
 
         for pointInTime in dateArray:
             if order.interval == "Daily":
-                penultimate = pointInTime.dateAsString
-                lastChecked = parse_date(penultimate)
+                # On the line below we retrieve the current date for the loop
+                dateInQuestion = pointInTime.dateAsString
+                # Since it is a string we need to parse it back into a date, otherwise we get a TypeError
+                lastChecked = parse_date(dateInQuestion)
+                # Since the index i is initalized with one, in the line below we get the date before the current date.
                 previous_day = dateArray[i].dateAsString
                 previous_day = parse_date(previous_day)
+                # Here we compare the current date with the one which was checked before that. 
                 newStreak = lastChecked - previous_day
                 if newStreak.days == 1:
                     streak+=1
