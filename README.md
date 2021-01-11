@@ -12,7 +12,7 @@ In order to populate the database from the pre-provided data run:
 •	python manage.py loaddata fixtures
 
 
-In order to create an adamin Users for the DB with all rights run:
+In order to create an admin user for the DB with all rights run:
 
 • python manage.py createsuperuser
 
