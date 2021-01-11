@@ -8,8 +8,11 @@ In order to populate the database from the pre-provided data run:
 
 Technologies used
 
+• SQLite
+
 • For styling I used Bootstrap. 
-• MySQL Light 3DB
+
+
 
 Creating an adamin Users for the DB 
 
