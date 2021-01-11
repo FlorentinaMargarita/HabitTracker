@@ -15,7 +15,7 @@ Creating an adamin Users for the DB
 
 •python manage.py createsuperuser
 
-*Models*
+**Models**
 
 In Django models are Python classes which inherit from Django models. And allow us to create classes that represent database tables. 
 Migrations 
@@ -52,7 +52,7 @@ One to Many relationships: User to habit relationship  => One user many habits.
 In the admin panel it will give you the choice to only chose one item. 
 
 
-Many to many relationships:
+*Many to many relationships:*
 
 For a many to many relationship another table, like an intermediary table, needs to be created. This stores the id-reference to both tables. Django creates that for you. You just need to add models.ForeignKey(parentOfModel)  
 In Django there is the possibility to set models.ManyToManyField(NameToFieldForRelationShip) 
@@ -61,7 +61,7 @@ Many-to-on relationships are done with the foreign-key
 
 
 
-*Query the data from command prompt*
+**Query the data from command prompt**
 
 • Command: python manage.py shell
 
@@ -106,12 +106,12 @@ This will then only query habits which fall under the category “Family”.
 If you want to query many to many realtionships
 
 
-*Defs*
+**Defs**
 
 Defs in Views are basically the functions you do on the models.
 
 
-*Unit Tests*
+**Unit Tests**
 
 By default Django adds a tests.py file to a new project. 
 The way that tests are detected is that Django starts looking for a file which starts with "test". Then it looks for classes which also start with Test. 
