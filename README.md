@@ -90,6 +90,7 @@ For a many to many relationship another table, like an intermediary table, needs
 **Query the data from command prompt**
 
 To query data from the command prompt run the command:
+
 • python manage.py shell
 
 
@@ -105,8 +106,9 @@ if you want the last habit in the order than the command would look like this:
   print(lastHabit)
   
   
-From here we can access all the attributes by using the dot-notation. 
-print(lastHabit.name)
+From here we can access all the attributes by using the dot-notation like so:
+
+• print(lastHabit.name)
 
 
 You can also search a specific item by id, like this: 
@@ -124,13 +126,12 @@ print(habits)
 So the .filter() in this way like above would just return all habits. 
 However if you had set choices than you can actually query those categories like so:
 
-• habits = Order.objects.filter(category = "Family")
+• habits = Order.objects.filter(inverval = "Daily")
 
   print(habits)
   
   
-This will then only query habits which fall under the category “Family”.
-If you want to query many to many realtionships
+This will then only query habits which have an interval of "Daily".
 
  <br />
 
@@ -150,7 +151,7 @@ To run the test you need to type the command
 
 
 
-For testing I installed
+For testing I installed:
 
 •	pytest 
 
