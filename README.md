@@ -6,7 +6,7 @@ In order to populate the database from the pre-provided data run:
 
 •	python manage.py loaddata fixtures
 
-Technologies used
+**Technologies used**
 
 • SQLite
 
