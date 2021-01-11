@@ -14,7 +14,7 @@ In order to populate the database from the pre-provided data run:
 
 In order to create an adamin Users for the DB with all rights run:
 
-•python manage.py createsuperuser
+• python manage.py createsuperuser
 
 
  <br />
