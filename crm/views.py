@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
 from .forms import OrderForm
+import calendar
 from datetime import datetime, timedelta
 from django.utils.dateparse import (
     parse_date, parse_datetime, parse_duration, parse_time
@@ -131,6 +132,17 @@ def delete(request, pk):
 
 def checkHabit(request, pk):
     order = Order.objects.get(id=pk)
+    repeats = Repeats.objects.all()
+    # This gives me the first timeStamp to which the list should be compared to
+    firstTimeStamp = repeats.first().dateAsString
+    firstRepeats = parse_date(firstTimeStamp)
+    lastTimeStamp = order.checkedList.last().dateAsString
+    lastRepeats = parse_date(lastTimeStamp)
+    timeStampDeltas = lastRepeats - firstRepeats
+    # for k in range(timeStampDeltas.days + 1):
+    #     firstTimeStamp += 1 
+    #     print(firstTimeStamp)
+
     if request.method == 'POST':
         order.checked += 1
         myDateCheck = datetime.today().date()
@@ -144,7 +156,7 @@ def checkHabit(request, pk):
         # Here the array in which we will compare the dates to figure out streaks is created. 
         # In order to compare the dates from today on and backwards the array has to be ordered reversed. 
         # So with the latest added dates first. This is why it says order_by('-dateAsString'). The minus here reverses the string.
-        dateArray = order.checkedList.all().order_by('-dateAsString')
+        dateArray = order.checkedList.all().order_by('-dateAsString')        
         # These two indexes i and j are for counting up the current streaks.
         i = 1
         j = 0
@@ -170,7 +182,9 @@ def checkHabit(request, pk):
                     streak+=1
                 if newStreak.days > 1:
                     break
+                # print("calendar", calendar.d )
                 i += 1
+                # print("calendar", calendar.month(previous_day, 9) )
             elif order.interval == "Weekly":
                 date = parse_date(pointInTime.dateAsString)
                 if weekly:
@@ -188,6 +202,19 @@ def checkHabit(request, pk):
                 j += 1
         longest_streak = 1
         current_streak = 1
+        print("dateArray as String", dateArray[i].dateAsString)
+        print("FirstTimeStamp", firstRepeats)
+        print("LastTimeStamp", lastTimeStamp)
+        # this is the list of dates the checklist Dates should compare to
+        for k in range(timeStampDeltas.days + 1):
+            timeStampDay = firstRepeats + timedelta(days=k)
+            print(timeStampDay)
+        for repeat in repeats: 
+            repeat.dateAsString
+            # print(repeat.dateAsString)
+            
+        # these indexes are for finding the maximum streaks. The logic is similar to comparing for the current streaks. Just that it
+        # doesnt set back to zero when the streak breaks, but stores the longest streak so far.
         ii, jj = 1, 0
         for pointInTime in dateArray:
             if order.interval == "Daily":
@@ -199,7 +226,6 @@ def checkHabit(request, pk):
                     continue
                 previous_day = parse_date(previous_day)
                 newStreak = lastChecked - previous_day
-                print("last day: {} Previous check: {}".format(lastChecked, previous_day))
                 if newStreak.days == 1:
                     current_streak += 1
                 if newStreak.days > 1:
@@ -233,8 +259,6 @@ def checkHabit(request, pk):
                 jj += 1
         order.streak = streak
         order.longestStreak = longest_streak if longest_streak > order.longestStreak else order.longestStreak
-        order.save()
-        return redirect('/')
     order.save()
     return redirect('/')
     context = {"longest": order.longest, 'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
