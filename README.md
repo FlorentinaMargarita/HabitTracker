@@ -15,6 +15,7 @@ Creating an adamin Users for the DB
 
 •python manage.py createsuperuser
 
+
 **Models**
 
 In Django models are Python classes which inherit from Django models. And allow us to create classes that represent database tables. 
@@ -46,7 +47,8 @@ If you want to delete the entire Database (careful, it will also flush away the 
 python manage.py flush
 
 
-*Relationships*
+
+**Relationships**
 
 One to Many relationships: User to habit relationship  => One user many habits. 
 In the admin panel it will give you the choice to only chose one item. 
@@ -58,6 +60,7 @@ For a many to many relationship another table, like an intermediary table, needs
 In Django there is the possibility to set models.ManyToManyField(NameToFieldForRelationShip) 
 The ManyToManyField allowes us to associate different things from different tables.
 Many-to-on relationships are done with the foreign-key
+
 
 
 
@@ -106,9 +109,11 @@ This will then only query habits which fall under the category “Family”.
 If you want to query many to many realtionships
 
 
+
 **Defs**
 
 Defs in Views are basically the functions you do on the models.
+
 
 
 **Unit Tests**
