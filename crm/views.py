@@ -155,43 +155,15 @@ def checkHabit(request, pk):
         latest = parse_date(dateArray[0].dateAsString)
         previous_week = latest - timedelta(days=7)
         weekly = False
-        # These two indexes p and k are for counting up the longest streaks. However, as noted below, that doesnt work quite yet.
-        # 
-        # p = 1
-        # k = 0
+        longest_weekly = False
+        longest_previous_week = latest - timedelta(days=7)
         longest = order.longestStreak = 0
-        # max_count = 0 
-        # prev_int = dateArray[p]
-        # current = dateArray[k]
-        # count = 0
-        # difference = int(current.pk) - int(prev_int.pk)
-        # here I am finding the longest streak for the habits with the daily interval. However that solution doesnt work yet.
-        # while k < dateArray1 and order.interval == 'Daily':
-        #     if difference == 1:
-        #         count+=1
-        #         k+=1
-        #         p+=1
-        #         print(difference, "difference", current.pk, "currentPK", prev_int, "prevInt")
-        #     if count > max_count:
-        #         max_count = count
-        #         print("max_count loop", difference, "difference", current.pk, "currentPK", prev_int, "prevInt")
-        #     else:
-        #         count+=1
-        #         k+=1
-        #         p+=1
-        #         print("else loop")
-        #     order.longestStreak = max_count
-
         for pointInTime in dateArray:
             if order.interval == "Daily":
-                # On the line below we retrieve the current date for the loop
-                dateInQuestion = pointInTime.dateAsString
-                # Since it is a string we need to parse it back into a date, otherwise we get a TypeError
-                lastChecked = parse_date(dateInQuestion)
-                # Since the index i is initalized with one, in the line below we get the date before the current date.
+                penultimate = pointInTime.dateAsString
+                lastChecked = parse_date(penultimate)
                 previous_day = dateArray[i].dateAsString
                 previous_day = parse_date(previous_day)
-                # Here we compare the current date with the one which was checked before that. 
                 newStreak = lastChecked - previous_day
                 if newStreak.days == 1:
                     streak+=1
@@ -213,11 +185,96 @@ def checkHabit(request, pk):
                     except:
                         pass
                 j += 1
+        longest_streak = 1
+        current_streak = 1
+        di, wj = 1, 0
+        for pointInTime in dateArray:
+            if order.interval == "Daily":
+                penultimate = pointInTime.dateAsString
+                lastChecked = parse_date(penultimate)
+                try:
+                    previous_day = dateArray[di].dateAsString
+                except:
+                    continue
+                previous_day = parse_date(previous_day)
+                newStreak = lastChecked - previous_day
+                print("last day: {} Previous check: {}".format(lastChecked, previous_day))
+                if newStreak.days == 1:
+                    current_streak += 1
+                if newStreak.days > 1:
+                    if current_streak > longest_streak:
+                        longest_streak = current_streak
+                        current_streak = 0
+                di += 1
+            elif order.interval == "Weekly":
+                date = parse_date(pointInTime.dateAsString)
+                if longest_weekly:
+                    longest_previous_week = longest_previous_week - timedelta(days=7)
+                    longest_weekly = False
+                if not date > longest_previous_week:
+                    current_streak += 1
+                    if current_streak > longest_streak:
+                        longest_streak = current_streak
+                    longest_weekly = True
+                    longest_latest = date
+                    try:
+                        if (longest_latest - parse_date(dateArray[wj + 1].dateAsString)).days > 7:
+                            if current_streak > longest_streak:
+                                longest_streak = current_streak
+                                current_streak = 0
+                    except:
+                        if current_streak > longest_streak:
+                            longest_streak = current_streak
+                            current_streak = 0
+                        pass
+                wj += 1
         order.streak = streak
+        order.longestStreak = longest_streak if longest_streak > order.longestStreak else order.longestStreak
         order.save()
         return redirect('/')
     order.save()
     return redirect('/')
     context = {"longest": order.longest, 'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
     return render(request, 'habit/order_form.html', context)
+
+
+
+    #     for pointInTime in dateArray:
+    #         if order.interval == "Daily":
+    #             # On the line below we retrieve the current date for the loop
+    #             dateInQuestion = pointInTime.dateAsString
+    #             # Since it is a string we need to parse it back into a date, otherwise we get a TypeError
+    #             lastChecked = parse_date(dateInQuestion)
+    #             # Since the index i is initalized with one, in the line below we get the date before the current date.
+    #             previous_day = dateArray[i].dateAsString
+    #             previous_day = parse_date(previous_day)
+    #             # Here we compare the current date with the one which was checked before that. 
+    #             newStreak = lastChecked - previous_day
+    #             if newStreak.days == 1:
+    #                 streak+=1
+    #             if newStreak.days > 1:
+    #                 break
+    #             i += 1
+    #         elif order.interval == "Weekly":
+    #             date = parse_date(pointInTime.dateAsString)
+    #             if weekly:
+    #                 previous_week = previous_week - timedelta(days=7)
+    #                 weekly = False
+    #             if not date > previous_week:
+    #                 streak += 1
+    #                 weekly = True
+    #                 latest = date
+    #                 try:
+    #                     if (latest - parse_date(dateArray[j + 1].dateAsString)).days > 7:
+    #                         break
+    #                 except:
+    #                     pass
+    #             j += 1
+    #     order.streak = streak
+    #     order.save()
+    #     return redirect('/')
+    # order.save()
+    # return redirect('/')
+    # context = {"longest": order.longest, 'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
+    # return render(request, 'habit/order_form.html', context)
 
