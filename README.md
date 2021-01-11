@@ -13,13 +13,15 @@ In order to create an adamin Users for the DB with all rights run:
 
 
  <br />
+ 
+ 
 **Technologies used**
 
 • SQLite
 
 • For styling I used Bootstrap. 
 
-
+ <br />
 
 **Models**
 
