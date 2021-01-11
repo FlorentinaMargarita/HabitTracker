@@ -4,7 +4,7 @@ At first you have to download the Django-CLI. Please follow instructions on this
 
  <br />
  
- **How to run the HabiTracker on your machine**
+ **How to run the HabitTracker on your machine**
  
 
 In order to populate the database from the pre-provided data run: 
@@ -22,9 +22,9 @@ In order to create an adamin Users for the DB with all rights run:
  
 **Technologies used**
 
-• SQLite
+• Database: SQLite
 
-• For styling I used Bootstrap. 
+• Styling: Bootstrap
 
  <br />
  
@@ -37,20 +37,20 @@ In Django models are Python classes which inherit from Django models. And allow 
 
 Every time the model is changed and the database changes the following commands need to be run:
 
-•	First command: python manage.py makemigrations
+•	python manage.py makemigrations
 
 
-This creates a Migration File in the Migration Folder. This is like preparing the database for the migration we are about to run. In the background it will run SQL commands 
+This creates a Migration File in the Migration Folder. This is like preparing the database for the migration we are about to run. In the background it will run SQL commands. Then we run the command to actually migrate the data. The command goes as follows: 
 
 
-•	Second command: python manage.py migrate
+•	python manage.py migrate
 
 This command adds the table to the database. 
 
 
-Now we run the server with 
+Now we run the server with the following command:
 
-•	Third command: python manage.py runserver
+•	python manage.py runserver
 
 
 In the admin panel this table cannot be seen yet. That table needs to be registered with the admin table. This is done by 
@@ -84,7 +84,8 @@ Many-to-on relationships are done with the foreign-key
 
 **Query the data from command prompt**
 
-• Command: python manage.py shell
+To query data from the command prompt run the command:
+• python manage.py shell
 
 
 
