@@ -3,16 +3,20 @@
 At first you have to download the Django-CLI. Please follow instructions on this here: https://docs.djangoproject.com/en/3.1/howto/windows/
 
 -	In order to populate the database from the pre-provided data run: 
+
 •	python manage.py loaddata fixtures
 
 Technologies used
+
 • For styling I used Bootstrap. 
 • MySQL Light 3DB
 
 Creating an adamin Users for the DB 
+
 •python manage.py createsuperuser
 
 *Models*
+
 In Django models are Python classes which inherit from Django models. And allow us to create classes that represent database tables. 
 Migrations 
 Every time the model is changed and the database changes the following commands need to be run:
