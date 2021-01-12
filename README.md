@@ -15,6 +15,8 @@ At first you have to download the Django-CLI. Please follow instructions on this
 
 • Styling: Bootstrap
 
+• I used the DotEnv package to make this project secure for sharing here on github. In case you want to run the project, just reach out to me and I will provide you the .env file, which I did not share here on github. To use it please install: https://pypi.org/project/python-dotenv/
+
  <br />
  
  
