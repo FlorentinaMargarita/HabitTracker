@@ -223,18 +223,21 @@ def checkHabit(request, pk):
         print("newnewArray2", newNewArray2, "lengthNewArray", len(newArray))
         print("length newArray2", len(newNewArray2))
 
-
+        # zeroOneArray will return a list of 0 and 1. 0 for when it wasnt checked 1 if it was checked. 
+        # It starts at the date when it was checked for the first time.
         zeroOneArray = []
-        count = 0
+        countMax = 0
+        countCurrent = 0
         for m in newArray:
             if m in newNewArray2:
                 zeroOneArray.append("1")
-                count += 1
+                countMax += 1
+                countCurrent += 1
             else: 
                 zeroOneArray.append("0")
-            order.longestStreak = count
-        # zeroOneArray will return a list of 0 and 1. 0 for when it wasnt checked 1 if it was checked. 
-        # It starts at the date when it was checked for the first time.
+                countCurrent = 0
+            order.longestStreak = countMax
+            order.streak = countCurrent
         print("zeroOneArray", zeroOneArray)
 
 
