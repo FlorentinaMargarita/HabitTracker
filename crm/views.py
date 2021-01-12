@@ -233,61 +233,64 @@ def checkHabit(request, pk):
                 zeroOneArray.append("1")
                 countMax += 1
                 countCurrent += 1
+                if countMax > order.longestStreak:
+                    order.longestStreak = countMax + 1
             else: 
                 zeroOneArray.append("0")
                 countCurrent = 0
-            order.longestStreak = countMax
-            order.streak = countCurrent
+                countMax = 0
+            order.streak = countCurrent + 1
+            order.save()
         print("zeroOneArray", zeroOneArray)
 
 
             
         # these indexes are for finding the maximum streaks. The logic is similar to comparing for the current streaks. Just that it
         # doesnt set back to zero when the streak breaks, but stores the longest streak so far.
-        ii, jj = 1, 0
-        for pointInTime in dateArray:
-            if order.interval == "Daily":
-                penultimate = pointInTime.dateAsString
-                lastChecked = parse_date(penultimate)
-                try:
-                    previous_day = dateArray[ii].dateAsString
-                except:
-                    continue
-                previous_day = parse_date(previous_day)
-                newStreak = lastChecked - previous_day
-                if newStreak.days == 1:
-                    current_streak += 1
-                if newStreak.days > 1:
-                    if current_streak > longest_streak:
-                        longest_streak = current_streak
-                        current_streak = 0
-                ii += 1
-            elif order.interval == "Weekly":
-                date = parse_date(pointInTime.dateAsString)
-                if longest_weekly:
-                    longest_previous_week = longest_previous_week - timedelta(days=7)
-                    longest_weekly = False
-                if not date > longest_previous_week:
-                    current_streak += 1
-                    if current_streak > longest_streak:
-                        longest_streak = current_streak
-                    longest_weekly = True
-                    longest_latest = date
-                    try:
-                        # this is an index based comparision. Like index 0 and index 1, indea 1 and index 2 and so on.
-                        # It is to compare current and previous date.
-                        if (longest_latest - parse_date(dateArray[jj + 1].dateAsString)).days > 7:
-                            if current_streak > longest_streak:
-                                longest_streak = current_streak
-                                current_streak = 0
-                    except:
-                        if current_streak > longest_streak:
-                            longest_streak = current_streak
-                            current_streak = 0
-                        pass
-                jj += 1
-        order.streak = streak
-        order.longestStreak = longest_streak if longest_streak > order.longestStreak else order.longestStreak
+        # ii, jj = 1, 0
+        # for pointInTime in dateArray:
+        #     if order.interval == "Daily":
+        #         penultimate = pointInTime.dateAsString
+        #         lastChecked = parse_date(penultimate)
+        #         try:
+        #             previous_day = dateArray[ii].dateAsString
+        #         except:
+        #             continue
+        #         previous_day = parse_date(previous_day)
+        #         newStreak = lastChecked - previous_day
+        #         if newStreak.days == 1:
+        #             current_streak += 1
+        #         if newStreak.days > 1:
+        #             if current_streak > longest_streak:
+        #                 longest_streak = current_streak
+        #                 current_streak = 0
+        #         ii += 1
+        #     elif order.interval == "Weekly":
+        #         date = parse_date(pointInTime.dateAsString)
+        #         if longest_weekly:
+        #             longest_previous_week = longest_previous_week - timedelta(days=7)
+        #             longest_weekly = False
+        #         if not date > longest_previous_week:
+        #             current_streak += 1
+        #             if current_streak > longest_streak:
+        #                 longest_streak = current_streak
+        #             longest_weekly = True
+        #             longest_latest = date
+        #             try:
+        #                 # this is an index based comparision. Like index 0 and index 1, indea 1 and index 2 and so on.
+        #                 # It is to compare current and previous date.
+        #                 if (longest_latest - parse_date(dateArray[jj + 1].dateAsString)).days > 7:
+        #                     if current_streak > longest_streak:
+        #                         longest_streak = current_streak
+        #                         current_streak = 0
+        #             except:
+        #                 if current_streak > longest_streak:
+        #                     longest_streak = current_streak
+        #                     current_streak = 0
+        #                 pass
+        #         jj += 1
+        # order.streak = streak
+        # order.longestStreak = longest_streak if longest_streak > order.longestStreak else order.longestStreak
     order.save()
     return redirect('/')
     context = {"longest": order.longest, 'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
