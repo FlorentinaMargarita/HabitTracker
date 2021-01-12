@@ -205,7 +205,9 @@ def checkHabit(request, pk):
         print("FirstTimeStamp", firstRepeats)
         print("LastTimeStamp", lastTimeStamp)
         # this is the list of dates the checklist Dates should compare to
+        # "newArray" saves the dates with all the dates from the very first one ever to today
         newArray = []
+        # "newArray2" saves the dates which where checked
         newArray2 = []
         
         for k in range(timeStampDeltas.days + 1):
@@ -229,19 +231,21 @@ def checkHabit(request, pk):
         countMax = 0
         countCurrent = 0
         for m in newArray:
-            if m in newNewArray2:
-                zeroOneArray.append("1")
-                countMax += 1
-                countCurrent += 1
-                if countMax > order.longestStreak:
-                    order.longestStreak = countMax + 1
-            else: 
-                zeroOneArray.append("0")
-                countCurrent = 0
-                countMax = 0
-            order.streak = countCurrent + 1
-            order.save()
+            if order.interval == "Daily":
+                if m in newNewArray2:
+                    zeroOneArray.append("1")
+                    countMax += 1
+                    countCurrent += 1
+                    if countMax > order.longestStreak:
+                        order.longestStreak = countMax + 1
+                else: 
+                    zeroOneArray.append("0")
+                    countCurrent = 0
+                    countMax = 0
+                order.streak = countCurrent + 1
+                order.save()
         print("zeroOneArray", zeroOneArray)
+    
 
 
             
@@ -249,23 +253,7 @@ def checkHabit(request, pk):
         # doesnt set back to zero when the streak breaks, but stores the longest streak so far.
         # ii, jj = 1, 0
         # for pointInTime in dateArray:
-        #     if order.interval == "Daily":
-        #         penultimate = pointInTime.dateAsString
-        #         lastChecked = parse_date(penultimate)
-        #         try:
-        #             previous_day = dateArray[ii].dateAsString
-        #         except:
-        #             continue
-        #         previous_day = parse_date(previous_day)
-        #         newStreak = lastChecked - previous_day
-        #         if newStreak.days == 1:
-        #             current_streak += 1
-        #         if newStreak.days > 1:
-        #             if current_streak > longest_streak:
-        #                 longest_streak = current_streak
-        #                 current_streak = 0
-        #         ii += 1
-        #     elif order.interval == "Weekly":
+        #     if order.interval == "Weekly":
         #         date = parse_date(pointInTime.dateAsString)
         #         if longest_weekly:
         #             longest_previous_week = longest_previous_week - timedelta(days=7)
@@ -289,9 +277,9 @@ def checkHabit(request, pk):
         #                     current_streak = 0
         #                 pass
         #         jj += 1
-        # order.streak = streak
-        # order.longestStreak = longest_streak if longest_streak > order.longestStreak else order.longestStreak
-    order.save()
-    return redirect('/')
-    context = {"longest": order.longest, 'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
-    return render(request, 'habit/order_form.html', context)
+        #         order.streak = streak
+        #         order.longestStreak = longest_streak if longest_streak > order.longestStreak else order.longestStreak
+        order.save()
+        return redirect('/')
+        context = {"longest": order.longest, 'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
+        return render(request, 'habit/order_form.html', context)
