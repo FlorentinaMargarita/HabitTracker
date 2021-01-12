@@ -183,9 +183,7 @@ def checkHabit(request, pk):
                     streak+=1
                 if newStreak.days > 1:
                     break
-                # print("calendar", calendar.d )
                 i += 1
-                # print("calendar", calendar.month(previous_day, 9) )
             elif order.interval == "Weekly":
                 date = parse_date(pointInTime.dateAsString)
                 if weekly:
@@ -220,18 +218,26 @@ def checkHabit(request, pk):
             repeatedDays = parse_date(repeat.dateAsString)
             newArray2.append(repeatedDays)
         print("newArray2", newArray2 )
-        # newnewArray2 is done to have no duplicates in order for it to be compared
+        # newnewArray2 is done to have no duplicates in order for it to be compared. OrderDicts keeps the order when you duplicate.
         newNewArray2 = list(OrderedDict.fromkeys(newArray2))
-        print("newnewArray2", newNewArray2)
+        print("newnewArray2", newNewArray2, "lengthNewArray", len(newArray))
+        print("length newArray2", len(newNewArray2))
 
 
+        zeroOneArray = []
+        count = 0
+        for m in newArray:
+            if m in newNewArray2:
+                zeroOneArray.append("1")
+                count += 1
+            else: 
+                zeroOneArray.append("0")
+            order.longestStreak = count
+        # zeroOneArray will return a list of 0 and 1. 0 for when it wasnt checked 1 if it was checked. 
+        # It starts at the date when it was checked for the first time.
+        print("zeroOneArray", zeroOneArray)
 
 
-
-        # newList = []
-        # if f.dateAsString not in order.checkedList:
-        #         newList.append(f.dateAsString)
-        # print("list without duplicates", newList)
             
         # these indexes are for finding the maximum streaks. The logic is similar to comparing for the current streaks. Just that it
         # doesnt set back to zero when the streak breaks, but stores the longest streak so far.
