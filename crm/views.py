@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from django.utils.dateparse import (
     parse_date, parse_datetime, parse_duration, parse_time
 )
+from collections import OrderedDict
 
 # here I get all the things from the database which I want to display in my dashboard.html
 def home(request):
@@ -206,12 +207,31 @@ def checkHabit(request, pk):
         print("FirstTimeStamp", firstRepeats)
         print("LastTimeStamp", lastTimeStamp)
         # this is the list of dates the checklist Dates should compare to
+        newArray = []
+        newArray2 = []
+        
         for k in range(timeStampDeltas.days + 1):
             timeStampDay = firstRepeats + timedelta(days=k)
-            print(timeStampDay)
-        for repeat in repeats: 
-            repeat.dateAsString
-            # print(repeat.dateAsString)
+            newArray.append(timeStampDay)
+            print(timeStampDay, "TIMESTAMP")
+        print(newArray, "newArray")
+        
+        for repeat in dateArray: 
+            repeatedDays = parse_date(repeat.dateAsString)
+            newArray2.append(repeatedDays)
+        print("newArray2", newArray2 )
+        # newnewArray2 is done to have no duplicates in order for it to be compared
+        newNewArray2 = list(OrderedDict.fromkeys(newArray2))
+        print("newnewArray2", newNewArray2)
+
+
+
+
+
+        # newList = []
+        # if f.dateAsString not in order.checkedList:
+        #         newList.append(f.dateAsString)
+        # print("list without duplicates", newList)
             
         # these indexes are for finding the maximum streaks. The logic is similar to comparing for the current streaks. Just that it
         # doesnt set back to zero when the streak breaks, but stores the longest streak so far.
