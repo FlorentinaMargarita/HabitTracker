@@ -9,6 +9,7 @@ from django.utils.dateparse import (
 )
 from collections import OrderedDict
 
+
 # here I get all the things from the database which I want to display in my dashboard.html
 def home(request):
     orders = Order.objects.all()
@@ -140,9 +141,6 @@ def checkHabit(request, pk):
     lastTimeStamp = order.checkedList.last().dateAsString
     lastRepeats = parse_date(lastTimeStamp)
     timeStampDeltas = lastRepeats - firstRepeats
-    # for k in range(timeStampDeltas.days + 1):
-    #     firstTimeStamp += 1 
-    #     print(firstTimeStamp)
 
     if request.method == 'POST':
         order.checked += 1
@@ -156,11 +154,8 @@ def checkHabit(request, pk):
         order.dateAsString = myDateCheck
         # Here the array in which we will compare the dates to figure out streaks is created. 
         # In order to compare the dates from today on and backwards the array has to be ordered reversed. 
-        # So with the latest added dates first. This is why it says order_by('-dateAsString'). The minus here reverses the string.
-        dateArray = order.checkedList.all().order_by('-dateAsString')        
-        # These two indexes i and j are for counting up the current streaks.
-        i = 1
-        j = 0
+        # So with the latest added dates first. This is why it says order_by('-dateAsString'). The minus reverses the string.
+        dateArray = order.checkedList.all().order_by('-dateAsString')
         # Here I initalize the streaks to 0, that it can count up from there. 
         streak = 0
         # Below is to get the current week
@@ -172,36 +167,7 @@ def checkHabit(request, pk):
         # the two lines below are used to later compare for the maximum streaks. 
         longest_previous_week = latest - timedelta(days=7)
         longest = order.longestStreak = 0
-        for pointInTime in dateArray:
-            if order.interval == "Daily":
-                penultimate = pointInTime.dateAsString
-                lastChecked = parse_date(penultimate)
-                previous_day = dateArray[i].dateAsString
-                previous_day = parse_date(previous_day)
-                newStreak = lastChecked - previous_day
-                if newStreak.days == 1:
-                    streak+=1
-                if newStreak.days > 1:
-                    break
-                i += 1
-            elif order.interval == "Weekly":
-                date = parse_date(pointInTime.dateAsString)
-                if weekly:
-                    previous_week = previous_week - timedelta(days=7)
-                    weekly = False
-                if not date > previous_week:
-                    streak += 1
-                    weekly = True
-                    latest = date
-                    try:
-                        if (latest - parse_date(dateArray[j + 1].dateAsString)).days > 7:
-                            break
-                    except:
-                        pass
-                j += 1
-        longest_streak = 1
-        current_streak = 1
-        print("dateArray as String", dateArray[i].dateAsString)
+
         print("FirstTimeStamp", firstRepeats)
         print("LastTimeStamp", lastTimeStamp)
         # this is the list of dates the checklist Dates should compare to
@@ -228,16 +194,16 @@ def checkHabit(request, pk):
         # zeroOneArray will return a list of 0 and 1. 0 for when it wasnt checked 1 if it was checked. 
         # It starts at the date when it was checked for the first time.
         zeroOneArray = []
-        countMax = 0
+        # countMax = 0
         countCurrent = 0
         for m in newArray:
             if order.interval == "Daily":
                 if m in newNewArray2:
                     zeroOneArray.append("1")
-                    countMax += 1
+                    # countMax += 1
                     countCurrent += 1
-                    if countMax > order.longestStreak:
-                        order.longestStreak = countMax + 1
+                    if countCurrent > order.longestStreak:
+                        order.longestStreak = countCurrent
                 else: 
                     zeroOneArray.append("0")
                     countCurrent = 0
