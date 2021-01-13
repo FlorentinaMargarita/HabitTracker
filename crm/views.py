@@ -8,6 +8,7 @@ from django.utils.dateparse import (
     parse_date, parse_datetime, parse_duration, parse_time
 )
 from collections import OrderedDict
+from itertools import takewhile, accumulate
 
 
 # here I get all the things from the database which I want to display in my dashboard.html
@@ -168,8 +169,8 @@ def checkHabit(request, pk):
         longest_previous_week = latest - timedelta(days=7)
         longest = order.longestStreak = 0
 
-        print("FirstTimeStamp", firstRepeats)
-        print("LastTimeStamp", lastTimeStamp)
+        # print("FirstTimeStamp", firstRepeats)
+        # print("LastTimeStamp", lastTimeStamp)
         # this is the list of dates the checklist Dates should compare to
         # "newArray" saves the dates with all the dates from the very first one ever to today
         newArray = []
@@ -179,17 +180,26 @@ def checkHabit(request, pk):
         for k in range(timeStampDeltas.days + 1):
             timeStampDay = firstRepeats + timedelta(days=k)
             newArray.append(timeStampDay)
-            print(timeStampDay, "TIMESTAMP")
-        print(newArray, "newArray")
-        
+            # print(timeStampDay, "TIMESTAMP")
+        # print(newArray, "newArray")
+    
+
         for repeat in dateArray: 
             repeatedDays = parse_date(repeat.dateAsString)
             newArray2.append(repeatedDays)
-        print("newArray2", newArray2 )
+        # print("newArray2", newArray2 )
         # newnewArray2 is done to have no duplicates in order for it to be compared. OrderDicts keeps the order when you duplicate.
         newNewArray2 = list(OrderedDict.fromkeys(newArray2))
-        print("newnewArray2", newNewArray2, "lengthNewArray", len(newArray))
-        print("length newArray2", len(newNewArray2))
+
+        
+        reversedNewArray2 = reversed(newNewArray2)
+        newNewArray1 = reversed(newArray)
+
+        list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0]))[-1]
+        print("ITERTTOLS length", len(list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0]))))
+
+        list(takewhile(lambda x: x in newArray2, reversed(newArray))) 
+        print("iterttools current length", len(list(takewhile(lambda x: x in reversedNewArray2, newNewArray1)))) 
 
         # zeroOneArray will return a list of 0 and 1. 0 for when it wasnt checked 1 if it was checked. 
         # It starts at the date when it was checked for the first time.
@@ -210,41 +220,12 @@ def checkHabit(request, pk):
                     countMax = 0
                 order.streak = countCurrent + 1
                 order.save()
-        print("zeroOneArray", zeroOneArray)
+        # print("zeroOneArray", zeroOneArray)
     
 
-
+    
             
-        # these indexes are for finding the maximum streaks. The logic is similar to comparing for the current streaks. Just that it
-        # doesnt set back to zero when the streak breaks, but stores the longest streak so far.
-        # ii, jj = 1, 0
-        # for pointInTime in dateArray:
-        #     if order.interval == "Weekly":
-        #         date = parse_date(pointInTime.dateAsString)
-        #         if longest_weekly:
-        #             longest_previous_week = longest_previous_week - timedelta(days=7)
-        #             longest_weekly = False
-        #         if not date > longest_previous_week:
-        #             current_streak += 1
-        #             if current_streak > longest_streak:
-        #                 longest_streak = current_streak
-        #             longest_weekly = True
-        #             longest_latest = date
-        #             try:
-        #                 # this is an index based comparision. Like index 0 and index 1, indea 1 and index 2 and so on.
-        #                 # It is to compare current and previous date.
-        #                 if (longest_latest - parse_date(dateArray[jj + 1].dateAsString)).days > 7:
-        #                     if current_streak > longest_streak:
-        #                         longest_streak = current_streak
-        #                         current_streak = 0
-        #             except:
-        #                 if current_streak > longest_streak:
-        #                     longest_streak = current_streak
-        #                     current_streak = 0
-        #                 pass
-        #         jj += 1
-        #         order.streak = streak
-        #         order.longestStreak = longest_streak if longest_streak > order.longestStreak else order.longestStreak
+
         order.save()
         return redirect('/')
         context = {"longest": order.longest, 'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
