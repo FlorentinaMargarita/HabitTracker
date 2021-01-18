@@ -195,11 +195,17 @@ def checkHabit(request, pk):
         reversedNewArray2 = reversed(newNewArray2)
         newNewArray1 = reversed(newArray)
 
-        list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0]))[-1]
-        print("ITERTTOLS length", len(list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0]))))
+        list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0]))
+        print("ITERTTOLS length", list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0])))
 
-        list(takewhile(lambda x: x in newArray2, reversed(newArray))) 
-        print("iterttools current length", len(list(takewhile(lambda x: x in reversedNewArray2, newNewArray1)))) 
+# current Streak
+        print("iterttools current length", len(list(takewhile(lambda x: x in newNewArray2, newNewArray1)))) 
+
+# longest Streak
+        print("iterttools current length", len(list(takewhile(lambda x: x in newNewArray2, newNewArray1)))) 
+
+        # list(itertools.accumulate(allDays, lambda a, x :( a[0]+1 if x in checkedDays else 0, a[0]+1  if  a[0]+1> a[1] else a[1] ), 
+        # initial= (0,0)))
 
         # zeroOneArray will return a list of 0 and 1. 0 for when it wasnt checked 1 if it was checked. 
         # It starts at the date when it was checked for the first time.

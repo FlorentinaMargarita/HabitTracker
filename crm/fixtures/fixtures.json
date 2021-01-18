@@ -74,6 +74,31 @@
         "checkedList": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118]
          }
 },
+
+{
+    "model": "crm.Repeats",
+    "pk": 136,
+    "fields": {
+        "dateAsString": "2021-01-17"
+        }
+},
+
+{
+    "model": "crm.Repeats",
+    "pk": 135,
+    "fields": {
+        "dateAsString": "2021-01-16"
+        }
+},
+
+{
+    "model": "crm.Repeats",
+    "pk": 134,
+    "fields": {
+        "dateAsString": "2021-01-15"
+        }
+},
+
 {
     "model": "crm.Repeats",
     "pk": 133,
