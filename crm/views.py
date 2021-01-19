@@ -176,33 +176,63 @@ def checkHabit(request, pk):
         newArray = []
         # "newArray2" saves the dates which where checked
         newArray2 = []
+        weekHabit = []
+        weekHabitDate = datetime.today()
         
         for k in range(timeStampDeltas.days + 1):
             timeStampDay = firstRepeats + timedelta(days=k)
             newArray.append(timeStampDay)
-            # print(timeStampDay, "TIMESTAMP")
-        # print(newArray, "newArray")
-    
+        
+        # We start today and walk backwards
+        while weekHabitDate > firstRepeats:
+            # we append todays date
+            weekHabit.append(weekHabitDate)
+            # we subtract 7 days from today
+            weekHabitDate -= timedelta(days=7)
+        # this is the Monday before the very first time it has been checked. will be needed for later computations of the range of what a week is. 
+        weekHabit.append(weekHabitDate)
 
         for repeat in dateArray: 
             repeatedDays = parse_date(repeat.dateAsString)
             newArray2.append(repeatedDays)
-        # print("newArray2", newArray2 )
         # newnewArray2 is done to have no duplicates in order for it to be compared. OrderDicts keeps the order when you duplicate.
         newNewArray2 = list(OrderedDict.fromkeys(newArray2))
 
-        
-        reversedNewArray2 = reversed(newNewArray2)
-        newNewArray1 = reversed(newArray)
+
+     
+        checkedDaysArray = set(newNewArray2)
+        allDaysArray = list(newArray)
+        from pprint import pprint
+        pprint(checkedDaysArray)
+        pprint(allDaysArray)
+
+    
+        def tryingFunctional(a, x):
+            countCurrentBefore, longestStreakBefore = a
+            countCurrentAfter = countCurrentBefore+1 if x in checkedDaysArray else 0
+
+            return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
+    
+        # [-1]is for the last tuple[1] second value which is longest streak  [0] is current streak 
+
+        result =  list(accumulate(allDaysArray, tryingFunctional, initial=(0,0)))
+        pprint(result)
+
+        # print("Longest Streak:", result[-1][1])
+        # print("Current Streak:", result[-1][0])
+
+
+
 
         list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0]))
-        print("ITERTTOLS length", list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0])))
+        # print("ITERTTOLS length", list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0])))
+        # Lambda cannot hold temporary variables 
 
 # current Streak
-        print("iterttools current length", len(list(takewhile(lambda x: x in newNewArray2, newNewArray1)))) 
+#         print("iterttools current length", len(list(takewhile(lambda x: x in newNewArray2, newNewArray1)))) 
 
-# longest Streak
-        print("iterttools current length", len(list(takewhile(lambda x: x in newNewArray2, newNewArray1)))) 
+# # longest Streak
+#         print("iterttools current length", len(list(takewhile(lambda x: x in newNewArray2, newNewArray1)))) 
 
         # list(itertools.accumulate(allDays, lambda a, x :( a[0]+1 if x in checkedDays else 0, a[0]+1  if  a[0]+1> a[1] else a[1] ), 
         # initial= (0,0)))
@@ -227,10 +257,22 @@ def checkHabit(request, pk):
                 order.streak = countCurrent + 1
                 order.save()
         # print("zeroOneArray", zeroOneArray)
-    
+
+        # allDaysTrial = [9,8,7,6,5,4,3,2,1]
+        # checkedDaysTrial = [9,8,5,4,3]
 
     
-            
+        # def tryingFunctional(a, x):
+        #     countCurrentBefore, longestStreakBefore = a
+        #     countCurrentAfter = countCurrentBefore+1 if x in checkedDaysTrial else 0
+
+        #     return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
+    
+
+        # print(list(accumulate(allDaysTrial, tryingFunctional, initial=(0,0))))
+
+        
+
 
         order.save()
         return redirect('/')
