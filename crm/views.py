@@ -9,6 +9,7 @@ from django.utils.dateparse import (
 )
 from collections import OrderedDict
 from itertools import takewhile, accumulate
+from pprint import pprint
 
 
 # here I get all the things from the database which I want to display in my dashboard.html
@@ -137,11 +138,9 @@ def checkHabit(request, pk):
     order = Order.objects.get(id=pk)
     repeats = Repeats.objects.all()
     # This gives me the first timeStamp to which the list should be compared to
-    firstTimeStamp = repeats.first().dateAsString
-    firstRepeats = parse_date(firstTimeStamp)
-    lastTimeStamp = order.checkedList.last().dateAsString
-    lastRepeats = parse_date(lastTimeStamp)
-    timeStampDeltas = lastRepeats - firstRepeats
+    # We are sorting by date to make sure that we get the last/first date, in case the database doesn't store them in date order.
+ 
+
 
     if request.method == 'POST':
         order.checked += 1
@@ -152,6 +151,7 @@ def checkHabit(request, pk):
         # the line below adds the new Repeapts object in the manyToManyField called checkedList on the order.object. 
         # This will later be used to compare the dates with one another.
         order.checkedList.add(newRep)
+        order.save()
         order.dateAsString = myDateCheck
         # Here the array in which we will compare the dates to figure out streaks is created. 
         # In order to compare the dates from today on and backwards the array has to be ordered reversed. 
@@ -160,14 +160,14 @@ def checkHabit(request, pk):
         # Here I initalize the streaks to 0, that it can count up from there. 
         streak = 0
         # Below is to get the current week
-        latest = parse_date(dateArray[0].dateAsString)
+        # latest = parse_date(dateArray[0].dateAsString)
         # Below is to get the previous week. 
-        previous_week = latest - timedelta(days=7)
-        weekly = False
-        longest_weekly = False
+        # previous_week = latest - timedelta(days=7)
+        # weekly = False
+        # longest_weekly = False
         # the two lines below are used to later compare for the maximum streaks. 
-        longest_previous_week = latest - timedelta(days=7)
-        longest = order.longestStreak = 0
+        # longest_previous_week = latest - timedelta(days=7)
+        # longest = order.longestStreak = 0
 
         # print("FirstTimeStamp", firstRepeats)
         # print("LastTimeStamp", lastTimeStamp)
@@ -177,7 +177,16 @@ def checkHabit(request, pk):
         # "newArray2" saves the dates which where checked
         newArray2 = []
         weekHabit = []
-        weekHabitDate = datetime.today()
+        weekHabitDate = date.today()
+        print(weekHabitDate, "weekhabit")
+
+        firstTimeStamp = repeats.earliest('dateAsString').dateAsString
+        firstRepeats = parse_date(firstTimeStamp)
+        print(firstTimeStamp, "firstTimeStamp")
+        lastTimeStamp = order.checkedList.latest('dateAsString').dateAsString
+        print(lastTimeStamp, "lastTimeStamp")
+        lastRepeats = parse_date(lastTimeStamp)
+        timeStampDeltas = lastRepeats - firstRepeats
         
         for k in range(timeStampDeltas.days + 1):
             timeStampDay = firstRepeats + timedelta(days=k)
@@ -197,17 +206,54 @@ def checkHabit(request, pk):
             newArray2.append(repeatedDays)
         # newnewArray2 is done to have no duplicates in order for it to be compared. OrderDicts keeps the order when you duplicate.
         newNewArray2 = list(OrderedDict.fromkeys(newArray2))
+        pprint(newArray2)
 
 
-     
         checkedDaysArray = set(newNewArray2)
         allDaysArray = list(newArray)
-        from pprint import pprint
-        pprint(checkedDaysArray)
         pprint(allDaysArray)
+        
+        # pprint(checkedDaysArray)
+        # pprint(allDaysArray)
+
+        # inCheckedDays(10, [08, 13, 25, 32])
+        # implement it with not exact matches, but implement it with non exact matches.
+        def inCheckedDays(x, checkedDays):
+        # for i=0; i<checkedDays.length; i++{
+        #     print(checkedDays[i])
+                # return true
+        # }
+        # return false
+
+        # LEARN THIS!!!!!!!
+            for i in checkedDays 
+                if x<=i<x+10
+                # if i == x
+                    return True 
+            return False
+
+
+
+        if x in checkedDays 
+                return True
+            else return False
+                
+            # return x in checkedDays
+    
+
+        def tryingWeekly(a, x):
+            # a is a tuple
+            countCurrentBefore, longestStreakBefore = a
+            countCurrentAfter = countCurrentBefore+1 if   
+            # x is an element in the allDaysArrays
+            inCheckedDays(x, checkedDaysArray)
+            else 0
+
+            return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
 
     
         def tryingFunctional(a, x):
+            # a is a tuple
             countCurrentBefore, longestStreakBefore = a
             countCurrentAfter = countCurrentBefore+1 if x in checkedDaysArray else 0
 
@@ -218,13 +264,13 @@ def checkHabit(request, pk):
         result =  list(accumulate(allDaysArray, tryingFunctional, initial=(0,0)))
         pprint(result)
 
-        # print("Longest Streak:", result[-1][1])
-        # print("Current Streak:", result[-1][0])
+        order.longestStreak = result[-1][1]
+        order.streak =  result[-1][0]
 
+        print("Longest Streak:", result[-1][1])
+        print("Current Streak:", result[-1][0])
 
-
-
-        list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0]))
+        # list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0]))
         # print("ITERTTOLS length", list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0])))
         # Lambda cannot hold temporary variables 
 
@@ -239,23 +285,23 @@ def checkHabit(request, pk):
 
         # zeroOneArray will return a list of 0 and 1. 0 for when it wasnt checked 1 if it was checked. 
         # It starts at the date when it was checked for the first time.
-        zeroOneArray = []
-        # countMax = 0
-        countCurrent = 0
-        for m in newArray:
-            if order.interval == "Daily":
-                if m in newNewArray2:
-                    zeroOneArray.append("1")
-                    # countMax += 1
-                    countCurrent += 1
-                    if countCurrent > order.longestStreak:
-                        order.longestStreak = countCurrent
-                else: 
-                    zeroOneArray.append("0")
-                    countCurrent = 0
-                    countMax = 0
-                order.streak = countCurrent + 1
-                order.save()
+        # zeroOneArray = []
+        # # countMax = 0
+        # countCurrent = 0
+        # for m in newArray:
+        #     if order.interval == "Daily":
+        #         if m in newNewArray2:
+        #             zeroOneArray.append("1")
+        #             # countMax += 1
+        #             countCurrent += 1
+        #             if countCurrent > order.longestStreak:
+        #                 order.longestStreak = countCurrent
+        #         else: 
+        #             zeroOneArray.append("0")
+        #             countCurrent = 0
+        #             countMax = 0
+        #         order.streak = countCurrent + 1
+        #         order.save()
         # print("zeroOneArray", zeroOneArray)
 
         # allDaysTrial = [9,8,7,6,5,4,3,2,1]
@@ -268,13 +314,7 @@ def checkHabit(request, pk):
 
         #     return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
     
-
-        # print(list(accumulate(allDaysTrial, tryingFunctional, initial=(0,0))))
-
-        
-
-
         order.save()
         return redirect('/')
-        context = {"longest": order.longest, 'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
+        context = {"longest": order.longestStreak, 'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
         return render(request, 'habit/order_form.html', context)
