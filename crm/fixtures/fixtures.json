@@ -8,7 +8,7 @@
         "timeStamp": "2020-06-06",
         "date_created": "2020-06-06 10:10",
         "dateAsString": "2020-06-06",
-        "checkedList": [140, 139, 138, 137, 136, 135, 134, 133, 132, 131, 130, 129, 128, 127, 126, 111, 110,  107, 105, 103, 102, 101, 100 ]
+        "checkedList": [145, 144, 143, 142, 141, 140, 139, 138, 137, 136, 135, 134, 133, 132, 131, 130, 129, 128, 127, 126, 111, 110,  107, 105, 103, 102, 101, 100 ]
         
     }
 },
@@ -74,6 +74,84 @@
         "checkedList": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118]
          }
 },
+{
+    "model": "crm.Repeats",
+    "pk": 151,
+    "fields": {
+        "dateAsString": "2021-02-01"
+        }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 150,
+    "fields": {
+        "dateAsString": "2021-01-31"
+        }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 149,
+    "fields": {
+        "dateAsString": "2021-01-30"
+        }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 148,
+    "fields": {
+        "dateAsString": "2021-01-29"
+        }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 147,
+    "fields": {
+        "dateAsString": "2021-01-28"
+        }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 146,
+    "fields": {
+        "dateAsString": "2021-01-27"
+        }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 145,
+    "fields": {
+        "dateAsString": "2021-01-26"
+        }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 144,
+    "fields": {
+        "dateAsString": "2021-01-25"
+        }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 143,
+    "fields": {
+        "dateAsString": "2021-01-24"
+        }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 142,
+    "fields": {
+        "dateAsString": "2021-01-23"
+        }
+},
+{
+    "model": "crm.Repeats",
+    "pk": 141,
+    "fields": {
+        "dateAsString": "2021-01-22"
+        }
+},
+
 
 {
     "model": "crm.Repeats",

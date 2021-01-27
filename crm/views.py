@@ -226,30 +226,26 @@ def checkHabit(request, pk):
         # return false
 
         # LEARN THIS!!!!!!!
-            for i in checkedDays 
-                if x<=i<x+10
-                # if i == x
+            for i in checkedDays: 
+                if x<=i<x+10:
                     return True 
             return False
 
 
 
-        if x in checkedDays 
-                return True
-            else return False
-                
-            # return x in checkedDays
+        # if x in checkedDays: 
+        #         return True
+        # else: return False
     
 
         def tryingWeekly(a, x):
             # a is a tuple
             countCurrentBefore, longestStreakBefore = a
-            countCurrentAfter = countCurrentBefore+1 if   
+            countCurrentAfter = countCurrentBefore+1    
             # x is an element in the allDaysArrays
-            inCheckedDays(x, checkedDaysArray)
-            else 0
-
-            return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
+            if inCheckedDays(x, checkedDaysArray):
+                return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
+            else: 0
 
     
         def tryingFunctional(a, x):
