@@ -191,6 +191,7 @@ def checkHabit(request, pk):
         for k in range(timeStampDeltas.days + 1):
             timeStampDay = firstRepeats + timedelta(days=k)
             newArray.append(timeStampDay)
+            print("timeStampDay", timeStampDay)
         
         # We start today and walk backwards
         while weekHabitDate > firstRepeats:
@@ -200,71 +201,57 @@ def checkHabit(request, pk):
             weekHabitDate -= timedelta(days=7)
         # this is the Monday before the very first time it has been checked. will be needed for later computations of the range of what a week is. 
         weekHabit.append(weekHabitDate)
+        print("weekhabit", weekHabit)
 
+        # dateArray is an array which has all the days which were checked
         for repeat in dateArray: 
             repeatedDays = parse_date(repeat.dateAsString)
             newArray2.append(repeatedDays)
         # newnewArray2 is done to have no duplicates in order for it to be compared. OrderDicts keeps the order when you duplicate.
         newNewArray2 = list(OrderedDict.fromkeys(newArray2))
-        pprint(newArray2)
-
-
         checkedDaysArray = set(newNewArray2)
         allDaysArray = list(newArray)
-        pprint(allDaysArray)
-        
-        # pprint(checkedDaysArray)
-        # pprint(allDaysArray)
+
 
         # inCheckedDays(10, [08, 13, 25, 32])
         # implement it with not exact matches, but implement it with non exact matches.
         def inCheckedDays(x, checkedDays):
-        # for i=0; i<checkedDays.length; i++{
-        #     print(checkedDays[i])
-                # return true
-        # }
-        # return false
-
-        # LEARN THIS!!!!!!!
             for i in checkedDays: 
-                if x<=i<x+10:
+                #  if x<=i<x+10
+                # plusTen = x+=timedelta(days=10)
+                if x<=i < x +timedelta(days=10):
                     return True 
             return False
 
 
-
-        # if x in checkedDays: 
-        #         return True
-        # else: return False
-    
-
         def tryingWeekly(a, x):
             # a is a tuple
-            countCurrentBefore, longestStreakBefore = a
-            countCurrentAfter = countCurrentBefore+1    
-            # x is an element in the allDaysArrays
-            if inCheckedDays(x, checkedDaysArray):
-                return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
-            else: 0
-
+            if order.interval == "Weekly":
+                countCurrentBefore, longestStreakBefore = a
+                countCurrentAfter = countCurrentBefore+1    
+                if inCheckedDays(weekHabitDate,  checkedDaysArray):
+                    return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
+                else: 0
+                print("countcurrentAfter", countCurrentAfter)
+                # result =  list(accumulate(allDaysArray, tryingWeekly, initial=(0,0)))
     
-        def tryingFunctional(a, x):
+        def tryingDaily(a, x):
             # a is a tuple
-            countCurrentBefore, longestStreakBefore = a
-            countCurrentAfter = countCurrentBefore+1 if x in checkedDaysArray else 0
+            if order.interval == "Daily":
+                countCurrentBefore, longestStreakBefore = a
+                countCurrentAfter = countCurrentBefore+1 if x in checkedDaysArray else 0
 
-            return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
+                return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
+        
+        result =  list(accumulate(allDaysArray, tryingDaily, initial=(0,0))) if order.interval == "Daily" else list(accumulate(allDaysArray, tryingWeekly, initial=(0,0)))
     
-        # [-1]is for the last tuple[1] second value which is longest streak  [0] is current streak 
-
-        result =  list(accumulate(allDaysArray, tryingFunctional, initial=(0,0)))
-        pprint(result)
-
+        
+        # [-1]is for the last tuple, second value which is longest streak  
         order.longestStreak = result[-1][1]
         order.streak =  result[-1][0]
 
-        print("Longest Streak:", result[-1][1])
-        print("Current Streak:", result[-1][0])
+        # print("Longest Streak:", result[-1][1])
+        # print("Current Streak:", result[-1][0])
 
         # list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0]))
         # print("ITERTTOLS length", list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0])))
@@ -304,7 +291,7 @@ def checkHabit(request, pk):
         # checkedDaysTrial = [9,8,5,4,3]
 
     
-        # def tryingFunctional(a, x):
+        # def tryingDaily(a, x):
         #     countCurrentBefore, longestStreakBefore = a
         #     countCurrentAfter = countCurrentBefore+1 if x in checkedDaysTrial else 0
 
