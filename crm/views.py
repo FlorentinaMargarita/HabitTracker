@@ -157,18 +157,6 @@ def checkHabit(request, pk):
         dateArray = order.checkedList.all().order_by('-dateAsString')
         # Here I initalize the streaks to 0, that it can count up from there. 
         streak = 0
-        # Below is to get the current week
-        # latest = parse_date(dateArray[0].dateAsString)
-        # Below is to get the previous week. 
-        # previous_week = latest - timedelta(days=7)
-        # weekly = False
-        # longest_weekly = False
-        # the two lines below are used to later compare for the maximum streaks. 
-        # longest_previous_week = latest - timedelta(days=7)
-        # longest = order.longestStreak = 0
-
-        # print("FirstTimeStamp", firstRepeats)
-        # print("LastTimeStamp", lastTimeStamp)
         # this is the list of dates the checklist Dates should compare to
         # "newArray" saves the dates with all the dates from the very first one ever to today
         newArray = []
@@ -176,13 +164,10 @@ def checkHabit(request, pk):
         newArray2 = []
         weekHabit = []
         weekHabitDate = date.today()
-        print(weekHabitDate, "weekhabit")
 
         firstTimeStamp = repeats.earliest('dateAsString').dateAsString
         firstRepeats = parse_date(firstTimeStamp)
-        print(firstTimeStamp, "firstTimeStamp")
         lastTimeStamp = order.checkedList.latest('dateAsString').dateAsString
-        print(lastTimeStamp, "lastTimeStamp")
         lastRepeats = parse_date(lastTimeStamp)
         timeStampDeltas = lastRepeats - firstRepeats
         
@@ -200,7 +185,7 @@ def checkHabit(request, pk):
         weekHabit.append(weekHabitDate)
         # We get weekdays in reverse order. And because checkedDays is a set, there is no order. There is no concept of an order. 
         weekHabit.reverse()
-        print("weekhabit", weekHabit)
+   
 
         # dateArray is an array which has all the days which were checked
         for repeat in dateArray: 
@@ -211,16 +196,10 @@ def checkHabit(request, pk):
         checkedDaysArray = set(newNewArray2)
         allDaysArray = list(newArray)
 
-
-        # inCheckedDays(10, [08, 13, 25, 32])
-        # implement it with not exact matches, but implement it with non exact matches.
-        # @St: Here I keep getting type errors
+        # inCheckedDays is there so that we don't need exact matches. The timedelta establishes the week in the future.
         def inCheckedDays(x, checkedDays):
-            pprint(x)
-            pprint(checkedDays)
             for i in checkedDays:         
                 if x<=i<x + timedelta(days=7):
-                # if k<=i<k:
                     return True 
             return False
 
@@ -234,7 +213,6 @@ def checkHabit(request, pk):
                 else: 
                     return (0, longestStreakBefore)
                 
-                # result =  list(accumulate(allDaysArray, tryingWeekly, initial=(0,0)))
     
         def tryingDaily(a, x):
             # a is a tuple
@@ -250,53 +228,6 @@ def checkHabit(request, pk):
         # [-1]is for the last tuple, second value which is longest streak  
         order.longestStreak = result[-1][1]
         order.streak =  result[-1][0]
-
-        # print("Longest Streak:", result[-1][1])
-        # print("Current Streak:", result[-1][0])
-
-        # list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0]))
-        # print("ITERTTOLS length", list(accumulate(newNewArray2, lambda a, x: x if x > a else a, initial= newNewArray2[0])))
-        # Lambda cannot hold temporary variables 
-
-# current Streak
-#         print("iterttools current length", len(list(takewhile(lambda x: x in newNewArray2, newNewArray1)))) 
-
-# # longest Streak
-#         print("iterttools current length", len(list(takewhile(lambda x: x in newNewArray2, newNewArray1)))) 
-
-        # list(itertools.accumulate(allDays, lambda a, x :( a[0]+1 if x in checkedDays else 0, a[0]+1  if  a[0]+1> a[1] else a[1] ), 
-        # initial= (0,0)))
-
-        # zeroOneArray will return a list of 0 and 1. 0 for when it wasnt checked 1 if it was checked. 
-        # It starts at the date when it was checked for the first time.
-        # zeroOneArray = []
-        # # countMax = 0
-        # countCurrent = 0
-        # for m in newArray:
-        #     if order.interval == "Daily":
-        #         if m in newNewArray2:
-        #             zeroOneArray.append("1")
-        #             # countMax += 1
-        #             countCurrent += 1
-        #             if countCurrent > order.longestStreak:
-        #                 order.longestStreak = countCurrent
-        #         else: 
-        #             zeroOneArray.append("0")
-        #             countCurrent = 0
-        #             countMax = 0
-        #         order.streak = countCurrent + 1
-        #         order.save()
-        # print("zeroOneArray", zeroOneArray)
-
-        # allDaysTrial = [9,8,7,6,5,4,3,2,1]
-        # checkedDaysTrial = [9,8,5,4,3]
-
-    
-        # def tryingDaily(a, x):
-        #     countCurrentBefore, longestStreakBefore = a
-        #     countCurrentAfter = countCurrentBefore+1 if x in checkedDaysTrial else 0
-
-        #     return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
     
         order.save()
         return redirect('/')
