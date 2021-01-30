@@ -139,8 +139,6 @@ def checkHabit(request, pk):
     repeats = Repeats.objects.all()
     # This gives me the first timeStamp to which the list should be compared to
     # We are sorting by date to make sure that we get the last/first date, in case the database doesn't store them in date order.
- 
-
 
     if request.method == 'POST':
         order.checked += 1
@@ -191,9 +189,8 @@ def checkHabit(request, pk):
         for k in range(timeStampDeltas.days + 1):
             timeStampDay = firstRepeats + timedelta(days=k)
             newArray.append(timeStampDay)
-            print("timeStampDay", timeStampDay)
         
-        # We start today and walk backwards
+        # We start today and walk backwards. Here we get all the weeks. Regardless if they were checked or not. 
         while weekHabitDate > firstRepeats:
             # we append todays date
             weekHabit.append(weekHabitDate)
@@ -201,6 +198,8 @@ def checkHabit(request, pk):
             weekHabitDate -= timedelta(days=7)
         # this is the Monday before the very first time it has been checked. will be needed for later computations of the range of what a week is. 
         weekHabit.append(weekHabitDate)
+        # We get weekdays in reverse order. And because checkedDays is a set, there is no order. There is no concept of an order. 
+        weekHabit.reverse()
         print("weekhabit", weekHabit)
 
         # dateArray is an array which has all the days which were checked
@@ -215,24 +214,26 @@ def checkHabit(request, pk):
 
         # inCheckedDays(10, [08, 13, 25, 32])
         # implement it with not exact matches, but implement it with non exact matches.
+        # @St: Here I keep getting type errors
         def inCheckedDays(x, checkedDays):
-            for i in checkedDays: 
-                #  if x<=i<x+10
-                # plusTen = x+=timedelta(days=10)
-                if x<=i < x +timedelta(days=10):
+            pprint(x)
+            pprint(checkedDays)
+            for i in checkedDays:         
+                if x<=i<x + timedelta(days=7):
+                # if k<=i<k:
                     return True 
             return False
 
-
         def tryingWeekly(a, x):
-            # a is a tuple
+            # a is a tuple. Tuple syntax has ()
             if order.interval == "Weekly":
                 countCurrentBefore, longestStreakBefore = a
                 countCurrentAfter = countCurrentBefore+1    
-                if inCheckedDays(weekHabitDate,  checkedDaysArray):
+                if inCheckedDays(x,  checkedDaysArray):
                     return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
-                else: 0
-                print("countcurrentAfter", countCurrentAfter)
+                else: 
+                    return (0, longestStreakBefore)
+                
                 # result =  list(accumulate(allDaysArray, tryingWeekly, initial=(0,0)))
     
         def tryingDaily(a, x):
@@ -243,7 +244,7 @@ def checkHabit(request, pk):
 
                 return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
         
-        result =  list(accumulate(allDaysArray, tryingDaily, initial=(0,0))) if order.interval == "Daily" else list(accumulate(allDaysArray, tryingWeekly, initial=(0,0)))
+        result =  list(accumulate(allDaysArray, tryingDaily, initial=(0,0))) if order.interval == "Daily" else list(accumulate(weekHabit, tryingWeekly, initial=(0,0)))
     
         
         # [-1]is for the last tuple, second value which is longest streak  
