@@ -130,10 +130,24 @@ def delete(request, pk):
     return render(request, 'habit/delete.html', context)
 
 
-# the checkhabit function is the most important one of this project. 
+# the checkHabitFakeToday function is the most important one of this project. It uses a fake date for today, so that the pytests
+# can be run, without starting the database. 
 # Whenever a habit is checked, it creates a new instance of "Repeats", which stores the dateTime as a string in the database. 
 # The habit which was checked, stores this Repeats-object in the manytomany field. 
 
+# All that the checkHabit does is to call the actual checkhabitFakeToday function and pass it the real date of today as an argument.
+# This way the tests can be run and the web application work, and the date of today won't confuse the outcomes.
+
+#@S: I keep getting this error: The view crm.views.checkHabit didn't return an HttpResponse object. It returned None instead.
+# def checkHabit(request, pk):
+#     request = request
+#     pk = pk
+#     checkHabitFakeToday(date.today(), request, pk)
+#     print(request, "request")
+#     print(pk, "PK")
+
+# @S: this is what I tried and what didn't work
+# def checkHabitFakeToday(today, request, pk):
 def checkHabit(request, pk):
     order = Order.objects.get(id=pk)
     repeats = Repeats.objects.all()
