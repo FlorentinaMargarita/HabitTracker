@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve    
 from crm.views import analytics, habit
-from crm.models import * 
+from crm.models import Order, Repeats 
 import json 
 
 class TestUrls(SimpleTestCase):
@@ -12,6 +12,7 @@ class TestUrls(SimpleTestCase):
             self.assertEquals(resolve(url).func, analytics)
 
 
+# I set up different things that I need, for each of the tests
 class TestModels(TestCase):
     def setUp(self):
         self.order1 = Order.objects.create(
@@ -20,12 +21,12 @@ class TestModels(TestCase):
         )
 
  
-class TestView(TestCase):
-    # this function is going to be run before every single test method. It's used to setup a certain scenario.
-        def setUp(self):
-            self.client = Client()
-            self.analytics = reverse('analytics')
-            self.createHabit = reverse('create_habit')
+# class TestView(TestCase):
+#     # this function is going to be run before every single test method. It's used to setup a certain scenario.
+#         def setUp(self):
+#             self.client = Client()
+#             self.analytics = reverse('analytics')
+#             self.createHabit = reverse('create_habit')
 
 # # TestCase is in the testing framework. It is from Django. Most of the testCases will inherit from TestCase by default.
 # # So what is happening is the following, if we use the Django testFramework: 
@@ -39,7 +40,7 @@ class BasicTest(TestCase):
             habit.interval = "Daily"
             habit.save()
 
-            record = Order.objects.get(pk=1)
+            record = Order.objects.get(pk = habit.pk)
             self.assertEqual(record, habit)
 
 #here comes the actual test code. 
