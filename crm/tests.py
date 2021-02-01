@@ -3,6 +3,7 @@ from django.test import SimpleTestCase
 from django.urls import reverse, resolve    
 from crm.views import analytics, habit
 from crm.models import Order, Repeats 
+from pprint import pprint
 import json 
 
 class TestUrls(SimpleTestCase):
@@ -28,12 +29,17 @@ class TestModels(TestCase):
 
 class TestView(TestCase):
     # this function is going to be run before every single test method. It's used to setup a certain scenario.
+    # Django reverse: back from the name we gave to the url to the actual url-name
         def setUp(self):
+            # methods take self as a first argument.
+            self.order1 = Order.objects.create(
+            habit='Habit1',
+            interval='Weekly')
+            self.order1.save()
             self.client = Client()
             self.analytics = reverse('analytics')
             self.createHabit = reverse('create_habit')
-
-#here comes the actual test code. 
+            self.home = reverse('home')
 
         def test_analytics_get(self):
            # Here we get access to the client we setup in the setup method.   
@@ -51,12 +57,45 @@ class TestView(TestCase):
             # This asserts that a certain response contains a specific template
             self.assertTemplateUsed(response, 'habit/order_form.html')
 
+        def test_create_habit_post(self):
+            postHabit = self.client.post(self.createHabit)
+
+        def test_create_home_get(self):
+        # Here we get access to the client we setup in the setup method.    
+            response = self.client.get(self.home)
+            # here are the assertions
+            self.assertEquals(response.status_code, 200)
+            pprint(response.context["orders"])
+            pprint(list(response.context["orders"]))
+            # self.assertEqual
+            # This asserts that a certain response contains a specific template
+            self.assertTemplateUsed(response, 'habit/dashboard.html')
+            
+            # open is python for reading any file. With as: This remembers to close it automatically if I leave the if block. 
+
+        with open('fixture.json') as f:
+            fixtures = json.parse(f)
+            for fixture in fixtures:
+                if fixture['model'] == 'crm.Order':
+                    order = Order.create()
+                    order.id = fixture['pk']
+                    if 'habit' in fixture['fields']:
+                        order.habit = fixture['fields']['habit']
+                else:
+                    repeat = Repeats.create()
+                    repeat.id = fixture['pk']
+                    repeat.created = fixture['fields']['dateAsString']
+
+
+            # all the fields in the model must be in the fixture reader. 
+
+
+
+
+
 
 # Tests
 # 1. For each habit, your system tracks when it has been created, and the date and time the habit tasks have been completed. 
-
-
-
 # 2. return a list of all currently tracked habits
 # 3. return a list of all habits with the same periodicity
 # 4. return the longest run streak of all defined habits,

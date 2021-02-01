@@ -101,9 +101,9 @@ def createHabit(request):
     form = OrderForm()
     if request.method == 'POST':
         form = OrderForm(request.POST)
-    if form.is_valid():
-        form.save()
-        return redirect('/')
+        if form.is_valid():
+            form.save()
+            return redirect('/')
     context = {'form': form}
     return render(request, 'habit/order_form.html', context)
 
@@ -138,17 +138,15 @@ def delete(request, pk):
 # All that the checkHabit does is to call the actual checkhabitFakeToday function and pass it the real date of today as an argument.
 # This way the tests can be run and the web application work, and the date of today won't confuse the outcomes.
 
-#@S: I keep getting this error: The view crm.views.checkHabit didn't return an HttpResponse object. It returned None instead.
-# def checkHabit(request, pk):
-#     request = request
-#     pk = pk
-#     checkHabitFakeToday(date.today(), request, pk)
-#     print(request, "request")
-#     print(pk, "PK")
-
-# @S: this is what I tried and what didn't work
-# def checkHabitFakeToday(today, request, pk):
 def checkHabit(request, pk):
+    request = request
+    pk = pk
+    checkHabitFakeToday(date.today(), request, pk)
+    return redirect('/')
+    context = {"longest": order.longestStreak, 'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
+    return render(request, 'habit/order_form.html', context)
+
+def checkHabitFakeToday(today, request, pk):
     order = Order.objects.get(id=pk)
     repeats = Repeats.objects.all()
     # This gives me the first timeStamp to which the list should be compared to
@@ -156,7 +154,7 @@ def checkHabit(request, pk):
 
     if request.method == 'POST':
         order.checked += 1
-        myDateCheck = datetime.today().date()
+        myDateCheck = today
         # the line below creates a new Repeatsobject. 
         # It stores the timedate at the second of when the habit was completed in terms of this project "checked"
         newRep = Repeats.objects.create(dateAsString = myDateCheck)
@@ -177,7 +175,7 @@ def checkHabit(request, pk):
         # "newArray2" saves the dates which where checked
         newArray2 = []
         weekHabit = []
-        weekHabitDate = date.today()
+        weekHabitDate = today
 
         firstTimeStamp = repeats.earliest('dateAsString').dateAsString
         firstRepeats = parse_date(firstTimeStamp)
@@ -244,6 +242,4 @@ def checkHabit(request, pk):
         order.streak =  result[-1][0]
     
         order.save()
-        return redirect('/')
-        context = {"longest": order.longestStreak, 'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
-        return render(request, 'habit/order_form.html', context)
+        
