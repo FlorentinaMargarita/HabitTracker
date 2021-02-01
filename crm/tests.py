@@ -104,14 +104,20 @@ class TestView(TestCase):
                         if 'created' in fixture['fields']:
                             order.created = fixture['fields']['created']
                         if 'checkedList' in fixture['fields']:
-                        #    order.checkedList.set = fixture['fields']['checkedList']
-                        #    print(order.checkedList.set)
-                            # order.checkedList.add(checks)                         
-                        #    order.checkedList.set = serializers.serialize('json', Order.objects.all(), fields=['dateAsString'], cls=LazyEncoder)
                             checks = fixture['fields']['checkedList']
                             arrayOfChecks = []
                             for check in checks: 
                                 arrayOfChecks.append(check)
+
+                                # This gives me problems
+                                
+                                # for repeat in arrayOfChecks:
+                                #     fixture['model'] == 'crm.Repeats'
+                                #     repeat = Repeats.objects.create()
+                                #     repeat.id = check
+                                #     repeat.dateAsString = fixture['fields']['dateAsString']
+                                #     print(repeat)
+
 
                         totalNumberOfRepeats = len(arrayOfChecks)
                         print("total number of repeats: ", totalNumberOfRepeats)                        
@@ -122,14 +128,14 @@ class TestView(TestCase):
                         if 'dateAsString' in fixture['fields']:
                             order.dateAsString = fixture['fields']['dateAsString']
                             print("date created", order.dateAsString, "\t\n")
+                    
                     else:
                         repeat = Repeats.objects.create()
                         repeat.id = fixture['pk']
                         repeat.created = fixture['fields']['dateAsString']
+                        # print("date when it was completed: ", repeat.created)
 
-                      
-                        # print(repeat)
-
+  
 
 # Tests
 # 1. For each habit, your system tracks when it has been created, and the date and time the habit tasks have been completed. 
