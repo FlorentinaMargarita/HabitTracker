@@ -149,7 +149,7 @@ By default Django adds a tests.py file to a new project.
 The way that tests are detected is that Django starts looking for a file which starts with "test". Then it looks for classes which also start with Test. 
 To run the test you need to type the command 
 
-•	py.test
+•	python manage.py test crm
 
 
 
