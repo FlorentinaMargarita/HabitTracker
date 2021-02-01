@@ -53,50 +53,6 @@ def habit(request, pk):
     return render(request, 'habit/habit.html', context)
 
 
-
-def examples(request): 
-    orders = Order.objects.all()
-    total_orders = orders.count() 
-    context= {'total_orders': total_orders}
-    return render(request, 'habit/examples.html', context)
-
-def examplesCallMum(request):
-    testData = [{
-        'habit': 'Call Mum',
-        'interval': 'Weekly', 
-        'date_created': '2020-09-12',
-        'time_stamp1':  '2020-08-12',
-        'time_stamp2':  '2020-07-12',
-        'time_stamp3':  '2020-06-12',
-        'time_stamp4':  '2020-05-12',
-        'time_stamp5':  '2020-04-12',
-        'time_stamp6':  '2020-03-12',
-        'time_stamp7':  '2020-02-12',
-        'time_stamp8':  '2020-01-12',
-        'time_stamp9':  '2020-30-11',
-        'time_stamp10': '2020-29-11',
-        'time_stamp11': '2020-28-11',
-        'time_stamp12': '2020-27-11',
-        'time_stamp13': '2020-26-11',
-        'time_stamp14': '2020-25-11',
-        'time_stamp15': '2020-24-11',
-        'time_stamp16': '2020-23-11',
-    }]
-    context = {"testData": testData}
-    return render(request, 'habit/examplesCallMum.html', context)
-
-def examplesWorkout(request):
-    return render(request, 'habit/examplesWorkout.html')
-
-def examplesMeditate(request):
-    return render(request, 'habit/examplesMeditate.html')
-
-def examplesBuyGro(request):
-    return render(request, 'habit/examplesBuyGro.html')
-
-def examplesStudy(request):
-    return render(request, 'habit/examplesStudy.html')
-
 def createHabit(request):
     form = OrderForm()
     if request.method == 'POST':
