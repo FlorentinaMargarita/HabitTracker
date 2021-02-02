@@ -41,10 +41,7 @@ class TestView(TestCase):
     # Django reverse: back from the name we gave to the url to the actual url-name
         def setUp(self):
             # methods take self as a first argument.
-            self.order1 = Order.objects.create(
-            habit='Habit1',
-            interval='Weekly')
-            self.order1.save()
+            self.load_data()
             self.client = Client()
             self.analytics = reverse('analytics')
             self.createHabit = reverse('create_habit')
@@ -74,13 +71,22 @@ class TestView(TestCase):
             response = self.client.get(self.home)
             # here are the assertions
             self.assertEquals(response.status_code, 200)
-            pprint(response.context["orders"])
-            pprint(list(response.context["orders"]))
+            for order in response.context["orders"]:
+                print(order.habit)
+                print(order.checkedList.count())
+                print(order.streak)
+                print(order.longestStreak)
+                # self.assertEquals(order.habit)
+                # self.assertEquals(order.checkedList.count)
+                # self.assertEquals(order.streak)
+                # self.assertEquals(order.longestStreak)
+            # pprint(response.context["orders"])
+            # pprint(list(response.context["orders"].all()))
             # self.assertEqual
             # This asserts that a certain response contains a specific template
             self.assertTemplateUsed(response, 'habit/dashboard.html')
             
-        def test_return_list(self):
+        def load_data(self):
             # open is python for reading any file. With as: This remembers to close it automatically if I leave the if block. 
             with open('crm/fixtures/fixtures.json') as f:
                 fixtures = json.load(f)
@@ -102,38 +108,27 @@ class TestView(TestCase):
                             order.longestStreak = fixture['fields']['longestStreak']
                             print("longest Streak for this habit: ", order.longestStreak)
                         if 'created' in fixture['fields']:
-                            order.created = fixture['fields']['created']
-                        if 'checkedList' in fixture['fields']:
-                            checks = fixture['fields']['checkedList']
-                            arrayOfChecks = []
-                            for check in checks: 
-                                arrayOfChecks.append(check)
-
-                                # This gives me problems
-                                
-                                # for repeat in arrayOfChecks:
-                                #     fixture['model'] == 'crm.Repeats'
-                                #     repeat = Repeats.objects.create()
-                                #     repeat.id = check
-                                #     repeat.dateAsString = fixture['fields']['dateAsString']
-                                #     print(repeat)
-
-
-                        totalNumberOfRepeats = len(arrayOfChecks)
-                        print("total number of repeats: ", totalNumberOfRepeats)                        
+                            order.created = fixture['fields']['created']                                  
                         if 'timeStamp' in fixture['fields']:
                             order.timeStamp = fixture['fields']['timeStamp']
                         if 'date_created' in fixture['fields']:
                             order.date_created = fixture['fields']['date_created']
+
                         if 'dateAsString' in fixture['fields']:
                             order.dateAsString = fixture['fields']['dateAsString']
+                            
                             print("date created", order.dateAsString, "\t\n")
+                        order.save()
+                        if 'checkedList' in fixture['fields']:
+                        # checks = fixture['fields']['checkedList']                         
+                            order.checkedList.set(fixture['fields']['checkedList'])  
                     
                     else:
                         repeat = Repeats.objects.create()
                         repeat.id = fixture['pk']
                         repeat.created = fixture['fields']['dateAsString']
-                        # print("date when it was completed: ", repeat.created)
+                        repeat.save()
+
 
   
 

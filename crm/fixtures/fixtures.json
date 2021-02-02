@@ -1,80 +1,5 @@
 
 [{
-    "model": "crm.Order",
-    "pk": 100,
-    "fields": {
-        "habit": "Read",
-        "interval": "Daily",
-        "timeStamp": "2020-12-12",
-        "date_created": "2020-12-12 10:10",
-        "dateAsString": "2020-12-12",
-        "checkedList": [148, 147, 146, 145, 144, 143, 142, 141, 140, 139, 138, 137, 136, 135, 134, 133, 132, 131, 130, 129, 128, 127, 126, 111, 110,  107, 105, 103, 102, 101, 100 ]
-        
-    }
-},
-{
-    "model": "crm.Order",
-    "pk": 101,
-    "fields": {
-        "habit": "Prepare Meals",
-        "interval": "Daily",
-        "dateAsString": "2020-12-12",
-        "date_created": "2020-12-12 10:10",
-        "timeStamp": "2020-12-12",
-        "checkedList": [ 148,  147, 146, 145, 144, 143, 142, 141, 130, 129, 128, 127, 126,  117, 116, 115, 114, 113, 112, 111, 110,  109, 108,  107, 106, 105, 104 ]
-    }
-},
-{
-    "model": "crm.Order",
-    "pk": 102,
-    "fields": {
-        "habit": "Clean Bathroom",
-        "interval": "Weekly",
-        "dateAsString": "2020-12-12",
-        "date_created": "2020-12-12 10:10",
-        "timeStamp": "2020-12-12",
-        "checkedList": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 145, 144, 143, 142, 141]
-        
-    }
-},
-{
-    "model": "crm.Order",
-    "pk": 103,
-    "fields": {
-        "habit": "Organize",
-        "interval": "Weekly",
-        "dateAsString": "2020-12-12",
-        "date_created": "2020-12-12 10:10",
-        "timeStamp": "2020-12-12",
-        "checkedList": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 145, 144, 143, 142, 141]
-    }
-},
-{
-    "model": "crm.Order",
-    "pk": 104,
-    "fields": {
-        "habit": "Breathing Exercise",
-        "interval": "Weekly",
-        "dateAsString": "2020-12-12",
-        "date_created": "2020-12-12 10:10",
-        "timeStamp": "2020-12-12",
-        "checkedList": [100, 101, 102, 103, 104, 105, 106, 107, 113, 114, 115, 145, 144, 143, 142, 141]
-     
-    }
-},
-{
-    "model": "crm.Order",
-    "pk": 105,
-    "fields": {
-        "habit": "Grocery Shopping",
-        "interval": "Weekly",
-        "dateAsString": "2020-12-12",
-        "date_created": "2020-12-12 10:10",
-        "timeStamp": "2020-12-12",
-        "checkedList": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 145, 144, 143, 142, 141]
-         }
-},
-{
     "model": "crm.Repeats",
     "pk": 151,
     "fields": {
@@ -449,4 +374,78 @@
     "fields": {
         "dateAsString": "2020-12-12"
     }
+},
+{
+    "model": "crm.Order",
+    "pk": 100,
+    "fields": {
+        "habit": "Read",
+        "interval": "Daily",
+        "timeStamp": "2020-12-12",
+        "date_created": "2020-12-12 10:10",
+        "dateAsString": "2020-12-12",
+        "checkedList": [ 150, 149, 148, 147, 146, 145, 144, 143, 142, 141, 140, 139, 138, 137, 136, 135, 134, 133, 132, 131, 130, 129, 128, 127, 126, 111, 110,  107, 105, 103, 102, 101, 100 ]
+        
+    }
+},
+{
+    "model": "crm.Order",
+    "pk": 101,
+    "fields": {
+        "habit": "Prepare Meals",
+        "interval": "Daily",
+        "dateAsString": "2020-12-12",
+        "date_created": "2020-12-12 10:10",
+        "timeStamp": "2020-12-12",
+        "checkedList": [ 151, 150, 149, 148,  147, 146, 145, 144, 143, 142, 141, 130, 129, 128, 127, 126,  117, 116, 115, 114, 113, 112, 111, 110,  109, 108,  107, 106, 105, 104 ]
+    }
+},
+{
+    "model": "crm.Order",
+    "pk": 102,
+    "fields": {
+        "habit": "Clean Bathroom",
+        "interval": "Weekly",
+        "dateAsString": "2020-12-12",
+        "date_created": "2020-12-12 10:10",
+        "timeStamp": "2020-12-12",
+        "checkedList": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 145, 144, 143, 142, 141]
+        
+    }
+},
+{
+    "model": "crm.Order",
+    "pk": 103,
+    "fields": {
+        "habit": "Organize",
+        "interval": "Weekly",
+        "dateAsString": "2020-12-12",
+        "date_created": "2020-12-12 10:10",
+        "timeStamp": "2020-12-12",
+        "checkedList": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 145, 144, 143, 142, 141]
+    }
+},
+{
+    "model": "crm.Order",
+    "pk": 104,
+    "fields": {
+        "habit": "Breathing Exercise",
+        "interval": "Weekly",
+        "dateAsString": "2020-12-12",
+        "date_created": "2020-12-12 10:10",
+        "timeStamp": "2020-12-12",
+        "checkedList": [100, 101, 102, 103, 104, 105, 106, 107, 113, 114, 115, 145, 144, 143, 142, 141]     
+    }
+},
+{
+    "model": "crm.Order",
+    "pk": 105,
+    "fields": {
+        "habit": "Grocery Shopping",
+        "interval": "Weekly",
+        "dateAsString": "2020-12-12",
+        "date_created": "2020-12-12 10:10",
+        "timeStamp": "2020-12-12",
+        "checkedList": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 145, 144, 143, 142, 141]
+         }
 }]

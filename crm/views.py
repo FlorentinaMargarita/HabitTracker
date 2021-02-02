@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import *
 from .forms import OrderForm
 import calendar
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from django.utils.dateparse import (
     parse_date, parse_datetime, parse_duration, parse_time
 )
@@ -15,6 +15,8 @@ from pprint import pprint
 # here I get all the things from the database which I want to display in my dashboard.html
 def home(request):
     orders = Order.objects.all()
+    for order in orders:
+        getStreaks(order, date.today())
     total_orders = orders.count()
     # "dailyfilter" is for showing all the habits which are daily
     dailyFilter = Order.objects.filter(interval="Daily")
@@ -117,8 +119,13 @@ def checkHabitFakeToday(today, request, pk):
         # the line below adds the new Repeapts object in the manyToManyField called checkedList on the order.object. 
         # This will later be used to compare the dates with one another.
         order.checkedList.add(newRep)
-        order.save()
         order.dateAsString = myDateCheck
+        order.save()
+
+    
+
+def getStreaks(order, today):
+        repeats = Repeats.objects.all()
         # Here the array in which we will compare the dates to figure out streaks is created. 
         # In order to compare the dates from today on and backwards the array has to be ordered reversed. 
         # So with the latest added dates first. This is why it says order_by('-dateAsString'). The minus reverses the string.
@@ -134,9 +141,11 @@ def checkHabitFakeToday(today, request, pk):
         weekHabitDate = today
 
         firstTimeStamp = repeats.earliest('dateAsString').dateAsString
+        print("firstTimeSTAMP", firstTimeStamp)
         firstRepeats = parse_date(firstTimeStamp)
         lastTimeStamp = order.checkedList.latest('dateAsString').dateAsString
-        lastRepeats = parse_date(lastTimeStamp)
+        lastRepeats = today - timedelta(days=1)
+        print("LASTtimeStamp", lastTimeStamp)
         timeStampDeltas = lastRepeats - firstRepeats
         
         for k in range(timeStampDeltas.days + 1):
@@ -145,12 +154,13 @@ def checkHabitFakeToday(today, request, pk):
         
         # We start today and walk backwards. Here we get all the weeks. Regardless if they were checked or not. 
         while weekHabitDate > firstRepeats:
-            # we append todays date
-            weekHabit.append(weekHabitDate)
             # we subtract 7 days from today
             weekHabitDate -= timedelta(days=7)
+            # we append todays date. We don't include this week, in order to be a streak, even if 
+            # this week it wasn't checked yet.
+            weekHabit.append(weekHabitDate)
         # this is the Monday before the very first time it has been checked. will be needed for later computations of the range of what a week is. 
-        weekHabit.append(weekHabitDate)
+        # weekHabit.append(weekHabitDate)
         # We get weekdays in reverse order. And because checkedDays is a set, there is no order. There is no concept of an order. 
         weekHabit.reverse()
    
@@ -161,6 +171,7 @@ def checkHabitFakeToday(today, request, pk):
             newArray2.append(repeatedDays)
         # newnewArray2 is done to have no duplicates in order for it to be compared. OrderDicts keeps the order when you duplicate.
         newNewArray2 = list(OrderedDict.fromkeys(newArray2))
+        # Sets get rid of all duplicates. 
         checkedDaysArray = set(newNewArray2)
         allDaysArray = list(newArray)
 
@@ -172,7 +183,7 @@ def checkHabitFakeToday(today, request, pk):
             return False
 
         def tryingWeekly(a, x):
-            # a is a tuple. Tuple syntax has ()
+            # a is a tuple. Tuple syntax has (). A tuple itself is immutable. But the members in a tuple are still mutable
             if order.interval == "Weekly":
                 countCurrentBefore, longestStreakBefore = a
                 countCurrentAfter = countCurrentBefore+1    
