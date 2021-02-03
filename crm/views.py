@@ -15,8 +15,9 @@ from pprint import pprint
 # here I get all the things from the database which I want to display in my dashboard.html
 def home(request):
     orders = Order.objects.all()
-    for order in orders:
-        getStreaks(order, date.today())
+    # @S: I cannot create new habit when this is on. Why?
+    # for order in orders:
+    #     getStreaks(order, date.today())
     total_orders = orders.count()
     # "dailyfilter" is for showing all the habits which are daily
     dailyFilter = Order.objects.filter(interval="Daily")
@@ -94,7 +95,6 @@ def delete(request, pk):
     form = OrderForm(instance=order)
     if request.method == 'POST' :
         order.delete()
-        # repeat.delete()
         return redirect('/')
     context = {'item':order}
     return render(request, 'habit/delete.html', context)
