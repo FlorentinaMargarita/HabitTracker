@@ -29,22 +29,21 @@ def home(request):
 # here I get all the things from the database which I want to display in my analytics.html
 def analytics(request):
     orders = Order.objects.all()
-   
     # with order.count I count the list of all current habits
     total_orders = orders.count()   
     longestStreakArray = []
-    mostChecksArray = []
+    mostChecksArray = {}
     for order in orders:
         longestStreakArray.append(order.longestStreak)
-        mostChecksArray.append(order.checkedList.count(), order.habit, )
+        mostChecksArray.update({order.checkedList.count() : order.habit})
         
     longest_streak = max(longestStreakArray)
     habitForLongestStreak = orders.get(longestStreak=longest_streak)
 
     mostChecked = max(mostChecksArray)
-    habitMostChecked = mostChecksArray.get(order.habit)
-    
-    context= {'total_orders': total_orders, 'mostChecked': habitMostChecked, 'longest_streak': longest_streak, "habitForLongestStreak": habitForLongestStreak}
+    habitMostChecked = mostChecksArray.get(mostChecked)
+    context= {'total_orders': total_orders, 'mostChecked': mostChecked, 'longest_streak': longest_streak,
+    "habitForLongestStreak": habitForLongestStreak, "habitMostChecked": habitMostChecked}
     return render(request, 'habit/analytics.html', context)
 
 def habit(request, pk): 

@@ -9,6 +9,7 @@
                 </div>
                 <div class="card-body">
                     <h3 class="card-title"> {{total_orders}} </h3>
+                    <hr>
                 </div>
             </div>
         </div>
@@ -21,11 +22,21 @@
                     <h5 class="text-white card-title">Habit with Longest Streak</h5>
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title">
-                        <h3 class="card-title"> {{habitForLongestStreak}} </h3>
-                            
-                        <h3>  {{longest_streak}} </h3>
-                    </h3>
+                        <h3 class="card-title"> {{habitForLongestStreak}} :  {{longest_streak}} </h3>
+                     <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="col-md">
+            <div class="card text-center text-white mb-3 bg-primary" id="total-orders">
+                <div class="card-header">
+                    <h5 class="text-white card-title">Habit with most Checks total</h5>
+                </div>
+                <div class="card-body">
+                        <h3 class="card-title"> {{habitMostChecked}} : {{mostChecked}}</h3>
                     
                     <hr>
 
@@ -33,25 +44,9 @@
             </div>
         </div>
     </div>
-    <div class="col">
-        <div class="col-md">
-            <div class="card text-center text-white mb-3 bg-primary" id="total-orders">
-                <div class="card-header">
-                    <h5 class="text-white card-title">Habit with most Checks</h5>
-                    <h3>{{mostChecked}}</h3>
-                </div>
-                
-                <div class="card-body">
 
-                    <h3 class="card-title">
-                        <!-- {{max_strikes}} -->
-                        <!-- {{strikeLi}} -->
-                        <!-- {{orders.strikeList}} -->
-                    </h3>
-                    <hr>
 
-                </div>
-            </div>
-        </div>
-    </div>
+
+     
+    </div> 
 </div>
