@@ -22,19 +22,20 @@ class TestUrls(SimpleTestCase):
 # #     in memory, running everything and then destroying this database out of memory. Because it is in memory it is really fast. 
 
 
-class LazyEncoder(DjangoJSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, YourCustomType):
-            return str(obj)
-        return super().default(obj)
+# class LazyEncoder(DjangoJSONEncoder):
+#     def default(self, obj):
+#         if isinstance(obj, YourCustomType):
+#             return str(obj)
+#         return super().default(obj)
 
 # I set up different things that I need, for each of the tests
 class TestModels(TestCase):
     def setUp(self):
-        self.order1 = Order.objects.create(
-            habit='Habit1',
-            interval='Weekly'
-        )
+        pass
+        # self.order1 = Order.objects.create(
+        #     habit='Habit1',
+        #     interval='Weekly'
+        # )
 
 class TestView(TestCase):
     # this function is going to be run before every single test method. It's used to setup a certain scenario.
@@ -63,8 +64,8 @@ class TestView(TestCase):
             # This asserts that a certain response contains a specific template
             self.assertTemplateUsed(response, 'habit/order_form.html')
 
-        def test_create_habit_post(self):
-            postHabit = self.client.post(self.createHabit)
+        # def test_create_habit_post(self):
+        #     postHabit = self.client.post(self.createHabit)
 
         def test_create_home_get(self):
         # Here we get access to the client we setup in the setup method.    
@@ -72,14 +73,15 @@ class TestView(TestCase):
             # here are the assertions
             self.assertEquals(response.status_code, 200)
             for order in response.context["orders"]:
-                print(order.habit)
-                print(order.checkedList.count())
-                print(order.streak)
-                print(order.longestStreak)
-                # self.assertEquals(order.habit)
-                # self.assertEquals(order.checkedList.count)
-                # self.assertEquals(order.streak)
-                # self.assertEquals(order.longestStreak)
+                if order.habit == 'Read':
+                    print(order.habit)
+                    print(order.checkedList.count())
+                    print(order.streak)
+                    print(order.longestStreak)
+                    self.assertEquals(order.habit, 'Read')
+                    self.assertEquals(order.checkedList.count(), 33)
+                    self.assertEquals(order.streak, 0)
+                    self.assertEquals(order.longestStreak, 25)
             # pprint(response.context["orders"])
             # pprint(list(response.context["orders"].all()))
             # self.assertEqual
@@ -88,11 +90,12 @@ class TestView(TestCase):
             
         def load_data(self):
             # open is python for reading any file. With as: This remembers to close it automatically if I leave the if block. 
+
             with open('crm/fixtures/fixtures.json') as f:
                 fixtures = json.load(f)
                 for fixture in fixtures:
                     if fixture['model'] == 'crm.Order':
-                        order = Order.objects.create()
+                        order = Order()
                         order.id = fixture['pk']
                         if 'habit' in fixture['fields']:
                             order.habit = fixture['fields']['habit']
@@ -115,23 +118,21 @@ class TestView(TestCase):
                             order.date_created = fixture['fields']['date_created']
 
                         if 'dateAsString' in fixture['fields']:
-                            order.dateAsString = fixture['fields']['dateAsString']
-                            
+                            order.dateAsString = fixture['fields']['dateAsString']     
                             print("date created", order.dateAsString, "\t\n")
                         order.save()
                         if 'checkedList' in fixture['fields']:
-                        # checks = fixture['fields']['checkedList']                         
-                            order.checkedList.set(fixture['fields']['checkedList'])  
+                            # checks = fixture['fields']['checkedList']                         
+                            order.checkedList.add(*fixture['fields']['checkedList'])  
                     
                     else:
-                        repeat = Repeats.objects.create()
+                        repeat = Repeats()
                         repeat.id = fixture['pk']
-                        repeat.created = fixture['fields']['dateAsString']
+                        repeat.dateAsString = fixture['fields']['dateAsString']
+                        print(repeat.id, repr(repeat.dateAsString))
                         repeat.save()
-
-
-  
-
+            
+        
 # Tests
 # 1. For each habit, your system tracks when it has been created, and the date and time the habit tasks have been completed. 
 # 2. return a list of all currently tracked habits

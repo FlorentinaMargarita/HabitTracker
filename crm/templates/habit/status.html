@@ -20,9 +20,11 @@
             <div class="card text-center text-white mb-3 bg-primary" id="total-orders">
                 <div class="card-header">
                     <h5 class="text-white card-title">Habit with Longest Streak</h5>
-                </div>
+                </div>          
                 <div class="card-body">
-                        <h3 class="card-title"> {{habitForLongestStreak}} :  {{longest_streak}} </h3>
+                    {% for habit in  longestStreakHabits %}
+                        <h3 class="card-title"> {{habit.habit}} :  {{longest_streak}} </h3>
+                        {%endfor%}
                      <hr>
                 </div>
             </div>

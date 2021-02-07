@@ -14,10 +14,13 @@ from pprint import pprint
 
 # here I get all the things from the database which I want to display in my dashboard.html
 def home(request):
-    orders = Order.objects.all()
-    # @S: I cannot create new habit when this is on. Why?
-    # for order in orders:
-    #     getStreaks(order, date.today())
+    orders = Order.objects.all()  
+    for order in orders:
+        # print(order.habit)
+        # print(order.checkedList.count())
+        # print(order.streak)
+        # print(order.longestStreak)
+        getStreaks(order, date.today()) 
     total_orders = orders.count()
     # "dailyfilter" is for showing all the habits which are daily
     dailyFilter = Order.objects.filter(interval="Daily")
@@ -39,12 +42,12 @@ def analytics(request):
         mostChecksArray.update({order.checkedList.count() : order.habit})
         
     longest_streak = max(longestStreakArray)
-    habitForLongestStreak = orders.get(longestStreak=longest_streak)
+    longestStreakHabits= orders.filter(longestStreak=longest_streak)
 
     mostChecked = max(mostChecksArray)
     habitMostChecked = mostChecksArray.get(mostChecked)
     context= {'total_orders': total_orders, 'mostChecked': mostChecked, 'longest_streak': longest_streak,
-    "habitForLongestStreak": habitForLongestStreak, "habitMostChecked": habitMostChecked}
+    "longestStreakHabits":  longestStreakHabits, "habitMostChecked": habitMostChecked}
     return render(request, 'habit/analytics.html', context)
 
 def habit(request, pk): 
@@ -134,14 +137,13 @@ def checkHabitFakeToday(today, request, pk):
         order.dateAsString = myDateCheck
         order.save()
 
-    
-
 def getStreaks(order, today):
         repeats = Repeats.objects.all()
+        print("order", order.habit)
         # Here the array in which we will compare the dates to figure out streaks is created. 
         # In order to compare the dates from today on and backwards the array has to be ordered reversed. 
         # So with the latest added dates first. This is why it says order_by('-dateAsString'). The minus reverses the string.
-        dateArray = order.checkedList.all().order_by('-dateAsString')
+        dateArray = list(order.checkedList.all().order_by('-dateAsString'))
         # Here I initalize the streaks to 0, that it can count up from there. 
         streak = 0
         # this is the list of dates the checklist Dates should compare to
@@ -151,36 +153,38 @@ def getStreaks(order, today):
         newArray2 = []
         weekHabit = []
         weekHabitDate = today
-
+        pprint([repr(r.dateAsString) for r in repeats])
+        print(repr(repeats[0]))
         firstTimeStamp = repeats.earliest('dateAsString').dateAsString
         print("firstTimeSTAMP", firstTimeStamp)
-        firstRepeats = parse_date(firstTimeStamp)
-        lastTimeStamp = order.checkedList.latest('dateAsString').dateAsString
-        lastRepeats = today - timedelta(days=1)
-        print("LASTtimeStamp", lastTimeStamp)
-        timeStampDeltas = lastRepeats - firstRepeats
-        
-        for k in range(timeStampDeltas.days + 1):
-            timeStampDay = firstRepeats + timedelta(days=k)
-            newArray.append(timeStampDay)
-        
-        # We start today and walk backwards. Here we get all the weeks. Regardless if they were checked or not. 
-        while weekHabitDate > firstRepeats:
-            # we subtract 7 days from today
-            weekHabitDate -= timedelta(days=7)
-            # we append todays date. We don't include this week, in order to be a streak, even if 
-            # this week it wasn't checked yet.
-            weekHabit.append(weekHabitDate)
-        # this is the Monday before the very first time it has been checked. will be needed for later computations of the range of what a week is. 
-        # weekHabit.append(weekHabitDate)
-        # We get weekdays in reverse order. And because checkedDays is a set, there is no order. There is no concept of an order. 
-        weekHabit.reverse()
-   
+        # we do that below in order to avoid none in the queryset
+        if firstTimeStamp : 
+            firstRepeats = parse_date(firstTimeStamp)    
+            lastRepeats = today - timedelta(days=1)
 
-        # dateArray is an array which has all the days which were checked
-        for repeat in dateArray: 
-            repeatedDays = parse_date(repeat.dateAsString)
-            newArray2.append(repeatedDays)
+            timeStampDeltas = lastRepeats - firstRepeats
+            
+            for k in range(timeStampDeltas.days + 1):
+                timeStampDay = firstRepeats + timedelta(days=k)
+                newArray.append(timeStampDay)
+            
+            # We start today and walk backwards. Here we get all the weeks. Regardless if they were checked or not. 
+            while weekHabitDate > firstRepeats:
+                # we subtract 7 days from today
+                weekHabitDate -= timedelta(days=7)
+                # we append todays date. We don't include this week, in order to be a streak, even if 
+                # this week it wasn't checked yet.
+                weekHabit.append(weekHabitDate)
+            # this is the Monday before the very first time it has been checked. will be needed for later computations of the range of what a week is. 
+            # weekHabit.append(weekHabitDate)
+            # We get weekdays in reverse order. And because checkedDays is a set, there is no order. There is no concept of an order. 
+            weekHabit.reverse()
+
+
+            # dateArray is an array which has all the days which were checked
+            for repeat in dateArray: 
+                repeatedDays = parse_date(repeat.dateAsString)
+                newArray2.append(repeatedDays)
         # newnewArray2 is done to have no duplicates in order for it to be compared. OrderDicts keeps the order when you duplicate.
         newNewArray2 = list(OrderedDict.fromkeys(newArray2))
         # Sets get rid of all duplicates. 
@@ -217,8 +221,13 @@ def getStreaks(order, today):
     
         
         # [-1]is for the last tuple, second value which is longest streak  
+        print("order.interval", order.interval)
+        print("allDaysArray", allDaysArray)
+        print("weekhabit", weekHabit)
+        print("result", result)
         order.longestStreak = result[-1][1]
         order.streak =  result[-1][0]
+        
     
         order.save()
         
