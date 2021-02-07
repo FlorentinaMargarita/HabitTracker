@@ -1,18 +1,19 @@
 from django.test import TestCase, Client
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve    
-from crm.views import analytics, habit
+from crm.views import analytics, habit, getStreaks
 from crm.models import Order, Repeats 
 from pprint import pprint
 import json 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
-
+from datetime import datetime, timedelta, date
 
 class TestUrls(SimpleTestCase):
         def test_analytics_url_is_resolved(self): 
             url = reverse('analytics')
             print(resolve(url))
+            # We always have to assert otherwise the test will always pass unless it crashes.
             self.assertEquals(resolve(url).func, analytics)
 
 # # TestCase is in the testing framework. It is from Django. Most of the testCases will inherit from TestCase by default.
@@ -72,25 +73,45 @@ class TestView(TestCase):
             response = self.client.get(self.home)
             # here are the assertions
             self.assertEquals(response.status_code, 200)
+            foundRead = False
+            foundPrepareMeals = False
             for order in response.context["orders"]:
                 if order.habit == 'Read':
-                    print(order.habit)
-                    print(order.checkedList.count())
-                    print(order.streak)
-                    print(order.longestStreak)
+                    # here we make sure that the habit "read" exists. So that it doesn't pass if there is no read. 
+                    foundRead = True
+                    # print(order.habit)
+                    # print(order.checkedList.count())
+                    # print(order.streak)
+                    # print(order.longestStreak)
                     self.assertEquals(order.habit, 'Read')
                     self.assertEquals(order.checkedList.count(), 33)
-                    self.assertEquals(order.streak, 0)
                     self.assertEquals(order.longestStreak, 25)
-            # pprint(response.context["orders"])
-            # pprint(list(response.context["orders"].all()))
-            # self.assertEqual
+                if order.habit == 'Prepare Meals':
+                    foundPrepareMeals = True
+                    self.assertEquals(order.habit, 'Prepare Meals')
+                    self.assertEquals(order.checkedList.count(), 30)
+                    self.assertEquals(order.longestStreak, 14)
+            self.assertTrue(foundRead)
+            self.assertTrue(foundPrepareMeals)
+
             # This asserts that a certain response contains a specific template
             self.assertTemplateUsed(response, 'habit/dashboard.html')
-            
+
+        def test_streak_test(self):
+            order = Order.objects.get(habit = 'Read')
+            today = date(2021, 2, 6)
+            getStreaks(order, today)
+            print("STREAK", order.streak)
+            self.assertEquals(order.streak, 0)
+            order = Order.objects.get(habit = 'Prepare Meals')
+            getStreaks(order, today)
+            self.assertEquals(order.streak, 1)
+
+    
+
+
         def load_data(self):
             # open is python for reading any file. With as: This remembers to close it automatically if I leave the if block. 
-
             with open('crm/fixtures/fixtures.json') as f:
                 fixtures = json.load(f)
                 for fixture in fixtures:
