@@ -164,4 +164,7 @@ For testing I installed:
 •	mixer 
 
 
+**Deployed on Heroku**
+To deploy the app on Heroku I used "whitenoise" to "help" Heroku to serve static files.
+
 
