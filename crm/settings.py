@@ -27,7 +27,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False 
 
-ALLOWED_HOSTS = ['habit-tracker-by-florentina.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['habit-tracker-by-florentina.herokuapp.com', 'localhost', '127.0.0.1:8000']
 
 
 # Application definition
@@ -121,7 +121,7 @@ MEDIA_URL = '/images/'
 STATIC_ROOT =  os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'templates/habit')
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
