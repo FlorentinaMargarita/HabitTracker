@@ -20,14 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 from dotenv import load_dotenv
-import os
 load_dotenv()
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False 
 
-ALLOWED_HOSTS = ['habit-tracker-by-florentina.herokuapp.com', 'localhost', '127.0.0.1:8000']
+ALLOWED_HOSTS = ['habit-tracker-by-florentina.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -118,10 +117,10 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/images/'
 
-STATIC_ROOT =  os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT =  os.path.join(BASE_DIR, 'templates/habit')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'templates/habit')
+    os.path.join(BASE_DIR, 'crm/static')
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
