@@ -89,41 +89,49 @@ class TestView(TestCase):
             today = date(2021, 2, 6)
             print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
             "Current Streak:",  order.streak, "\t\n" , "Repeats Total:", order.checkedList.count(),  "\t\n" , "Longest Streak:" , order.longestStreak, 
-             "\t\n", "Interval:", order.interval, "\t\n" )
+             "\t\n", "Interval:", order.interval, "\t\n")
+            # print("repeats total", order.checkedList.count())
+           
+            allDates = order.checkedList.all()
+            for each in allDates:
+                print(each.dateAsString)
+            # print(order.checkedList.all().dateAsString)
+            # for hallo in order.checkedList:
+            #     print(hallo, "hallo")
             getStreaks(order, today)
             
             self.assertEquals(order.streak, 0)
 
-            order = Order.objects.get(habit = 'Prepare Meals')
-            getStreaks(order, today)
-            print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
-            "Current Streak:",  order.streak, "\t\n" , "Repeats Total:", order.checkedList.count(),  "\t\n" , "Longest Streak:" , order.longestStreak, 
-             "\t\n", "Interval:", order.interval, "\t\n" )
-            self.assertEquals(order.streak, 1)
+            # order = Order.objects.get(habit = 'Prepare Meals')
+            # getStreaks(order, today)
+            # print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
+            # "Current Streak:",  order.streak, "\t\n" , "Repeats Total:", order.checkedList.count(),  "\t\n" , "Longest Streak:" , order.longestStreak, 
+            #  "\t\n", "Interval:", order.interval, "\t\n" )
+            # self.assertEquals(order.streak, 1)
 
-            order = Order.objects.get(habit = 'Organize')
-            getStreaks(order, today)
-            print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
-            "Current Streak:",  order.streak, "\t\n" , "Repeats Total:", order.checkedList.count(),  "\t\n" , "Longest Streak:" , order.longestStreak, 
-             "\t\n", "Interval:", order.interval, "\t\n" )
+            # order = Order.objects.get(habit = 'Organize')
+            # getStreaks(order, today)
+            # print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
+            # "Current Streak:",  order.streak, "\t\n" , "Repeats Total:", order.checkedList.count(),  "\t\n" , "Longest Streak:" , order.longestStreak, 
+            #  "\t\n", "Interval:", order.interval, "\t\n" )
 
-            order = Order.objects.get(habit = 'Clean Bathroom')
-            getStreaks(order, today)
-            print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
-            "Current Streak:",  order.streak, "\t\n" , "Repeats Total:", order.checkedList.count(),  "\t\n" , "Longest Streak:" , order.longestStreak, 
-             "\t\n", "Interval:", order.interval, "\t\n" )
+            # order = Order.objects.get(habit = 'Clean Bathroom')
+            # getStreaks(order, today)
+            # print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
+            # "Current Streak:",  order.streak, "\t\n" , "Repeats Total:", order.checkedList.count(),  "\t\n" , "Longest Streak:" , order.longestStreak, 
+            #  "\t\n", "Interval:", order.interval, "\t\n" )
 
-            order = Order.objects.get(habit = 'Breathing Exercise')
-            getStreaks(order, today)
-            print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
-            "Current Streak:",  order.streak, "\t\n" , "Repeats Total:", order.checkedList.count(),  "\t\n" , "Longest Streak:" , order.longestStreak, 
-             "\t\n", "Interval:", order.interval, "\t\n" )
+            # order = Order.objects.get(habit = 'Breathing Exercise')
+            # getStreaks(order, today)
+            # print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
+            # "Current Streak:",  order.streak, "\t\n" , "Repeats Total:", order.checkedList.count(),  "\t\n" , "Longest Streak:" , order.longestStreak, 
+            #  "\t\n", "Interval:", order.interval, "\t\n" )
 
-            order = Order.objects.get(habit = 'Grocery Shopping')
-            getStreaks(order, today)
-            print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
-            "Current Streak:",  order.streak, "\t\n" , "Repeats Total:", order.checkedList.count(),  "\t\n" , "Longest Streak:" , order.longestStreak, 
-             "\t\n", "Interval:", order.interval, "\t\n" )
+            # order = Order.objects.get(habit = 'Grocery Shopping')
+            # getStreaks(order, today)
+            # print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
+            # "Current Streak:",  order.streak, "\t\n" , "Repeats Total:", order.checkedList.count(),  "\t\n" , "Longest Streak:" , order.longestStreak, 
+            #  "\t\n", "Interval:", order.interval, "\t\n" )
             
         def load_data(self):
          # open is python for reading any file. With as: This remembers to close it automatically if I leave the if block. 
