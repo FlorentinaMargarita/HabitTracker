@@ -16,10 +16,6 @@ from pprint import pprint
 def home(request):
     orders = Order.objects.all()  
     for order in orders:
-        # print(order.habit)
-        # print(order.checkedList.count())
-        # print(order.streak)
-        # print(order.longestStreak)
         getStreaks(order, date.today()) 
     total_orders = orders.count()
     # "dailyfilter" is for showing all the habits which are daily
@@ -139,7 +135,6 @@ def checkHabitFakeToday(today, request, pk):
 
 def getStreaks(order, today):
         repeats = Repeats.objects.all()
-        print("order", order.habit)
         # Here the array in which we will compare the dates to figure out streaks is created. 
         # In order to compare the dates from today on and backwards the array has to be ordered reversed. 
         # So with the latest added dates first. This is why it says order_by('-dateAsString'). The minus reverses the string.
@@ -153,10 +148,7 @@ def getStreaks(order, today):
         newArray2 = []
         weekHabit = []
         weekHabitDate = today
-        pprint([repr(r.dateAsString) for r in repeats])
-        print(repr(repeats[0]))
         firstTimeStamp = repeats.earliest('dateAsString').dateAsString
-        print("firstTimeSTAMP", firstTimeStamp)
         # we do that below in order to avoid none in the queryset
         if firstTimeStamp : 
             firstRepeats = parse_date(firstTimeStamp)    
@@ -221,10 +213,6 @@ def getStreaks(order, today):
     
         
         # [-1]is for the last tuple, second value which is longest streak  
-        print("order.interval", order.interval)
-        print("allDaysArray", allDaysArray)
-        print("weekhabit", weekHabit)
-        print("result", result)
         order.longestStreak = result[-1][1]
         order.streak =  result[-1][0]
         

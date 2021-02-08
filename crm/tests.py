@@ -22,17 +22,10 @@ class TestUrls(SimpleTestCase):
 # # 2.) If the test run succesfully it will tell you "destroying test database". Here Django is creating a SQLite DB. It is putting this
 # #     in memory, running everything and then destroying this database out of memory. Because it is in memory it is really fast. 
 
-
-# class LazyEncoder(DjangoJSONEncoder):
-#     def default(self, obj):
-#         if isinstance(obj, YourCustomType):
-#             return str(obj)
-#         return super().default(obj)
-
 # I set up different things that I need, for each of the tests
-class TestModels(TestCase):
-    def setUp(self):
-        pass
+# class TestModels(TestCase):
+#     def setUp(self):
+#         pass
         # self.order1 = Order.objects.create(
         #     habit='Habit1',
         #     interval='Weekly'
@@ -65,8 +58,6 @@ class TestView(TestCase):
             # This asserts that a certain response contains a specific template
             self.assertTemplateUsed(response, 'habit/order_form.html')
 
-        # def test_create_habit_post(self):
-        #     postHabit = self.client.post(self.createHabit)
 
         def test_create_home_get(self):
         # Here we get access to the client we setup in the setup method.    
@@ -79,10 +70,6 @@ class TestView(TestCase):
                 if order.habit == 'Read':
                     # here we make sure that the habit "read" exists. So that it doesn't pass if there is no read. 
                     foundRead = True
-                    # print(order.habit)
-                    # print(order.checkedList.count())
-                    # print(order.streak)
-                    # print(order.longestStreak)
                     self.assertEquals(order.habit, 'Read')
                     self.assertEquals(order.checkedList.count(), 33)
                     self.assertEquals(order.longestStreak, 25)
@@ -101,36 +88,38 @@ class TestView(TestCase):
             order = Order.objects.get(habit = 'Read')
             today = date(2021, 2, 6)
             getStreaks(order, today)
-            print("STREAK", order.streak)
+            print("Streak:", order.habit, order.streak)
             self.assertEquals(order.streak, 0)
             order = Order.objects.get(habit = 'Prepare Meals')
             getStreaks(order, today)
+            print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
+            "Current Streak:",  order.streak, "\t\n" , "Repeats Total:", order.checkedList.count(),  "\t\n" , "Longest Streak:" , order.longestStreak, 
+             "\t\n", "Interval:", order.interval, "\t\n" )
             self.assertEquals(order.streak, 1)
-
-    
-
-
+            
         def load_data(self):
-            # open is python for reading any file. With as: This remembers to close it automatically if I leave the if block. 
+         # open is python for reading any file. With as: This remembers to close it automatically if I leave the if block. 
             with open('crm/fixtures/fixtures.json') as f:
                 fixtures = json.load(f)
                 for fixture in fixtures:
+                    arrayWithDates = [] 
                     if fixture['model'] == 'crm.Order':
                         order = Order()
                         order.id = fixture['pk']
                         if 'habit' in fixture['fields']:
                             order.habit = fixture['fields']['habit']
-                            print(order.habit)
+                            # print(order.habit)
                         if 'interval' in fixture['fields']:
                             order.interval = fixture['fields']['interval']
-                            print("interval for this habit: ", order.interval)
+                            # print("interval for this habit: ", order.interval)
                         if 'checked' in fixture['fields']:
                             order.checked = fixture['fields']['checked']
                         if 'streak' in fixture['fields']:
                             order.streak = fixture['fields']['streak']
+                            # print(order.streak, "order.strek")
                         if 'longestStreak ' in fixture['fields']:
                             order.longestStreak = fixture['fields']['longestStreak']
-                            print("longest Streak for this habit: ", order.longestStreak)
+                            # print("longest Streak for this habit: ", order.longestStreak)
                         if 'created' in fixture['fields']:
                             order.created = fixture['fields']['created']                                  
                         if 'timeStamp' in fixture['fields']:
@@ -140,17 +129,34 @@ class TestView(TestCase):
 
                         if 'dateAsString' in fixture['fields']:
                             order.dateAsString = fixture['fields']['dateAsString']     
-                            print("date created", order.dateAsString, "\t\n")
+                            # print("date created", order.dateAsString, "\t\n")
                         order.save()
-                        if 'checkedList' in fixture['fields']:
-                            # checks = fixture['fields']['checkedList']                         
+                        
+                        if 'checkedList' in fixture['fields']:                                    
                             order.checkedList.add(*fixture['fields']['checkedList'])  
+                            arrayWithDates.append(fixture['fields']['checkedList'])
+                            # print("repeats total", order.checkedList.count())
+                        # print(arrayWithDates, "arrayWithDates")
+                        repeatesArray = []
+                        # for dateInTime in arrayWithDates:
+                        #     fixture['model'] == 'crm.Repeats'
+                        #     repeat = Repeats()
+                        #     repeat.id = fixture['pk']
+                        #     print(repeat.id, "repeat.id")
+                        #     # pk = dateInTime
+                        #     # repeat.id = fixture[]
+                        #     repeat.dateAsString = fixture['fields']['dateAsString']
+                        #     repeatesArray.append(repeat.dateAsString)
+                        #     # print("repeat.dateAsString", repeat.dateAsString)
+                        #     # print(dateInTime)
+                        #     print("final repeat", repeatesArray)
                     
                     else:
                         repeat = Repeats()
                         repeat.id = fixture['pk']
                         repeat.dateAsString = fixture['fields']['dateAsString']
-                        print(repeat.id, repr(repeat.dateAsString))
+                        # print("else", repeat.dateAsString)
+                        # print(repeat.id, repr(repeat.dateAsString))
                         repeat.save()
             
         
