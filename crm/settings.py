@@ -71,10 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'crm.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -102,9 +98,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/3.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/Los_Angeles'
@@ -123,10 +116,11 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/images/'
 
-STATIC_ROOT =  os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT =  os.path.join(BASE_DIR, 'templates')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
