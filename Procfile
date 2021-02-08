@@ -1,2 +1,2 @@
-web: gunicorn crm.wsgi --log-file -
-release: python manage.py migrate --no-input
+
+web: python manage.py runserver 0.0.0.0:5000
