@@ -26,7 +26,9 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False 
 
-ALLOWED_HOSTS = ['https://habit-tracker-by-florentina.herokuapp.com/', 'localhost']
+ALLOWED_HOSTS = ['*']
+
+# ALLOWED_HOSTS = ['https://habit-tracker-by-florentina.herokuapp.com/', 'localhost']
 
 
 # Application definition
