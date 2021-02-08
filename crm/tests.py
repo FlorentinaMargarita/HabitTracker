@@ -106,7 +106,7 @@ class TestView(TestCase):
             getStreaks(order, today)
             print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
             "Current Streak:",  order.streak, "\t\n" , "Repeats Total:", order.checkedList.count(),  "\t\n" , "Longest Streak:" , order.longestStreak, 
-             "\t\n", "Interval:", order.interval )
+            "\t\n", "Interval:", order.interval )
             for eachRepeat in allDates:
                 print("dates when the habit was completed: ", eachRepeat.dateAsString)
             self.assertEquals(order.streak, 1)
@@ -188,12 +188,4 @@ class TestView(TestCase):
                         repeat.dateAsString = fixture['fields']['dateAsString']
                         repeat.save()
             
-        
-# Tests
-# 1. For each habit, your system tracks when it has been created, and the date and time the habit tasks have been completed. 
-# 2. return a list of all currently tracked habits
-# 3. return a list of all habits with the same periodicity
-# 4. return the longest run streak of all defined habits,
-# 5. return the longest run streak for a given habit
-# 6. add habit and click check
 
