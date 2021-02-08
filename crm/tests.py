@@ -22,14 +22,6 @@ class TestUrls(SimpleTestCase):
 # # 2.) If the test run succesfully it will tell you "destroying test database". Here Django is creating a SQLite DB. It is putting this
 # #     in memory, running everything and then destroying this database out of memory. Because it is in memory it is really fast. 
 
-# I set up different things that I need, for each of the tests
-# class TestModels(TestCase):
-#     def setUp(self):
-#         pass
-        # self.order1 = Order.objects.create(
-        #     habit='Habit1',
-        #     interval='Weekly'
-        # )
 
 class TestView(TestCase):
     # this function is going to be run before every single test method. It's used to setup a certain scenario.
@@ -66,7 +58,15 @@ class TestView(TestCase):
             self.assertEquals(response.status_code, 200)
             foundRead = False
             foundPrepareMeals = False
+            allHabits = []
+            dailyHabits = []
+            weeklyHabits = []
             for order in response.context["orders"]:
+                allHabits.append(order.habit)
+                if order.interval == "Daily":
+                    dailyHabits.append(order.habit)
+                if order.interval == "Weekly":
+                    weeklyHabits.append(order.habit)
                 if order.habit == 'Read':
                     # here we make sure that the habit "read" exists. So that it doesn't pass if there is no read. 
                     foundRead = True
@@ -80,12 +80,17 @@ class TestView(TestCase):
                     self.assertEquals(order.longestStreak, 14)
             self.assertTrue(foundRead)
             self.assertTrue(foundPrepareMeals)
+            print("\t\n", "\t\n", "\t\n", "Here is a list of all currently tracked habits: ", allHabits)
+            print("\t\n", "Here are all daily habits:", dailyHabits)
+            print("\t\n", "Here are all weekly habits:", weeklyHabits)
 
             # This asserts that a certain response contains a specific template
             self.assertTemplateUsed(response, 'habit/dashboard.html')
 
         def test_streak_test(self):
             order = Order.objects.get(habit = 'Read')
+            # Today in the tests is fixed to one specific date, so that - no matter when someone runs these tests - the result makes sense. 
+            # In the real application online it will calculate it according to the "real" today (aka date of today)
             today = date(2021, 2, 6)
             print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
             "Current Streak:",  order.streak, "\t\n" , "Repeats Total:", order.checkedList.count(),  "\t\n" , "Longest Streak:" , order.longestStreak, 
@@ -170,34 +175,17 @@ class TestView(TestCase):
 
                         if 'dateAsString' in fixture['fields']:
                             order.dateAsString = fixture['fields']['dateAsString']     
-                            # print("date created", order.dateAsString, "\t\n")
                         order.save()
                         
                         if 'checkedList' in fixture['fields']:                                    
                             order.checkedList.add(*fixture['fields']['checkedList'])  
                             arrayWithDates.append(fixture['fields']['checkedList'])
-                            # print("repeats total", order.checkedList.count())
-                        # print(arrayWithDates, "arrayWithDates")
                         repeatesArray = []
-                        # for dateInTime in arrayWithDates:
-                        #     fixture['model'] == 'crm.Repeats'
-                        #     repeat = Repeats()
-                        #     repeat.id = fixture['pk']
-                        #     print(repeat.id, "repeat.id")
-                        #     # pk = dateInTime
-                        #     # repeat.id = fixture[]
-                        #     repeat.dateAsString = fixture['fields']['dateAsString']
-                        #     repeatesArray.append(repeat.dateAsString)
-                        #     # print("repeat.dateAsString", repeat.dateAsString)
-                        #     # print(dateInTime)
-                        #     print("final repeat", repeatesArray)
                     
                     else:
                         repeat = Repeats()
                         repeat.id = fixture['pk']
                         repeat.dateAsString = fixture['fields']['dateAsString']
-                        # print("else", repeat.dateAsString)
-                        # print(repeat.id, repr(repeat.dateAsString))
                         repeat.save()
             
         
