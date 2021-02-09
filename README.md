@@ -37,7 +37,7 @@ In order to create an admin user for the DB with all rights run:
  
  **Folder structure**
 
- 
+
 • All the relevant functions are in the file: views.py 
 
 • All the testing takes place in the file: tests.py
@@ -45,6 +45,8 @@ In order to create an admin user for the DB with all rights run:
 • There are only two relevant classes for this project. “Repeats” and “Order”: Both of them you will find in the file: models.py
 
 • The configuration of the project is in: settings.py
+
+ 
 
  
 

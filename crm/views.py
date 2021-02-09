@@ -50,11 +50,6 @@ def analytics(request):
     return render(request, 'habit/analytics.html', context)
 
 def habit(request, pk): 
-    testData = [{
-        'habit': 'Call Mum',
-        'interval': 'Weekly', 
-        'date_created': '2020-09-12'
-    }]
     repeats = Repeats.objects.get(id=pk)
     orders = Order.objects.all()
     order = Order.objects.get(id=pk)
@@ -66,7 +61,7 @@ def habit(request, pk):
     today1 = dateArray.first().dateAsString
     today = parse_date(today1)
     order.save()
-    context = {"today": today, "lastTimeStamp": lastChecked, "testData": testData, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
+    context = {"today": today, "lastTimeStamp": lastChecked, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
 
 
@@ -138,7 +133,8 @@ def checkHabitFakeToday(today, request, pk):
 
 def getStreaks(order, today):
         repeats = Repeats.objects.all()
-        # Here the array in which we will compare the dates to figure out streaks is created. 
+        # At first i get all the times the habit was repeated from the habit and I sort it by the date. 
+        # So this is the array in which we will compare the dates to figure out when the checks were created. 
         # In order to compare the dates from today on and backwards the array has to be ordered reversed. 
         # So with the latest added dates first. This is why it says order_by('-dateAsString'). The minus reverses the string.
         dateArray = list(order.checkedList.all().order_by('-dateAsString'))
