@@ -102,8 +102,7 @@ def delete(request, pk):
     return render(request, 'habit/delete.html', context)
 
 
-# the checkHabitFakeToday function is very important for this project. It uses a fake date for today, so that the pytests
-# can be run, without starting the database. 
+
 # Whenever a habit is checked, it creates a new instance of "Repeats", which stores the dateTime as a string in the database. 
 # The habit which was checked, stores this Repeats-object in the manytomany field. 
 
