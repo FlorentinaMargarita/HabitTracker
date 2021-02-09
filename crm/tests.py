@@ -25,7 +25,7 @@ class TestUrls(SimpleTestCase):
 
 class TestView(TestCase):
     # this function is going to be run before every single test method. It's used to setup a certain scenario.
-    # Django reverse: back from the name we gave to the url to the actual url-name
+    # Django reverse: Reverses from the name we gave to the url back to the actual url-name.
         def setUp(self):
             # methods take self as a first argument.
             self.load_data()

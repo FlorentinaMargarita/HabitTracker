@@ -34,7 +34,10 @@ def analytics(request):
     longestStreakArray = []
     mostChecksArray = {}
     for order in orders:
+        # here we list all the "longeststreak" attributes into the longestStreakArray to then finde out the longest of all longestStreaks
         longestStreakArray.append(order.longestStreak)
+        # here we count all the instances of Repeats in checkedList for a specific habit. 
+        # I use a dictionary to be able to read the name of the habit right away if necessary.
         mostChecksArray.update({order.checkedList.count() : order.habit})
         
     longest_streak = max(longestStreakArray)
@@ -179,7 +182,7 @@ def getStreaks(order, today):
                 newArray2.append(repeatedDays)
         # newnewArray2 is done to have no duplicates in order for it to be compared. OrderDicts keeps the order when you duplicate.
         newNewArray2 = list(OrderedDict.fromkeys(newArray2))
-        # Sets get rid of all duplicates. 
+        # The data type "Set" gets rid of all duplicates, which we want in this case. 
         checkedDaysArray = set(newNewArray2)
         allDaysArray = list(newArray)
 
@@ -205,6 +208,7 @@ def getStreaks(order, today):
             # a is a tuple
             if order.interval == "Daily":
                 countCurrentBefore, longestStreakBefore = a
+                # if x is in the checked days the current streak will be updated by 1, else it will be set to 0
                 countCurrentAfter = countCurrentBefore+1 if x in checkedDaysArray else 0
 
                 return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
