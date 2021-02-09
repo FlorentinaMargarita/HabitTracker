@@ -50,7 +50,11 @@ def analytics(request):
     return render(request, 'habit/analytics.html', context)
 
 def habit(request, pk): 
-
+    testData = [{
+        'habit': 'Call Mum',
+        'interval': 'Weekly', 
+        'date_created': '2020-09-12'
+    }]
     repeats = Repeats.objects.get(id=pk)
     orders = Order.objects.all()
     order = Order.objects.get(id=pk)
@@ -98,23 +102,12 @@ def delete(request, pk):
     return render(request, 'habit/delete.html', context)
 
 
-# the checkHabitFakeToday function is the most important one of this project. It uses a fake date for today, so that the pytests
+# the checkHabitFakeToday function is very important for this project. It uses a fake date for today, so that the pytests
 # can be run, without starting the database. 
 # Whenever a habit is checked, it creates a new instance of "Repeats", which stores the dateTime as a string in the database. 
 # The habit which was checked, stores this Repeats-object in the manytomany field. 
 
-# All that the checkHabit does is to call the actual checkhabitFakeToday function and pass it the real date of today as an argument.
-# This way the tests can be run and the web application work, and the date of today won't confuse the outcomes.
-
-def checkHabit(request, pk):
-    request = request
-    pk = pk
-    checkHabitFakeToday(date.today(), request, pk)
-    return redirect('/')
-    context = {"longest": order.longestStreak, 'checked': order.checked, 'myDateCheck': myDateCheck, "repeats": repeats}
-    return render(request, 'habit/order_form.html', context)
-
-def checkHabitFakeToday(today, request, pk):
+def checkHabitFakeToday(request, pk):
     order = Order.objects.get(id=pk)
     repeats = Repeats.objects.all()
     # This gives me the first timeStamp to which the list should be compared to
@@ -122,7 +115,7 @@ def checkHabitFakeToday(today, request, pk):
 
     if request.method == 'POST':
         order.checked += 1
-        myDateCheck = today
+        myDateCheck = date.today()
         # the line below creates a new Repeatsobject. 
         # It stores the timedate at the second of when the habit was completed in terms of this project "checked"
         newRep = Repeats.objects.create(dateAsString = myDateCheck)
@@ -131,6 +124,7 @@ def checkHabitFakeToday(today, request, pk):
         order.checkedList.add(newRep)
         order.dateAsString = myDateCheck
         order.save()
+        return redirect('/')
 
 def getStreaks(order, today):
         repeats = Repeats.objects.all()

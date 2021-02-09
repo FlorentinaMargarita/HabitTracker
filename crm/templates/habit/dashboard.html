@@ -42,7 +42,7 @@
             
              </td>
             <td>
-                <form action="{% url 'check_habit' order.id %}" method="POST">
+                <form action="{% url 'checkHabitFakeToday' order.id %}" method="POST">
                     {{form}}
                     {% csrf_token %}
                     <button type="submit" , name="post_id" , value="{{order.id}}" ,
