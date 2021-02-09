@@ -28,10 +28,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-# ALLOWED_HOSTS = ['https://habit-tracker-by-florentina.herokuapp.com/', 'localhost']
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -125,7 +121,6 @@ STATICFILES_DIRS = [
 ]
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 
 django_heroku.settings(locals())
 
