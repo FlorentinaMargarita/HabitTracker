@@ -50,6 +50,7 @@ def analytics(request):
     return render(request, 'habit/analytics.html', context)
 
 def habit(request, pk): 
+
     repeats = Repeats.objects.get(id=pk)
     orders = Order.objects.all()
     order = Order.objects.get(id=pk)
@@ -61,7 +62,7 @@ def habit(request, pk):
     today1 = dateArray.first().dateAsString
     today = parse_date(today1)
     order.save()
-    context = {"today": today, "lastTimeStamp": lastChecked, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
+    context = {"today": today, "lastTimeStamp": lastChecked, "testData": testData, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
 
 

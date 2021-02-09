@@ -71,12 +71,12 @@ class TestView(TestCase):
                     # here we make sure that the habit "read" exists. So that it doesn't pass if there is no read. 
                     foundRead = True
                     self.assertEquals(order.habit, 'Read')
-                    self.assertEquals(order.checkedList.count(), 33)
+                    self.assertEquals(order.checkedList.count(), 37)
                     self.assertEquals(order.longestStreak, 25)
                 if order.habit == 'Prepare Meals':
                     foundPrepareMeals = True
                     self.assertEquals(order.habit, 'Prepare Meals')
-                    self.assertEquals(order.checkedList.count(), 30)
+                    self.assertEquals(order.checkedList.count(), 35)
                     self.assertEquals(order.longestStreak, 14)
             self.assertTrue(foundRead)
             self.assertTrue(foundPrepareMeals)
@@ -100,7 +100,7 @@ class TestView(TestCase):
                 print("dates when the habit was checked: ", eachRepeat.dateAsString)
             getStreaks(order, today)
             
-            self.assertEquals(order.streak, 0)
+            self.assertEquals(order.streak, 1)
 
             order = Order.objects.get(habit = 'Prepare Meals')
             getStreaks(order, today)
