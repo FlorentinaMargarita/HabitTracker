@@ -159,12 +159,10 @@ For testing I installed:
 
 •	pytest-django
 
-•	pytest-cov
-
-•	mixer 
 
 
 **Deployed on Heroku**
-To deploy the app on Heroku I used "whitenoise" to "help" Heroku to serve static files.
+
+To deploy the app on Heroku I used "whitenoise" to "help" Heroku to serve static files. Furthermore I installed Gunicorn, following the instructions given by the Heroku documentation: https://devcenter.heroku.com/articles/deploying-python
 
 
