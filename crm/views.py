@@ -151,7 +151,11 @@ def getStreaks(order, today):
         newArray2 = []
         weekHabit = []
         weekHabitDate = today
-        firstTimeStamp = repeats.earliest('dateAsString')
+        firstTimeStamp = None
+        try:
+            firstTimeStamp = repeats.earliest('dateAsString')
+        except:
+            pass
         # we do that below in order to avoid none in the queryset
         if firstTimeStamp : 
             firstRepeats = parse_date(firstTimeStamp.dateAsString)  
