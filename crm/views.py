@@ -151,6 +151,8 @@ def getStreaks(order, today):
         newArray2 = []
         weekHabit = []
         weekHabitDate = today
+        # firstTimeStamp is first set to "None" in order not to confuse the system in case there are no repeats-objects to it yet, cause 
+        # it hasen't been checked yet. 
         firstTimeStamp = None
         try:
             firstTimeStamp = repeats.earliest('dateAsString')

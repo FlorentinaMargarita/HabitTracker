@@ -36,6 +36,8 @@ In order to create an admin user for the DB with all rights run:
  <br />
  
  **Folder structure**
+
+ 
 • All the relevant functions are in the file: views.py 
 
 • All the testing takes place in the file: tests.py
