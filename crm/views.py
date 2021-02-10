@@ -50,11 +50,6 @@ def analytics(request):
     return render(request, 'habit/analytics.html', context)
 
 def habit(request, pk): 
-    testData = [{
-        'habit': 'Call Mum',
-        'interval': 'Weekly', 
-        'date_created': '2020-09-12'
-    }]
     repeats = Repeats.objects.get(id=pk)
     orders = Order.objects.all()
     order = Order.objects.get(id=pk)
@@ -109,9 +104,6 @@ def delete(request, pk):
 def checkHabitFakeToday(request, pk):
     order = Order.objects.get(id=pk)
     repeats = Repeats.objects.all()
-    # This gives me the first timeStamp to which the list should be compared to
-    # We are sorting by date to make sure that we get the last/first date, in case the database doesn't store them in date order.
-
     if request.method == 'POST':
         order.checked += 1
         myDateCheck = date.today()
