@@ -57,7 +57,7 @@ def habit(request, pk):
     today1 = dateArray.first().dateAsString
     today = parse_date(today1)
     order.save()
-    context = {"today": today, "lastTimeStamp": lastChecked, "testData": testData, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
+    context = {"today": today, "lastTimeStamp": lastChecked, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
 
 
@@ -84,7 +84,6 @@ def updateHabit(request, pk):
 
 def delete(request, pk): 
     order = Order.objects.get(id=pk)
-    # repeat = Repeats.objects.get(id=pk)
     form = OrderForm(instance=order)
     if request.method == 'POST' :
         order.delete()
@@ -95,13 +94,12 @@ def delete(request, pk):
 
 
 # Whenever a habit is checked, it creates a new instance of "Repeats", which stores the dateTime as a string in the database. 
-# The habit which was checked, stores this Repeats-object in the manytomany field. 
+# The habit which was checked, stores this Repeats-object in the manytomany-field called "checkedList". 
 
 def checkHabitFakeToday(request, pk):
     order = Order.objects.get(id=pk)
     repeats = Repeats.objects.all()
     if request.method == 'POST':
-        order.checked += 1
         myDateCheck = date.today()
         # the line below creates a new Repeatsobject. 
         # It stores the timedate at the second of when the habit was completed in terms of this project "checked"
@@ -183,7 +181,6 @@ def getStreaks(order, today):
                 else: 
                     return (0, longestStreakBefore)
                 
-    
         def tryingDaily(a, x):
             # a is a tuple
             if order.interval == "Daily":
@@ -194,12 +191,8 @@ def getStreaks(order, today):
                 return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
         
         result =  list(accumulate(allDaysArray, tryingDaily, initial=(0,0))) if order.interval == "Daily" else list(accumulate(weekHabit, tryingWeekly, initial=(0,0)))
-    
-        
+ 
         # [-1]is for the last tuple, second value which is longest streak  
         order.longestStreak = result[-1][1]
         order.streak =  result[-1][0]
-        
-    
         order.save()
-        
