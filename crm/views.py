@@ -2,13 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
 from .forms import OrderForm
-import calendar
 from datetime import datetime, timedelta, date
-from django.utils.dateparse import (
-    parse_date, parse_datetime, parse_duration, parse_time
-)
+from django.utils.dateparse import (parse_date)
 from collections import OrderedDict
-from itertools import takewhile, accumulate
+from itertools import accumulate
 from pprint import pprint
 
 
@@ -18,11 +15,11 @@ def home(request):
     for order in orders:
         getStreaks(order, date.today()) 
     total_orders = orders.count()
-    # "dailyfilter" is for showing all the habits which are daily
+    # "dailyfilter" is for showing all the habits which are daily.
     dailyFilter = Order.objects.filter(interval="Daily")
-    #  "weeklyFilter" is for showing all the habits which are weekly
+    #  "weeklyFilter" is for showing all the habits which are weekly.
     weeklyFilter = Order.objects.filter(interval="Weekly")
-    # what ever is put in context will then be able to be displayed in the html-templates
+    # what ever is put in "context" can then be displayed in the html-templates.
     context = {'orders': orders, 'total_orders': total_orders, 'dailyFilter': dailyFilter, 'weeklyFilter':weeklyFilter}
     return render(request, 'habit/dashboard.html', context)
 
@@ -34,12 +31,11 @@ def analytics(request):
     longestStreakArray = []
     mostChecksArray = {}
     for order in orders:
-        # here we list all the "longeststreak" attributes into the longestStreakArray to then finde out the longest of all longestStreaks
+        # here I list all the "longeststreak" attributes into the longestStreakArray to then find the longest of all longestStreaks.
         longestStreakArray.append(order.longestStreak)
-        # here we count all the instances of Repeats in checkedList for a specific habit. 
+        # here I count all the instances of Repeats in checkedList for a specific habit. 
         # I use a dictionary to be able to read the name of the habit right away if necessary.
         mostChecksArray.update({order.checkedList.count() : order.habit})
-        
     longest_streak = max(longestStreakArray)
     longestStreakHabits= orders.filter(longestStreak=longest_streak)
 
@@ -120,7 +116,7 @@ def checkHabitFakeToday(request, pk):
 def getStreaks(order, today):
         repeats = Repeats.objects.all()
         # At first i get all the times the habit was repeated from the habit and I sort it by the date. 
-        # So this is the array in which we will compare the dates to figure out when the checks were created. 
+        # So this is the array in which I will compare the dates to figure out when the checks were created. 
         # In order to compare the dates from today on and backwards the array has to be ordered reversed. 
         # So with the latest added dates first. This is why it says order_by('-dateAsString'). The minus reverses the string.
         dateArray = list(order.checkedList.all().order_by('-dateAsString'))
@@ -140,7 +136,7 @@ def getStreaks(order, today):
             firstTimeStamp = repeats.earliest('dateAsString')
         except:
             pass
-        # we do that below in order to avoid none in the queryset
+        # That is done below in order to avoid none in the queryset
         if firstTimeStamp : 
             firstRepeats = parse_date(firstTimeStamp.dateAsString)  
             lastRepeats = today - timedelta(days=1)
@@ -151,30 +147,26 @@ def getStreaks(order, today):
                 timeStampDay = firstRepeats + timedelta(days=k)
                 newArray.append(timeStampDay)
             
-            # We start today and walk backwards. Here we get all the weeks. Regardless if they were checked or not. 
+            # I start today and walk backwards. Here I get all the weeks. Regardless if they were checked or not. 
             while weekHabitDate > firstRepeats:
-                # we subtract 7 days from today
+                #  7 days are subtracted from today
                 weekHabitDate -= timedelta(days=7)
-                # we append todays date. We don't include this week, in order to be a streak, even if 
-                # this week it wasn't checked yet.
+                # Append todays date. This week is not inclueded, in order to be a streak, even if this week it wasn't checked yet.
                 weekHabit.append(weekHabitDate)
-            # this is the Monday before the very first time it has been checked. will be needed for later computations of the range of what a week is. 
-            # weekHabit.append(weekHabitDate)
-            # We get weekdays in reverse order. And because checkedDays is a set, there is no order. There is no concept of an order. 
+            # Weekdays are received in reverse order. And because checkedDays is a set, there is no order.  
             weekHabit.reverse()
-
 
             # dateArray is an array which has all the days which were checked
             for repeat in dateArray: 
                 repeatedDays = parse_date(repeat.dateAsString)
                 newArray2.append(repeatedDays)
-        # newnewArray2 is done to have no duplicates in order for it to be compared. OrderDicts keeps the order when you duplicate.
+        # newnewArray2 is done to have no duplicates in order for it to be compared. OrderDicts keeps the order when you use it somewhere else.
         newNewArray2 = list(OrderedDict.fromkeys(newArray2))
-        # The data type "Set" gets rid of all duplicates, which we want in this case. 
+        # The data type "Set" gets rid of all duplicates. 
         checkedDaysArray = set(newNewArray2)
         allDaysArray = list(newArray)
 
-        # inCheckedDays is there so that we don't need exact matches. The timedelta establishes the week in the future.
+        # inCheckedDays is there in order not to need exact matches. The timedelta establishes the week in the future.
         def inCheckedDays(x, checkedDays):
             for i in checkedDays:         
                 if x<=i<x + timedelta(days=7):
