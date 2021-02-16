@@ -22,6 +22,33 @@ class TestUrls(SimpleTestCase):
 # # 2.) If the test run succesfully it will tell you "destroying test database". Here Django is creating a SQLite DB. It is putting this
 # #     in memory, running everything and then destroying this database out of memory. Because it is in memory it is really fast. 
 
+class StreakTester():
+    # the line below is the constructor for the class 
+    def __init__(self, order, today, allDates):
+        # "self." means this is a field. 
+        self.order = order
+        self.today = today
+        self.allDates = allDates
+    def streak_printer(self):
+            getStreaks(self.order, self.today):
+            print( "\t\n" , "\t\n" ,  "\t\n","Habit Name:", self.order.habit, "\t\n" , "Date Created:", self.order.dateAsString, "\t\n" ,
+            "Current Streak:",  self.order.streak, "\t\n" , "Longest Streak:" , self.order.longestStreak, 
+            "\t\n", "Interval:", self.order.interval )
+            for eachRepeat in self.allDates:
+                print("dates when the habit was completed: ", eachRepeat.dateAsString)
+
+# tester = StreakTester(order, date.time())
+# tester.streak_printer(allDates)
+# tester.streak_printer(allDates)
+# tester.streak_printer(allDates)
+# tester.streak_printer(allDates)
+# tester.streak_printer(allDates)
+# tester.streak_printer(allDates)
+# tester = StreakTester(order, date.time(), allDates)
+# tester.streak_printer()
+# tester.streak_printer()
+# tester.streak_printer()
+# tester.streak_printer()
 
 class TestView(TestCase):
     # this function is going to be run before every single test method. It's used to setup a certain scenario.
@@ -35,7 +62,7 @@ class TestView(TestCase):
             self.home = reverse('home')
 
         def test_analytics_get(self):
-           # Here we get access to the client we setup in the setup method.   
+        # Here we get access to the client we setup in the setup method.   
             response = self.client.get(self.analytics)
             # here are the assertions
             self.assertEquals(response.status_code, 200)
@@ -43,7 +70,7 @@ class TestView(TestCase):
             self.assertTemplateUsed(response, 'habit/analytics.html')
 
         def test_create_habit_get(self):
-           # Here we get access to the client we setup in the setup method.   
+        # Here we get access to the client we setup in the setup method.   
             response = self.client.get(self.createHabit)
             # here are the assertions
             self.assertEquals(response.status_code, 200)
@@ -99,10 +126,6 @@ class TestView(TestCase):
             allDates = order.checkedList.all()
             for eachRepeat in allDates:
                 print("dates when the habit was checked: ", eachRepeat.dateAsString)
-            # getStreaks(order, today)
-            
-            # self.assertEquals(order.streak, 0)
-
             order = Order.objects.get(habit = 'Prepare Meals')
             getStreaks(order, today)
             print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
@@ -110,8 +133,6 @@ class TestView(TestCase):
             "\t\n", "Interval:", order.interval )
             for eachRepeat in allDates:
                 print("dates when the habit was completed: ", eachRepeat.dateAsString)
-            # self.assertEquals(order.streak, 11)
-
             order = Order.objects.get(habit = 'Organize')
             getStreaks(order, today)
             print( "\t\n",  "\t\n" ,  "\t\n", "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
@@ -119,7 +140,6 @@ class TestView(TestCase):
              "\t\n", "Interval:", order.interval )
             for eachRepeat in allDates:
                 print("dates when the habit was completed: ", eachRepeat.dateAsString)
-
             order = Order.objects.get(habit = 'Clean Bathroom')
             getStreaks(order, today)
             print( "\t\n" , "\t\n" ,  "\t\n", "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
@@ -136,14 +156,20 @@ class TestView(TestCase):
             for eachRepeat in allDates:
                 print("dates when the habit was completed: ", eachRepeat.dateAsString)
 
-            order = Order.objects.get(habit = 'Grocery Shopping')
-            getStreaks(order, today)
-            print( "\t\n" , "\t\n" ,  "\t\n","Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
-            "Current Streak:",  order.streak, "\t\n" , "Longest Streak:" , order.longestStreak, 
-            "\t\n", "Interval:", order.interval )
-            for eachRepeat in allDates:
-                print("dates when the habit was completed: ", eachRepeat.dateAsString)
+            # order = Order.objects.get(habit = 'Grocery Shopping')
+            # getStreaks(order, today)
+            # print( "\t\n" , "\t\n" ,  "\t\n","Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
+            # "Current Streak:",  order.streak, "\t\n" , "Longest Streak:" , order.longestStreak, 
+            # "\t\n", "Interval:", order.interval )
+            # for eachRepeat in allDates:
+            #     print("dates when the habit was completed: ", eachRepeat.dateAsString)
             
+            order = Order.objects.get(habit = 'Grocery Shopping')
+            #Make instance of streak-tester with order
+
+
+
+
         def load_data(self):
          # open is python for reading any file. With as: This remembers to close it automatically if I leave the if block. 
             with open('crm/fixtures/fixtures.json') as f:

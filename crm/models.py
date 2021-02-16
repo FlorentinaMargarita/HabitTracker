@@ -14,7 +14,7 @@ class Order(models.Model):
     INTERVAL = (
             ('Daily', 'Daily'),
             ('Weekly', 'Weekly' ),
-                      )
+            )
     habit = models.CharField(max_length=200, null=True, blank=True)
     interval = models.CharField(max_length=400, null=True, choices=INTERVAL)
     checked = models.IntegerField(blank=True, default=0, null=True)
@@ -29,13 +29,6 @@ class Order(models.Model):
 
     # the def __str__(self) function is used to display the name of the habit in the admin panel. 
     # Otherwise it would have the name Habit Object(pk), which is not so easy to work with in the database.
+
     def __str__(self):
-	        return self.habit
-
- 
-
-
-
-
-
-
+                return self.habit
