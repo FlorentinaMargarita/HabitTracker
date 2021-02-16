@@ -76,15 +76,15 @@ class TestView(TestCase):
             self.assertEquals(response.status_code, 200)
             foundRead = False
             foundPrepareMeals = False
-            allHabits = []
-            dailyHabits = []
-            weeklyHabits = []
+            all_habits = []
+            daily_habits = []
+            weekly_habits = []
             for order in response.context["orders"]:
-                allHabits.append(order.habit)
+                all_habits.append(order.habit)
                 if order.interval == "Daily":
-                    dailyHabits.append(order.habit)
+                    daily_habits.append(order.habit)
                 if order.interval == "Weekly":
-                    weeklyHabits.append(order.habit)
+                    weekly_habits.append(order.habit)
                 if order.habit == 'Read':
                     # here we make sure that the habit "read" exists. So that it doesn't pass if there is no read. 
                     foundRead = True
@@ -98,9 +98,9 @@ class TestView(TestCase):
                     self.assertEquals(order.longestStreak, 14)
             self.assertTrue(foundRead)
             self.assertTrue(foundPrepareMeals)
-            print("\t\n", "\t\n", "\t\n", "Here is a list of all currently tracked habits: ", allHabits)
-            print("\t\n", "Here are all daily habits:", dailyHabits)
-            print("\t\n", "Here are all weekly habits:", weeklyHabits)
+            print("\t\n", "\t\n", "\t\n", "Here is a list of all currently tracked habits: ", all_habits)
+            print("\t\n", "Here are all daily habits:", daily_habits)
+            print("\t\n", "Here are all weekly habits:", weekly_habits)
 
             # This asserts that a certain response contains a specific template
             self.assertTemplateUsed(response, 'habit/dashboard.html')
@@ -141,39 +141,34 @@ class TestView(TestCase):
             with open('crm/fixtures/fixtures.json') as f:
                 fixtures = json.load(f)
                 for fixture in fixtures:
-                    arrayWithDates = [] 
+                    array_with_dates = [] 
                     if fixture['model'] == 'crm.Order':
                         order = Order()
                         order.id = fixture['pk']
                         if 'habit' in fixture['fields']:
                             order.habit = fixture['fields']['habit']
-                            # print(order.habit)
                         if 'interval' in fixture['fields']:
                             order.interval = fixture['fields']['interval']
-                            # print("interval for this habit: ", order.interval)
                         if 'checked' in fixture['fields']:
                             order.checked = fixture['fields']['checked']
                         if 'streak' in fixture['fields']:
                             order.streak = fixture['fields']['streak']
-                            # print(order.streak, "order.strek")
                         if 'longestStreak ' in fixture['fields']:
                             order.longestStreak = fixture['fields']['longestStreak']
-                            # print("longest Streak for this habit: ", order.longestStreak)
                         if 'created' in fixture['fields']:
                             order.created = fixture['fields']['created']                                  
                         if 'timeStamp' in fixture['fields']:
                             order.timeStamp = fixture['fields']['timeStamp']
                         if 'date_created' in fixture['fields']:
                             order.date_created = fixture['fields']['date_created']
-
                         if 'dateAsString' in fixture['fields']:
                             order.dateAsString = fixture['fields']['dateAsString']     
                         order.save()
                         
                         if 'checkedList' in fixture['fields']:                                    
                             order.checkedList.add(*fixture['fields']['checkedList'])  
-                            arrayWithDates.append(fixture['fields']['checkedList'])
-                        repeatesArray = []
+                            array_with_dates.append(fixture['fields']['checkedList'])
+                        repeates_array = []
                     
                     else:
                         repeat = Repeats()
