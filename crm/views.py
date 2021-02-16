@@ -190,6 +190,7 @@ def getStreaks(order, today):
         # Initial=(0,0) stands for the tuple a that is being initialized with 0,0
         result =  list(accumulate(listOfDaysSinceFirstRepeat, tryingDaily, initial=(0,0))) if order.interval == "Daily" else list(accumulate(weekHabit, tryingWeekly, initial=(0,0))) 
         # [-1] is for the last tuple. The second [] stands for either the currentStreak [0] or the longestStreak[1]. 
+        # I used accumulate insted of functools reduce to help debug the result and to grasp the intermediate steps. 
         order.longestStreak = result[-1][1]
         order.streak =  result[-1][0]
         order.save()
