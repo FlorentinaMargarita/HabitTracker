@@ -97,10 +97,10 @@ def checkHabitFakeToday(request, pk):
     order = Order.objects.get(id=pk)
     repeats = Repeats.objects.all()
     if request.method == 'POST':
-        myDateCheck = date.today()
+        my_date_check = date.today()
         # the line below creates a new Repeats-object. 
         # It stores the timedate at the second of when the habit was completed (completed is called "checked" in this project.)
-        newRep = Repeats.objects.create(dateAsString = myDateCheck)
+        newRep = Repeats.objects.create(dateAsString = my_date_check)
         # the line below adds the new Repeapts object in the manyToManyField called checkedList on the order.object. 
         # This will later be used to compare the dates with one another.
         order.checkedList.add(newRep)
@@ -110,14 +110,14 @@ def checkHabitFakeToday(request, pk):
 def getStreaks(order, today):
         # At first I get all the times the habit was repeated from the order.checkedList of the Order.object.  
         date_array = list(order.checkedList.all())
-        # "listOfDaysSinceFirstRepeat" saves the dates with all the dates from the very first one ever to today. 
-        listOfDaysSinceFirstRepeat = []
-        # "listOfRepeatDays" saves the dates which were checked
-        listOfRepeatDays = []
-        # "weekHabit" appends all weeks which passed since the first time anything was checked. 
-        weekHabit = []
+        # "list_of_days_since_first_repeat" saves the dates with all the dates from the very first one ever to today. 
+        list_of_days_since_first_repeat = []
+        # "list_of_repeat_days" saves the dates which were checked
+        list_of_repeat_days = []
+        # "week_habit" appends all weeks which passed since the first time anything was checked. 
+        week_habit = []
         # the first week is initalized today. 
-        weekHabitDate = today
+        week_habit_date = today
         # Below we get all the Repeats ever created. 
         repeats = Repeats.objects.all()
         # firstTimeStamp is first set to "None" in order not to confuse the system in case there are no repeats-objects to it yet, because 
@@ -138,26 +138,26 @@ def getStreaks(order, today):
             # timestampDelta gives us a timedelta-object from yesterday to the first time anything was ever checked. 
             timeStampDeltas = lastRepeats - firstRepeats
 
-            # In this the listOfDaysSinceFirstRepeat is produced.
+            # In this the list_of_days_since_first_repeat is produced.
             for k in range(timeStampDeltas.days + 1):
                 timeStampDay = firstRepeats + timedelta(days=k)
-                listOfDaysSinceFirstRepeat.append(timeStampDay)
+                list_of_days_since_first_repeat.append(timeStampDay)
             
             # I start today and walk backwards. Here I get all the weeks. Regardless if they were checked or not. 
-            while weekHabitDate > firstRepeats:
+            while  week_habit_date > firstRepeats:
                 #  7 days are subtracted from today
-                weekHabitDate -= timedelta(days=7)
+                week_habit_date -= timedelta(days=7)
                 # This week is not included, in order to be a streak, even if this week it wasn't checked yet.
-                weekHabit.append(weekHabitDate)
+                week_habit.append(week_habit_date)
             # Weekdays are received in reverse order.  
-            weekHabit.reverse()
+            week_habit.reverse()
 
             # date_array is an array which has all the days which were checked
             for repeat in date_array: 
                 repeatedDays = parse_date(repeat.dateAsString)
-                listOfRepeatDays.append(repeatedDays)
+                list_of_repeat_days.append(repeatedDays)
         # The data type "Set" gets rid of all duplicates. 
-        checkedDaysArray = set(listOfRepeatDays)
+        checkedDaysArray = set(list_of_repeat_days)
     
         # inCheckedDays is there in order not to need exact matches. The timedelta establishes the week in the future.
         def inCheckedDays(x, checkedDays):
@@ -188,7 +188,7 @@ def getStreaks(order, today):
                 return (countCurrentAfter, countCurrentAfter if countCurrentAfter> longestStreakBefore else longestStreakBefore)
         
         # Initial=(0,0) stands for the tuple a that is being initialized with 0,0
-        result =  list(accumulate(listOfDaysSinceFirstRepeat, tryingDaily, initial=(0,0))) if order.interval == "Daily" else list(accumulate(weekHabit, tryingWeekly, initial=(0,0))) 
+        result =  list(accumulate(list_of_days_since_first_repeat, tryingDaily, initial=(0,0))) if order.interval == "Daily" else list(accumulate(week_habit, tryingWeekly, initial=(0,0))) 
         # [-1] is for the last tuple. The second [] stands for either the currentStreak [0] or the longestStreak[1]. 
         # I used accumulate insted of functools reduce to help debug the result and to grasp the intermediate steps. 
         order.longestStreak = result[-1][1]
