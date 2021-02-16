@@ -14,12 +14,12 @@ def home(request):
     for order in orders:
         getStreaks(order, date.today()) 
     total_orders = orders.count()
-    # "dailyfilter" is for showing all the habits which are daily.
-    dailyFilter = Order.objects.filter(interval="Daily")
-    #  "weeklyFilter" is for showing all the habits which are weekly.
-    weeklyFilter = Order.objects.filter(interval="Weekly")
+    # "daily_filter" is for showing all the habits which are daily.
+    daily_filter = Order.objects.filter(interval="Daily")
+    #  "weekly_filter" is for showing all the habits which are weekly.
+    weekly_filter = Order.objects.filter(interval="Weekly")
     # what ever is put in "context" can then be displayed in the html-templates.
-    context = {'orders': orders, 'total_orders': total_orders, 'dailyFilter': dailyFilter, 'weeklyFilter':weeklyFilter}
+    context = {'orders': orders, 'total_orders': total_orders, 'dailyFilter':daily_filter, 'weeklyFilter':weekly_filter}
     return render(request, 'habit/dashboard.html', context)
 
 # here I get all the things from the database which I want to display in my analytics.html

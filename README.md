@@ -1,7 +1,9 @@
 # HabitTracker
 
-At first you have to download the Django-CLI. Please follow instructions on this here: https://docs.djangoproject.com/en/3.1/howto/windows/
-
+At first you have to download the Django-CLI. Run:
+```
+pip install -r requirements.txt
+```
 
  
  
@@ -89,7 +91,7 @@ In the admin panel this table cannot be seen yet. That table needs to be registe
 2.	Import the new models with 
 
 ```
-from .models import *     admin.site.register(NameOfModel)
+from .models import * admin.site.register(NameOfModel)
 ```
 
 From now on it can be seen on the database on the admin panel. 
@@ -136,8 +138,8 @@ if you want the last habit in the order than the command would look like this:
 
 ```
 lastHabit = Order.objects.last()
-  print(lastHabit)
-  ```
+print(lastHabit)
+```
   
 From here we can access all the attributes by using the dot-notation like so:
 
