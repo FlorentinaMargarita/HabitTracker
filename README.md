@@ -27,32 +27,6 @@ In order to create an admin user for the DB with all rights run:
  <br />
 
   <br />
- 
- 
- **Technologies used**
- 
-• Language: Python 3.9.1
-
-• Framework: Django 3.1.4
-
-• Database: SQLite3 
-
-• Styling: Bootstrap
-
-• I used the DotEnv package to make this project secure for sharing here on github. In case you want to run the project, just reach out to me and I will provide you the .env file, which I did not share here on github. To use it please install: https://pypi.org/project/python-dotenv/
-
- <br />
- 
- **Folder structure**
-
-
-• All the relevant functions are in the file: views.py 
-
-• All the testing takes place in the file: tests.py
-
-• There are only two relevant classes for this project. “Repeats” and “Order”: Both of them you will find in the file: models.py
-
-• The configuration of the project is in: settings.py
 
  
 
@@ -203,6 +177,34 @@ For testing I installed:
 
 •	pytest-django
 
+
+ **Technologies used**
+ 
+• Language: Python 3.9.1
+
+• Framework: Django 3.1.4
+
+• Database: SQLite3 
+
+• Styling: Bootstrap
+
+• I used the DotEnv package to make this project secure for sharing here on github. In case you want to run the project, just reach out to me and I will provide you the .env file, which I did not share here on github. To use it please install: https://pypi.org/project/python-dotenv/
+
+ <br />
+ 
+ **Folder structure**
+
+
+• All the relevant functions are in the file: views.py 
+
+• All the testing takes place in the file: tests.py
+
+• There are only two relevant classes for this project. “Repeats” and “Order”: Both of them you will find in the file: models.py
+
+• The configuration of the project is in: settings.py
+
+<br/>
+<br/>
 
 
 **Deployed on Heroku**
