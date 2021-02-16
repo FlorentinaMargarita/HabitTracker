@@ -36,12 +36,12 @@ def analytics(request):
         # I use a dictionary to be able to read the name of the habit right away if necessary.
         most_checks_array.update({order.checkedList.count() : order.habit})
     longest_streak = max(longest_streak_array)
-    longestStreakHabits= orders.filter(longestStreak=longest_streak)
+    longest_streak_habits= orders.filter(longestStreak=longest_streak)
 
     most_checked = max(most_checks_array)
     habit_most_checked =most_checks_array.get(most_checked)
     context= {'total_orders': total_orders, 'most_checked': most_checked, 'longest_streak': longest_streak,
-    "longestStreakHabits":  longestStreakHabits, "habit_most_checked": habit_most_checked}
+    "longest_streak_habits": longest_streak_habits, "habit_most_checked": habit_most_checked}
     return render(request, 'habit/analytics.html', context)
 
 def habit(request, pk): 
@@ -50,13 +50,13 @@ def habit(request, pk):
     order = Order.objects.get(id=pk)
     repeat = order.checkedList.filter()
     streak = order.streak
-    dateArray = order.checkedList.all().order_by('-dateAsString')
-    penultimate = dateArray[1].dateAsString
-    lastChecked = parse_date(penultimate)
-    today1 = dateArray.first().dateAsString
+    date_array = order.checkedList.all().order_by('-dateAsString')
+    penultimate = date_array[1].dateAsString
+    last_checked = parse_date(penultimate)
+    today1 = date_array.first().dateAsString
     today = parse_date(today1)
     order.save()
-    context = {"today": today, "lastTimeStamp": lastChecked, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
+    context = {"today": today, "last_checked": last_checked, "current_streak":streak, "order":order, "repeats": repeats, "repeat": repeat}
     return render(request, 'habit/habit.html', context)
 
 
@@ -109,7 +109,7 @@ def checkHabitFakeToday(request, pk):
 
 def getStreaks(order, today):
         # At first I get all the times the habit was repeated from the order.checkedList of the Order.object.  
-        dateArray = list(order.checkedList.all())
+        date_array = list(order.checkedList.all())
         # "listOfDaysSinceFirstRepeat" saves the dates with all the dates from the very first one ever to today. 
         listOfDaysSinceFirstRepeat = []
         # "listOfRepeatDays" saves the dates which were checked
@@ -152,8 +152,8 @@ def getStreaks(order, today):
             # Weekdays are received in reverse order.  
             weekHabit.reverse()
 
-            # dateArray is an array which has all the days which were checked
-            for repeat in dateArray: 
+            # date_array is an array which has all the days which were checked
+            for repeat in date_array: 
                 repeatedDays = parse_date(repeat.dateAsString)
                 listOfRepeatDays.append(repeatedDays)
         # The data type "Set" gets rid of all duplicates. 
