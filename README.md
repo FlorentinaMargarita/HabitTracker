@@ -1,14 +1,14 @@
 # HabitTracker
 
-At first you have to download the Django-CLI. Run:
-```
-pip install -r requirements.txt
-```
-
  
  
  **How to run the HabitTracker on your machine**
  
+At first you have to install all the necessary programs and dependencies. To do this run:
+```
+pip install -r requirements.txt
+```
+
 
 In order to populate the database from the pre-provided data run: 
 

@@ -131,10 +131,6 @@ class TestView(TestCase):
             order = Order.objects.get(habit = 'Grocery Shopping')
             tester.change_order(order)
             tester.streak_printer()
-      
-
-
-
 
         def load_data(self):
          # open is python for reading any file. With as: This remembers to close it automatically if I leave the if block. 
