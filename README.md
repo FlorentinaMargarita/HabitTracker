@@ -177,6 +177,7 @@ For testing I installed:
 
 •	pytest-django
 
+<br/>
 
  **Technologies used**
  
@@ -203,7 +204,7 @@ For testing I installed:
 
 • The configuration of the project is in: settings.py
 
-<br/>
+
 <br/>
 
 
