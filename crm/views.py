@@ -27,21 +27,21 @@ def analytics(request):
     orders = Order.objects.all()
     # with order.count I count the list of all current habits
     total_orders = orders.count()   
-    longestStreakArray = []
-    mostChecksArray = {}
+    longest_streak_array = []
+    most_checks_array = {}
     for order in orders:
-        # here I list all the "longeststreak" attributes into the longestStreakArray to then find the longest of all longestStreaks.
-        longestStreakArray.append(order.longestStreak)
+        # here I list all the "longeststreak" attributes into the longest_streak_array to then find the longest of all longestStreaks.
+        longest_streak_array.append(order.longestStreak)
         # here I count all the instances of Repeats in checkedList for a specific habit. 
         # I use a dictionary to be able to read the name of the habit right away if necessary.
-        mostChecksArray.update({order.checkedList.count() : order.habit})
-    longest_streak = max(longestStreakArray)
+        most_checks_array.update({order.checkedList.count() : order.habit})
+    longest_streak = max(longest_streak_array)
     longestStreakHabits= orders.filter(longestStreak=longest_streak)
 
-    mostChecked = max(mostChecksArray)
-    habitMostChecked = mostChecksArray.get(mostChecked)
-    context= {'total_orders': total_orders, 'mostChecked': mostChecked, 'longest_streak': longest_streak,
-    "longestStreakHabits":  longestStreakHabits, "habitMostChecked": habitMostChecked}
+    most_checked = max(most_checks_array)
+    habit_most_checked =most_checks_array.get(most_checked)
+    context= {'total_orders': total_orders, 'most_checked': most_checked, 'longest_streak': longest_streak,
+    "longestStreakHabits":  longestStreakHabits, "habit_most_checked": habit_most_checked}
     return render(request, 'habit/analytics.html', context)
 
 def habit(request, pk): 
