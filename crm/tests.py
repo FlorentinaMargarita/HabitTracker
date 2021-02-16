@@ -24,31 +24,18 @@ class TestUrls(SimpleTestCase):
 
 class StreakTester():
     # the line below is the constructor for the class 
-    def __init__(self, order, today, allDates):
+    def __init__(self, order, today):
         # "self." means this is a field. 
         self.order = order
         self.today = today
-        self.allDates = allDates
     def streak_printer(self):
-            getStreaks(self.order, self.today):
+            getStreaks(self.order, self.today)
             print( "\t\n" , "\t\n" ,  "\t\n","Habit Name:", self.order.habit, "\t\n" , "Date Created:", self.order.dateAsString, "\t\n" ,
             "Current Streak:",  self.order.streak, "\t\n" , "Longest Streak:" , self.order.longestStreak, 
             "\t\n", "Interval:", self.order.interval )
-            for eachRepeat in self.allDates:
+            for eachRepeat in self.order.checkedList.all():
                 print("dates when the habit was completed: ", eachRepeat.dateAsString)
 
-# tester = StreakTester(order, date.time())
-# tester.streak_printer(allDates)
-# tester.streak_printer(allDates)
-# tester.streak_printer(allDates)
-# tester.streak_printer(allDates)
-# tester.streak_printer(allDates)
-# tester.streak_printer(allDates)
-# tester = StreakTester(order, date.time(), allDates)
-# tester.streak_printer()
-# tester.streak_printer()
-# tester.streak_printer()
-# tester.streak_printer()
 
 class TestView(TestCase):
     # this function is going to be run before every single test method. It's used to setup a certain scenario.
@@ -118,54 +105,33 @@ class TestView(TestCase):
             order = Order.objects.get(habit = 'Read')
             # Today in the tests is fixed to one specific date, so that - no matter when someone runs these tests - the result makes sense. 
             # In the real application online it will calculate it according to the "real" today (aka date of today)
-            today = date(2021, 2, 2)
-            getStreaks(order, today)
-            print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
-            "Current Streak:",  order.streak, "\t\n" ,  "\t\n" , "Longest Streak:" , order.longestStreak, 
-             "\t\n", "Interval:", order.interval)
-            allDates = order.checkedList.all()
-            for eachRepeat in allDates:
-                print("dates when the habit was checked: ", eachRepeat.dateAsString)
+            today = date(2021, 2, 8)
+            tester = StreakTester(order, today)
+            tester.streak_printer()
+      
             order = Order.objects.get(habit = 'Prepare Meals')
-            getStreaks(order, today)
-            print( "\t\n" , "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
-            "Current Streak:",  order.streak, "\t\n" ,  "Longest Streak:" , order.longestStreak, 
-            "\t\n", "Interval:", order.interval )
-            for eachRepeat in allDates:
-                print("dates when the habit was completed: ", eachRepeat.dateAsString)
+            tester = StreakTester(order, today)
+            tester.streak_printer()
+
             order = Order.objects.get(habit = 'Organize')
-            getStreaks(order, today)
-            print( "\t\n",  "\t\n" ,  "\t\n", "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
-            "Current Streak:",  order.streak, "\t\n" ,   "Longest Streak:" , order.longestStreak, 
-             "\t\n", "Interval:", order.interval )
-            for eachRepeat in allDates:
-                print("dates when the habit was completed: ", eachRepeat.dateAsString)
+            tester = StreakTester(order, today)
+            tester.streak_printer()
+
             order = Order.objects.get(habit = 'Clean Bathroom')
-            getStreaks(order, today)
-            print( "\t\n" , "\t\n" ,  "\t\n", "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
-            "Current Streak:",  order.streak, "\t\n" ,  "Longest Streak:" , order.longestStreak, 
-            "\t\n", "Interval:", order.interval)
-            for eachRepeat in allDates:
-                print("dates when the habit was completed: ", eachRepeat.dateAsString)
+            tester = StreakTester(order, today)
+            tester.streak_printer()
+
 
             order = Order.objects.get(habit = 'Breathing Exercise')
-            getStreaks(order, today)
-            print( "\t\n" , "\t\n" ,  "\t\n", "Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
-            "Current Streak:",  order.streak, "\t\n" , "Longest Streak:" , order.longestStreak, 
-            "\t\n", "Interval:", order.interval )
-            for eachRepeat in allDates:
-                print("dates when the habit was completed: ", eachRepeat.dateAsString)
+            tester = StreakTester(order, today)
+            tester.streak_printer()
+         
 
-            # order = Order.objects.get(habit = 'Grocery Shopping')
-            # getStreaks(order, today)
-            # print( "\t\n" , "\t\n" ,  "\t\n","Habit Name:", order.habit, "\t\n" , "Date Created:", order.dateAsString, "\t\n" ,
-            # "Current Streak:",  order.streak, "\t\n" , "Longest Streak:" , order.longestStreak, 
-            # "\t\n", "Interval:", order.interval )
-            # for eachRepeat in allDates:
-            #     print("dates when the habit was completed: ", eachRepeat.dateAsString)
-            
+  
             order = Order.objects.get(habit = 'Grocery Shopping')
-            #Make instance of streak-tester with order
+            tester = StreakTester(order, today)
+            tester.streak_printer()
+      
 
 
 
