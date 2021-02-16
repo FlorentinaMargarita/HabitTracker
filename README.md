@@ -100,7 +100,9 @@ From now on it can be seen on the database on the admin panel.
 
 If you want to delete the entire Database (careful, it will also flush away the user including the main developer) via the console type the following command:
 
-• python manage.py flush
+```
+python manage.py flush
+```
 
  <br />
 
