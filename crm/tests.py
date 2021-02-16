@@ -36,6 +36,10 @@ class StreakTester():
             for eachRepeat in self.order.checkedList.all():
                 print("dates when the habit was completed: ", eachRepeat.dateAsString)
 
+    # instead of creating a new instance of StreakTester every time I want test, I can just update the order.
+    def change_order(self, order):
+        self.order = order
+
 
 class TestView(TestCase):
     # this function is going to be run before every single test method. It's used to setup a certain scenario.
@@ -108,28 +112,24 @@ class TestView(TestCase):
             today = date(2021, 2, 8)
             tester = StreakTester(order, today)
             tester.streak_printer()
-      
             order = Order.objects.get(habit = 'Prepare Meals')
-            tester = StreakTester(order, today)
+            tester.change_order(order)
             tester.streak_printer()
 
             order = Order.objects.get(habit = 'Organize')
-            tester = StreakTester(order, today)
+            tester.change_order(order)
             tester.streak_printer()
 
             order = Order.objects.get(habit = 'Clean Bathroom')
-            tester = StreakTester(order, today)
+            tester.change_order(order)
             tester.streak_printer()
-
 
             order = Order.objects.get(habit = 'Breathing Exercise')
-            tester = StreakTester(order, today)
+            tester.change_order(order)
             tester.streak_printer()
-         
-
   
             order = Order.objects.get(habit = 'Grocery Shopping')
-            tester = StreakTester(order, today)
+            tester.change_order(order)
             tester.streak_printer()
       
 
