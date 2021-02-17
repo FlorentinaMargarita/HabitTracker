@@ -10,7 +10,7 @@ from pprint import pprint
 
 # here I get all the things from the database which I want to display in my dashboard.html
 def home(request):
-    orders = Order.objects.all()  
+    orders = Order.objects.order_by('habit')  
     for order in orders:
         getStreaks(order, date.today()) 
     total_orders = orders.count()
