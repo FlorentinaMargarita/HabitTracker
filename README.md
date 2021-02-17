@@ -6,7 +6,7 @@
  
 At first you have to install all the necessary programs and dependencies. To do this run:
 ```
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 ```
 
 
