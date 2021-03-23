@@ -34,8 +34,10 @@ def analytics(request):
         longest_streak_array.append(order.longestStreak)
         # here I count all the instances of Repeats in checkedList for a specific habit. 
         # I use a dictionary to be able to read the name of the habit right away if necessary.
+        # the update() method updates the dictionary with elements from a the key value pair that I pass as an argument here.
         most_checks_array.update({order.checkedList.count() : order.habit})
     longest_streak = max(longest_streak_array)
+    #Here the longestStreak field in the entity Orders is set to longest_streak from the line above. 
     longest_streak_habits= orders.filter(longestStreak=longest_streak)
 
     most_checked = max(most_checks_array)
@@ -61,6 +63,7 @@ def habit(request, pk):
 
 
 def createHabit(request):
+    # OrderForm class is imported from Djangos form API
     form = OrderForm()
     if request.method == 'POST':
         form = OrderForm(request.POST)

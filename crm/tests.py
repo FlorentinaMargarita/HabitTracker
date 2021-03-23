@@ -25,7 +25,7 @@ class TestUrls(SimpleTestCase):
 class StreakTester():
     # the line below is the constructor for the class 
     def __init__(self, order, today):
-        # "self." means this is a field. 
+        # self represents the instance of the class 
         self.order = order
         self.today = today
     def streak_printer(self):
@@ -67,7 +67,6 @@ class TestView(TestCase):
             self.assertEquals(response.status_code, 200)
             # This asserts that a certain response contains a specific template
             self.assertTemplateUsed(response, 'habit/order_form.html')
-
 
         def test_create_home_get(self):
         # Here we get access to the client we setup in the setup method.    
@@ -135,6 +134,7 @@ class TestView(TestCase):
         def load_data(self):
          # open is python for reading any file. With as: This remembers to close it automatically if I leave the if block. 
             with open('crm/fixtures/fixtures.json') as f:
+                # load()you turning JSON encoded data into Python objects.
                 fixtures = json.load(f)
                 for fixture in fixtures:
                     array_with_dates = [] 

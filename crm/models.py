@@ -4,7 +4,7 @@ from datetime import datetime, date
 
 # this class stores the time whenever a habit was repeated. This means, whenever the "did it"-button is pressed.
 # Because you can't press the button several times in the same second, one habit will always have unique repeats.
-
+	# Every entity becomes a table, every field becomes a column;
 class Repeats(models.Model):
     dateAsString = models.CharField(max_length=200, null=True, blank=True)
 
@@ -22,6 +22,7 @@ class Order(models.Model):
     longestStreak = models.IntegerField(blank=True, default=0, null=True)
     created = models.DateTimeField(auto_now=True, auto_now_add=False, editable=False, null=True, blank=True)
     # checkedList is a manytomany field because one habit can have many repeats. 
+    # checkedlist is a join table
     checkedList = models.ManyToManyField(Repeats)
     timeStamp = models.DateTimeField(auto_now=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True, editable=False, blank=True)
